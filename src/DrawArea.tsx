@@ -1,6 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-import './DrawArea.css';
+import {
+  Path,
+  DrawingSVG,
+  Wrapper,
+} from './DrawArea.style';
 
 type Point = {
   x: number;
@@ -54,24 +58,23 @@ const DrawArea: React.FC = () => {
   });
 
   return (
-    <div
-      className="drawArea"
+    <Wrapper
       ref={drawArea}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
     >
       <Drawing lines={lines} />
-    </div>
+    </Wrapper>
   );
 }
 
 const Drawing: React.FC<{ lines: Point[][] }> = ({ lines }) => {
   return (
-    <svg className="drawing">
+    <DrawingSVG>
       {lines.map((line, index) => (
         <DrawingLine key={index} line={line} />
       ))}
-    </svg>
+    </DrawingSVG>
   );
 }
 
@@ -83,7 +86,7 @@ const DrawingLine: React.FC<{ line: Point[] }> = ({ line }) => {
       })
       .join(" L ");
 
-  return <path className="path" d={pathData} />;
+  return <Path d={pathData} />;
 }
 
 export default DrawArea;
