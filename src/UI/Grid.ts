@@ -6,5 +6,6 @@ export const Row = styled.div`
 
 export const Column = styled.div`
   flex: 1;
+  display: flex;
   flex-direction: column;
 `
