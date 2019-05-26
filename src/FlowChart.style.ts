@@ -33,28 +33,24 @@ export const Node = styled.div<{ isSelected: boolean }>`
   `}
 `
 export const Preview = styled.div`
-  position: relative;
-  left: -280px;
-  bottom: 181px;
-  border-radius: 50px;
-  border: 20px solid ${Colors.secondaryVariant};
+  border-radius: 5px;
+  border: 5px solid ${Colors.secondaryVariant};
   overflow: hidden;
   width: fit-content;
-  transform: scale(0.2);
 `
 
 export const Thumbnail = styled.div`
-  /* transform: scale(0.2); */
+  transform: scale(0.2);
   width: fit-content;
 `
 
 export const TextPreview = styled.div`
-  font-size: 40px;
-  width: 360px;
-  height: 50px;
+  font-size: 10px;
+  width: 100px;
+  height: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   background: ${Colors.primaryVariant};
-  padding: 20px;
+  padding: 5px;
 `

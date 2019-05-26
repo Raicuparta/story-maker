@@ -1,10 +1,16 @@
 import React from 'react';
 
+import Colors from './Colors';
 import {
   Wrapper,
   DrawingSVG,
   Path,
 } from './Drawing.style';
+
+const viewBoxSize = {
+  width: 400,
+  height: 300,
+};
 
 const Drawing: React.FC<{
   onMouseDown?: (point: Point) => void,
@@ -38,10 +44,34 @@ const Drawing: React.FC<{
   }
 
   function relativePoint(event: React.MouseEvent | React.Touch) : Point {
-    const boundingRect = drawingRef!.current!.getBoundingClientRect();
+    const {
+      width,
+      height,
+      left,
+      top,
+    } = drawingRef!.current!.getBoundingClientRect();
+
+    const viewBoxRatio = viewBoxSize.height / viewBoxSize.width;
+    const boundsRatio = height / width;
+
+    const scale = viewBoxRatio < boundsRatio
+      ? width / viewBoxSize.width
+      : height / viewBoxSize.height
+
+    const offset = {
+      x: 0,
+      y: 0,
+    };
+    
+    if (width > height) {
+      offset.x += (width - (viewBoxSize.width * scale)) / 2;
+    } else {
+      offset.y += (height - (viewBoxSize.height * scale)) / 2;
+    }
+
     return {
-      x: event.clientX - boundingRect.left,
-      y: event.clientY - boundingRect.top,
+      x: (event.clientX - offset.x) / scale - left,
+      y: (event.clientY - offset.y) / scale - top,
     };
   }
 
@@ -53,7 +83,11 @@ const Drawing: React.FC<{
       onTouchMove={onMouseMove && handleTouchMove}
       ref={drawingRef}
     >
-      <DrawingSVG>
+      <DrawingSVG
+        viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <rect width="100%" height="100%" fill={Colors.secondary}/>
         {lines.map((line, index) => (
           <DrawingLine
             key={index}

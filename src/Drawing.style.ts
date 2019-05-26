@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 import Colors from './Colors';
 
 export const Wrapper = styled.div`
-  background: ${Colors.secondary};
   flex: 1;
   touch-action: none;
 `
