@@ -1,7 +1,7 @@
 {
   "name": "story-maker",
   "version": "0.1.0",
-  "homepage":"https://raicuparta.github.io/story-maker",
+  "homepage": "https://raicuparta.github.io/story-maker",
   "private": true,
   "dependencies": {
     "@types/jest": "24.0.13",
@@ -10,6 +10,7 @@
     "@types/react-dom": "16.8.4",
     "@types/styled-components": "^4.1.15",
     "gh-pages": "^2.0.1",
+    "polished": "^3.4.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",

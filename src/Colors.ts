@@ -1,6 +1,13 @@
+import { darken, lighten } from 'polished';
+
+const primary = '#735535';
+const primaryVariant = darken(0.15, primary);
+const secondary = lighten(0.5, primary);
+const secondaryVariant = lighten(0.15, primary);
+
 export default {
-  primary: '#3d695f',
-  primaryVariant: '#1e352f',
-  secondary: '#c1d2ce',
-  secondaryVariant: '#65877f',
-};
+  primary,
+  primaryVariant,
+  secondary,
+  secondaryVariant,
+}
