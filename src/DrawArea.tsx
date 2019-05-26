@@ -72,7 +72,7 @@ const DrawArea: React.FC<{
   );
 }
 
-const DrawingLine: React.FC<{ line: Point[] }> = ({ line }) => {
+const DrawingLine: React.FC<{ line: Line }> = ({ line }) => {
   const pathData = "M " +
     line
       .map(p => {

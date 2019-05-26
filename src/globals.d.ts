@@ -6,3 +6,8 @@ type Point = {
 type Line = Point[]
 
 type LinePath = Line[]
+
+type Panel = {
+  drawing: LinePath;
+  text: string;
+}
