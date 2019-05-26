@@ -7,8 +7,6 @@ export const Wrapper = styled.div`
   height: 300px;
   cursor: crosshair;
   background: ${Colors.secondary};
-  border-radius: 10px 10px 0 0;
-  margin: 5px;
 `
 
 export const Path = styled.path`

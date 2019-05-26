@@ -9,8 +9,8 @@ import {
 const Drawing: React.FC<{
   onMouseDown?: (mouseEvent: React.MouseEvent) => void,
   onMouseMove?: (mouseEvent: React.MouseEvent) => void,
+  drawingRef?: React.RefObject<HTMLDivElement>,
   lines: LinePath,
-  drawingRef: React.RefObject<HTMLDivElement>,
 }> = ({
   onMouseDown,
   onMouseMove,

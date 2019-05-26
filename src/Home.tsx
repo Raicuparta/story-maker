@@ -59,19 +59,19 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     setSelected(panels.length - 1);
-  }, [panels.length])
+  }, [panels.length]);
 
   useEffect(() => {
     setDrawing(panels[selected].drawing);
     setText(panels[selected].text);
-  }, [panels, selected])
+  }, [panels, selected]);
 
   useEffect(() => {
     // TODO remove this
     // Saving to local storage to make development easier
     if (panels.length <= 1) return;
     localStorage.setItem('panels', JSON.stringify(panels));
-  }, [panels])
+  }, [panels]);
 
   return (
     <Wrapper>

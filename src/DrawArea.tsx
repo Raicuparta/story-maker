@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 
 import Drawing from './Drawing';
+import { Wrapper } from './DrawArea.style';
 
 const DrawArea: React.FC<{
   lines: LinePath,
@@ -54,12 +55,15 @@ const DrawArea: React.FC<{
   });
 
   return (
-    <Drawing
-      drawingRef={drawingRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      lines={lines}
-    />
+    <Wrapper>
+      <Drawing
+        drawingRef={drawingRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        lines={lines}
+      />
+    </Wrapper>
+
   );
 }
 

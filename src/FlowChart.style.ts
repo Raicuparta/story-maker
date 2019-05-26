@@ -29,5 +29,19 @@ export const Node = styled.div<{ isSelected: boolean }>`
 
   ${({ isSelected }) => isSelected && css`
     border-color: ${Colors.primaryVariant};
+    :hover {
+      border-color: ${Colors.primaryVariant};
+    }
   `}
+`
+
+export const Thumbnail = styled.div`
+  transform: scale(0.2);
+  position: relative;
+  left: -280px;
+  top: -141px;
+  border-radius: 50px;
+  border: 20px solid ${Colors.secondaryVariant};
+  overflow: hidden;
+  width: fit-content;
 `
