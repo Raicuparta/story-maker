@@ -37,16 +37,18 @@ export const Preview = styled.div`
   border: 5px solid ${Colors.secondaryVariant};
   overflow: hidden;
   width: fit-content;
+  position: relative;
+  right: 122px;
+  bottom: 5px;
+  width: 100px;
 `
 
 export const Thumbnail = styled.div`
-  transform: scale(0.2);
-  width: fit-content;
+
 `
 
 export const TextPreview = styled.div`
   font-size: 10px;
-  width: 100px;
   height: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
