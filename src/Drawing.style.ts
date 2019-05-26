@@ -5,6 +5,7 @@ import Colors from './Colors';
 export const Wrapper = styled.div`
   background: ${Colors.secondary};
   flex: 1;
+  touch-action: none;
 `
 
 export const Path = styled.path`

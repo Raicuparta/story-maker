@@ -18,18 +18,22 @@ const Drawing: React.FC<{
   drawingRef,
 }) => {
   function handleMouseDown(mouseEvent: React.MouseEvent) {
+    mouseEvent.preventDefault();
     mouseEvent.button === 0 && onMouseDown!(relativePoint(mouseEvent));
   }
 
   function handleMouseMove(mouseEvent: React.MouseEvent) {
+    mouseEvent.preventDefault();
     onMouseMove!(relativePoint(mouseEvent));
   }
 
   function handleTouchStart(touchEvent: React.TouchEvent) {
+    touchEvent.preventDefault();
     onMouseDown!(relativePoint(touchEvent.touches[0]));
   }
 
   function handleTouchMove(touchEvent: React.TouchEvent) {
+    touchEvent.preventDefault();
     onMouseMove!(relativePoint(touchEvent.touches[0]));
   }
 
