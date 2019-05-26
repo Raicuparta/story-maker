@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Colors from './Colors';
 import {
@@ -16,6 +16,7 @@ const Drawing: React.FC<{
   onMouseDown?: (point: Point) => void,
   onMouseMove?: (point: Point) => void,
   drawingRef?: React.RefObject<HTMLDivElement>,
+  isDrawing?: boolean,
   lines: LinePath,
 }> = ({
   onMouseDown,
@@ -23,8 +24,11 @@ const Drawing: React.FC<{
   lines,
   drawingRef,
 }) => {
+  const [isDrawing, setIsDrawing] = useState(false);
+
   function handleMouseDown(mouseEvent: React.MouseEvent) {
     mouseEvent.preventDefault();
+    setIsDrawing(true);
     mouseEvent.button === 0 && onMouseDown!(relativePoint(mouseEvent));
   }
 
@@ -35,6 +39,7 @@ const Drawing: React.FC<{
 
   function handleTouchStart(touchEvent: React.TouchEvent) {
     touchEvent.preventDefault();
+    setIsDrawing(true);
     onMouseDown!(relativePoint(touchEvent.touches[0]));
   }
 
@@ -42,6 +47,17 @@ const Drawing: React.FC<{
     touchEvent.preventDefault();
     onMouseMove!(relativePoint(touchEvent.touches[0]));
   }
+
+  function handleMouseUp() {
+    setIsDrawing(false);
+  }
+
+  useEffect(() => {
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  });
 
   function relativePoint(event: React.MouseEvent | React.Touch) : Point {
     const {
@@ -75,12 +91,20 @@ const Drawing: React.FC<{
     };
   }
 
+  const downCallbacks = (onMouseDown && onMouseMove) ? {
+    onMouseDown: handleMouseDown,
+    onTouchStart: handleTouchStart,
+  } : {};
+  
+  const moveCallbacks = (isDrawing && onMouseDown && onMouseMove) ? {
+    onMouseMove: handleMouseMove,
+    onTouchMove: handleTouchMove,
+  } : {}
+
   return (
     <Wrapper
-      onMouseDown={onMouseDown && handleMouseDown}
-      onMouseMove={onMouseMove && handleMouseMove}
-      onTouchStart={onMouseDown && handleTouchStart}
-      onTouchMove={onMouseMove && handleTouchMove}
+      {...downCallbacks}
+      {...moveCallbacks}
       ref={drawingRef}
     >
       <DrawingSVG
