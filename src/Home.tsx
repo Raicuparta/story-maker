@@ -6,6 +6,7 @@ import {
   Button,
 } from './UI';
 import DrawArea from './DrawArea';
+import FlowChart from './FlowChart';
 import {
   Wrapper,
   TextInput,
@@ -26,9 +27,7 @@ const Home: React.FC = () => (
         <Button>Delete Panel</Button>
         <Button>New Panel</Button>
       </Row>
-      <Row>
-        Node graph
-      </Row>
+      <FlowChart />
     </Column>
   </Wrapper>
 )

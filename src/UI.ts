@@ -1,8 +1,8 @@
 import styled from 'styled-components/macro';
 
-import Colors from '../Colors';
+import Colors from './Colors';
 
-export default styled.button`
+export const Button = styled.button`
   all: unset;
   flex: 1;
   padding: 7px;
@@ -20,4 +20,14 @@ export default styled.button`
   :active {
     border-color: ${Colors.primaryVariant};
   }
-`
+`;
+
+export const Row = styled.div`
+  display: flex;
+`;
+
+export const Column = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
