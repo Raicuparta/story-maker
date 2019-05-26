@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Row,
@@ -15,20 +15,18 @@ import {
 const Home: React.FC = () => {
   const [drawing, setDrawing] = useState<LinePath>([]);
   const [text, setText] = useState<string>('');
-  const [panels, setPanels] = useState<Panel[]>([]);
+  const [selected, setSelected] = useState<number>(0);
+  const [panels, setPanels] = useState<Panel[]>([{
+    drawing: [],
+    text: '',
+  }]);
 
   function handleSaveClick() {
-    setPanels(prevPanels => [
-      ...prevPanels,
-      { drawing, text },
-    ]);
-
-    setDrawing([]);
-    setText('');
-
-    // TODO remove this
-    // Saving to local storage to make development easier
-    localStorage.setItem('panels', JSON.stringify(panels));
+    setPanels(prevPanels => {
+      const newPanels = prevPanels.slice(0);
+      newPanels[selected] = { drawing, text };
+      return newPanels;
+    });
   }
 
   function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -45,6 +43,36 @@ const Home: React.FC = () => {
     setPanels(JSON.parse(savedPanels));
   }
 
+  function handleNodeClick(panel: Panel, index: number) {
+    setSelected(index);
+  }
+
+  function handleNewClick() {
+    setPanels(prevPanels => [
+      ...prevPanels,
+      {
+        drawing: [],
+        text: '',
+      },
+    ]);
+  }
+
+  useEffect(() => {
+    setSelected(panels.length - 1);
+  }, [panels.length])
+
+  useEffect(() => {
+    setDrawing(panels[selected].drawing);
+    setText(panels[selected].text);
+  }, [panels, selected])
+
+  useEffect(() => {
+    // TODO remove this
+    // Saving to local storage to make development easier
+    if (panels.length <= 1) return;
+    localStorage.setItem('panels', JSON.stringify(panels));
+  }, [panels])
+
   return (
     <Wrapper>
       <Column>
@@ -57,15 +85,6 @@ const Home: React.FC = () => {
           value={text}
           placeholder="Insert panel text here..."
         />
-        {panels[0] && <>
-          <DrawArea
-            lines={panels[panels.length -1].drawing}
-            onChange={setDrawing}
-          />
-          <TextInput
-            placeholder={panels[panels.length -1].text}
-          />
-        </>}
         <Row>
           <Button onClick={handleAddChoiceClick}>Add Choice</Button>
           <Button onClick={handleSaveClick}>Save Panel</Button>
@@ -74,9 +93,13 @@ const Home: React.FC = () => {
       <Column>
         <Row>
           <Button>Delete Panel</Button>
-          <Button>New Panel</Button>
+          <Button onClick={handleNewClick}>New Panel</Button>
         </Row>
-        <FlowChart panels={panels} />
+        <FlowChart
+          panels={panels}
+          onNodeClick={handleNodeClick}
+          selected={selected}
+        />
       </Column>
     </Wrapper>
   )
