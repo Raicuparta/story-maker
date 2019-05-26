@@ -9,4 +9,14 @@ export const Wrapper = styled.div`
   flex: 1;
   height: 100%;
   width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const Node = styled.div`
+  width: 20px;
+  height: 20px;
+  background: ${Colors.secondary};
+  border-radius: 100%;
 `

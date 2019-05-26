@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const [text, setText] = useState<string>('');
   const [panels, setPanels] = useState<Panel[]>([]);
 
-  function handleSavePanel() {
+  function handleSaveClick() {
     setPanels(prevPanels => [
       ...prevPanels,
       { drawing, text },
@@ -25,10 +25,24 @@ const Home: React.FC = () => {
 
     setDrawing([]);
     setText('');
+
+    // TODO remove this
+    // Saving to local storage to make development easier
+    localStorage.setItem('panels', JSON.stringify(panels));
   }
 
   function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(event.target.value);
+  }
+
+  function handleAddChoiceClick() {
+    // TODO remove this
+    // Loading from local storage to make development easier.
+    // Nothing to do with adding choices, just using the
+    // button for convenience.
+    const savedPanels = localStorage.getItem('panels');
+    if (!savedPanels) return;
+    setPanels(JSON.parse(savedPanels));
   }
 
   return (
@@ -49,12 +63,12 @@ const Home: React.FC = () => {
             onChange={setDrawing}
           />
           <TextInput
-            value={panels[panels.length -1].text}
+            placeholder={panels[panels.length -1].text}
           />
         </>}
         <Row>
-          <Button>Add Choice</Button>
-          <Button onClick={handleSavePanel}>Save Panel</Button>
+          <Button onClick={handleAddChoiceClick}>Add Choice</Button>
+          <Button onClick={handleSaveClick}>Save Panel</Button>
         </Row>
       </Column>
       <Column>
@@ -62,7 +76,7 @@ const Home: React.FC = () => {
           <Button>Delete Panel</Button>
           <Button>New Panel</Button>
         </Row>
-        <FlowChart />
+        <FlowChart panels={panels} />
       </Column>
     </Wrapper>
   )

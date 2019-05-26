@@ -1,9 +1,17 @@
 import React from 'react';
 
-import { Wrapper } from './FlowChart.style';
+import {
+  Wrapper,
+  Node,
+} from './FlowChart.style';
 
-const FlowChart: React.FC = () => (
+const FlowChart: React.FC<{
+  panels: Panel[],
+}> = ({ panels }) => (
   <Wrapper>
+    {panels.map((panel, index) => (
+      <Node key={index} />
+    ))}
   </Wrapper>
 );
 
