@@ -5,6 +5,8 @@ import {
   Wrapper,
   Node,
   Thumbnail,
+  TextPreview,
+  Preview,
 } from './FlowChart.style';
 
 const FlowChart: React.FC<{
@@ -29,10 +31,7 @@ const FlowChart: React.FC<{
             onMouseLeave={() => setHoverIndex(-1)}
           >
             {hoverIndex === index && selected !== index && (
-              <PanelPreview
-                panel={panel}
-                isSelected={selected === index}
-              />
+              <PanelPreview panel={panel} />
             )}
           </Node>
         </React.Fragment>
@@ -43,11 +42,13 @@ const FlowChart: React.FC<{
 
 const PanelPreview: React.FC<{
   panel: Panel,
-  isSelected: boolean,
-}> = ({ panel, isSelected }) => (
-  <Thumbnail>
-    <Drawing lines={panel.drawing}/>
-  </Thumbnail>
+}> = ({ panel }) => (
+  <Preview>
+    <Thumbnail>
+      <Drawing lines={panel.drawing}/>
+    </Thumbnail>
+    <TextPreview>{panel.text}</TextPreview>
+  </Preview>
 );
 
 export default FlowChart;

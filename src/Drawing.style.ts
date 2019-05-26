@@ -5,7 +5,6 @@ import Colors from './Colors';
 export const Wrapper = styled.div`
   width: 400px;
   height: 300px;
-  cursor: crosshair;
   background: ${Colors.secondary};
 `
 
