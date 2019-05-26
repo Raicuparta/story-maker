@@ -1,7 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
 import Home from './Home';
+import { GlobalStyle } from './index.style';
 
-ReactDOM.render(<Home />, document.getElementById('root'));
-
+ReactDOM.render(
+  <>
+    <GlobalStyle/>
+    <Home />
+  </>
+, document.getElementById('root'));

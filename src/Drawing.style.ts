@@ -3,9 +3,8 @@ import styled from 'styled-components/macro';
 import Colors from './Colors';
 
 export const Wrapper = styled.div`
-  width: 400px;
-  height: 300px;
   background: ${Colors.secondary};
+  flex: 1;
 `
 
 export const Path = styled.path`
