@@ -13,30 +13,14 @@ const DrawArea: React.FC<{
   const [isDrawing, setIsDrawing] = useState(false);
   const drawingRef = useRef<HTMLDivElement>(null);
 
-  function relativeCoordinatesForEvent(mouseEvent: React.MouseEvent) : Point {
-    const boundingRect = drawingRef.current!.getBoundingClientRect();
-    return {
-      x: mouseEvent.clientX - boundingRect.left,
-      y: mouseEvent.clientY - boundingRect.top,
-    };
-  }
-
-  function handleMouseDown(mouseEvent: React.MouseEvent) {
-    if (mouseEvent.button !== 0) {
-      return;
-    }
-
-    const point = relativeCoordinatesForEvent(mouseEvent);
-
+  function handleMouseDown(point: Point) {
     onChange(lines.concat([[point]]))
     setIsDrawing(true);
   }
 
-  function handleMouseMove(mouseEvent: React.MouseEvent) {
+  function handleMouseMove(point: Point) {
     if (!isDrawing) return;
 
-    const point = relativeCoordinatesForEvent(mouseEvent);
-    
     onChange([
       ...lines.slice(0, lines.length - 1),
       lines[lines.length - 1].concat([point]),

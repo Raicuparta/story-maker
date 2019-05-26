@@ -7,8 +7,8 @@ import {
 } from './Drawing.style';
 
 const Drawing: React.FC<{
-  onMouseDown?: (mouseEvent: React.MouseEvent) => void,
-  onMouseMove?: (mouseEvent: React.MouseEvent) => void,
+  onMouseDown?: (point: Point) => void,
+  onMouseMove?: (point: Point) => void,
   drawingRef?: React.RefObject<HTMLDivElement>,
   lines: LinePath,
 }> = ({
@@ -16,22 +16,44 @@ const Drawing: React.FC<{
   onMouseMove,
   lines,
   drawingRef,
-}) => (
-  <Wrapper
-    onMouseDown={onMouseDown}
-    onMouseMove={onMouseMove}
-    ref={drawingRef}
-  >
-    <DrawingSVG>
-      {lines.map((line, index) => (
-        <DrawingLine
-          key={index}
-          line={line}
-        />
-      ))}
-    </DrawingSVG>
-  </Wrapper>
-);
+}) => {
+  function handleMouseDown(mouseEvent: React.MouseEvent) {
+    if (mouseEvent.button !== 0) {
+      return;
+    }
+
+    onMouseDown!(relativeCoordinatesForEvent(mouseEvent));
+  }
+
+  function handleMouseMove(mouseEvent: React.MouseEvent) {
+    onMouseMove!(relativeCoordinatesForEvent(mouseEvent));
+  }
+
+  function relativeCoordinatesForEvent(mouseEvent: React.MouseEvent) : Point {
+    const boundingRect = drawingRef!.current!.getBoundingClientRect();
+    return {
+      x: mouseEvent.clientX - boundingRect.left,
+      y: mouseEvent.clientY - boundingRect.top,
+    };
+  }
+
+  return (
+    <Wrapper
+      onMouseDown={onMouseDown && handleMouseDown}
+      onMouseMove={onMouseMove && handleMouseMove}
+      ref={drawingRef}
+    >
+      <DrawingSVG>
+        {lines.map((line, index) => (
+          <DrawingLine
+            key={index}
+            line={line}
+          />
+        ))}
+      </DrawingSVG>
+    </Wrapper>
+  );
+};
 
 const DrawingLine: React.FC<{ line: Line }> = ({ line }) => {
   const pathData = "M " +
