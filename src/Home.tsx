@@ -10,6 +10,7 @@ import FlowChart from './FlowChart';
 import {
   Wrapper,
   TextInput,
+  DrawColumn,
 } from './Home.style';
 
 const Home: React.FC = () => {
@@ -75,7 +76,7 @@ const Home: React.FC = () => {
 
   return (
     <Wrapper>
-      <Column>
+      <DrawColumn>
         <DrawArea
           lines={drawing}
           onChange={setDrawing}
@@ -89,7 +90,7 @@ const Home: React.FC = () => {
           <Button onClick={handleAddChoiceClick}>Add Choice</Button>
           <Button onClick={handleSaveClick}>Save Panel</Button>
         </Row>
-      </Column>
+      </DrawColumn>
       <Column>
         <Row>
           <Button>Delete Panel</Button>

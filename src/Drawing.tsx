@@ -18,22 +18,26 @@ const Drawing: React.FC<{
   drawingRef,
 }) => {
   function handleMouseDown(mouseEvent: React.MouseEvent) {
-    if (mouseEvent.button !== 0) {
-      return;
-    }
-
-    onMouseDown!(relativeCoordinatesForEvent(mouseEvent));
+    mouseEvent.button === 0 && onMouseDown!(relativePoint(mouseEvent));
   }
 
   function handleMouseMove(mouseEvent: React.MouseEvent) {
-    onMouseMove!(relativeCoordinatesForEvent(mouseEvent));
+    onMouseMove!(relativePoint(mouseEvent));
   }
 
-  function relativeCoordinatesForEvent(mouseEvent: React.MouseEvent) : Point {
+  function handleTouchStart(touchEvent: React.TouchEvent) {
+    onMouseDown!(relativePoint(touchEvent.touches[0]));
+  }
+
+  function handleTouchMove(touchEvent: React.TouchEvent) {
+    onMouseMove!(relativePoint(touchEvent.touches[0]));
+  }
+
+  function relativePoint(event: React.MouseEvent | React.Touch) : Point {
     const boundingRect = drawingRef!.current!.getBoundingClientRect();
     return {
-      x: mouseEvent.clientX - boundingRect.left,
-      y: mouseEvent.clientY - boundingRect.top,
+      x: event.clientX - boundingRect.left,
+      y: event.clientY - boundingRect.top,
     };
   }
 
@@ -41,6 +45,8 @@ const Drawing: React.FC<{
     <Wrapper
       onMouseDown={onMouseDown && handleMouseDown}
       onMouseMove={onMouseMove && handleMouseMove}
+      onTouchStart={onMouseDown && handleTouchStart}
+      onTouchMove={onMouseMove && handleTouchMove}
       ref={drawingRef}
     >
       <DrawingSVG>
