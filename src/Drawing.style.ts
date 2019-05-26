@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 
 export const Path = styled.path`
   fill: none;
-  stroke-width: 10px;
+  stroke-width: 5px;
   stroke: ${Colors.primaryVariant};
   stroke-linejoin: round;
   stroke-linecap: round;

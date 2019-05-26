@@ -1,10 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-import {
-  Path,
-  DrawingSVG,
-  Wrapper,
-} from './DrawArea.style';
+import Drawing from './Drawing';
 
 const DrawArea: React.FC<{
   lines: LinePath,
@@ -14,10 +10,10 @@ const DrawArea: React.FC<{
   onChange,
 }) => {
   const [isDrawing, setIsDrawing] = useState(false);
-  const drawArea = useRef<HTMLDivElement>(null);
+  const drawingRef = useRef<HTMLDivElement>(null);
 
   function relativeCoordinatesForEvent(mouseEvent: React.MouseEvent) : Point {
-    const boundingRect = drawArea.current!.getBoundingClientRect();
+    const boundingRect = drawingRef.current!.getBoundingClientRect();
     return {
       x: mouseEvent.clientX - boundingRect.left,
       y: mouseEvent.clientY - boundingRect.top,
@@ -58,29 +54,13 @@ const DrawArea: React.FC<{
   });
 
   return (
-    <Wrapper
-      ref={drawArea}
+    <Drawing
+      drawingRef={drawingRef}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
-    >
-      <DrawingSVG>
-        {lines.map((line, index) => (
-          <DrawingLine key={index} line={line} />
-        ))}
-      </DrawingSVG>
-    </Wrapper>
+      lines={lines}
+    />
   );
-}
-
-const DrawingLine: React.FC<{ line: Line }> = ({ line }) => {
-  const pathData = "M " +
-    line
-      .map(p => {
-        return `${p.x} ${p.y}`;
-      })
-      .join(" L ");
-
-  return <Path d={pathData} />;
 }
 
 export default DrawArea;
