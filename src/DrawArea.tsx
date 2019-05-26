@@ -6,13 +6,13 @@ import {
   Wrapper,
 } from './DrawArea.style';
 
-type Point = {
-  x: number;
-  y: number;
-}
-
-const DrawArea: React.FC = () => {
-  const [lines, setLines] = useState<Point[][]>([]);
+const DrawArea: React.FC<{
+  lines: LinePath,
+  onChange: (lines: LinePath) => void,
+}> = ({
+  lines,
+  onChange,
+}) => {
   const [isDrawing, setIsDrawing] = useState(false);
   const drawArea = useRef<HTMLDivElement>(null);
 
@@ -31,7 +31,7 @@ const DrawArea: React.FC = () => {
 
     const point = relativeCoordinatesForEvent(mouseEvent);
 
-    setLines(lines.concat([[point]]));
+    onChange(lines.concat([[point]]))
     setIsDrawing(true);
   }
 
@@ -40,7 +40,7 @@ const DrawArea: React.FC = () => {
 
     const point = relativeCoordinatesForEvent(mouseEvent);
     
-    setLines([
+    onChange([
       ...lines.slice(0, lines.length - 1),
       lines[lines.length - 1].concat([point]),
     ]);
@@ -63,18 +63,12 @@ const DrawArea: React.FC = () => {
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
     >
-      <Drawing lines={lines} />
+      <DrawingSVG>
+        {lines.map((line, index) => (
+          <DrawingLine key={index} line={line} />
+        ))}
+      </DrawingSVG>
     </Wrapper>
-  );
-}
-
-const Drawing: React.FC<{ lines: Point[][] }> = ({ lines }) => {
-  return (
-    <DrawingSVG>
-      {lines.map((line, index) => (
-        <DrawingLine key={index} line={line} />
-      ))}
-    </DrawingSVG>
   );
 }
 
