@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-import Drawing from './Drawing';
+import DrawingSVG from './DrawingSVG';
 import {
   Wrapper,
   Node,
-  Thumbnail,
   TextPreview,
   Preview,
 } from './FlowChart.style';
@@ -44,9 +43,7 @@ const PanelPreview: React.FC<{
   panel: Panel,
 }> = ({ panel }) => (
   <Preview>
-    <Thumbnail>
-      <Drawing lines={panel.drawing}/>
-    </Thumbnail>
+    <DrawingSVG lines={panel.drawing}/>
     <TextPreview>{panel.text}</TextPreview>
   </Preview>
 );

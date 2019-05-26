@@ -43,10 +43,6 @@ export const Preview = styled.div`
   width: 100px;
 `
 
-export const Thumbnail = styled.div`
-
-`
-
 export const TextPreview = styled.div`
   font-size: 10px;
   height: 10px;

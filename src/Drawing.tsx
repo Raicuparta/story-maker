@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-import Colors from './Colors';
-import {
-  Wrapper,
-  DrawingSVG,
-  Path,
-} from './Drawing.style';
+import DrawingSVG from './DrawingSVG';
+import { Wrapper } from './Drawing.style';
 
 const viewBoxSize = {
   width: 400,
@@ -13,18 +9,17 @@ const viewBoxSize = {
 };
 
 const Drawing: React.FC<{
-  onMouseDown?: (point: Point) => void,
-  onMouseMove?: (point: Point) => void,
-  drawingRef?: React.RefObject<HTMLDivElement>,
+  onInputDown?: (point: Point) => void,
+  onInputMove?: (point: Point) => void,
   isDrawing?: boolean,
   lines: LinePath,
 }> = ({
-  onMouseDown,
-  onMouseMove,
+  onInputDown: onMouseDown,
+  onInputMove: onMouseMove,
   lines,
-  drawingRef,
 }) => {
   const [isDrawing, setIsDrawing] = useState(false);
+  const drawingRef = useRef<HTMLDivElement>(null);
 
   function handleMouseDown(mouseEvent: React.MouseEvent) {
     mouseEvent.preventDefault();
@@ -107,30 +102,9 @@ const Drawing: React.FC<{
       {...moveCallbacks}
       ref={drawingRef}
     >
-      <DrawingSVG
-        viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <rect width="100%" height="100%" fill={Colors.secondary}/>
-        {lines.map((line, index) => (
-          <DrawingLine
-            key={index}
-            line={line}
-          />
-        ))}
-      </DrawingSVG>
+      <DrawingSVG lines={lines} />
     </Wrapper>
   );
 };
 
-const DrawingLine: React.FC<{ line: Line }> = ({ line }) => {
-  const pathData = "M " +
-    line
-      .map(p => {
-        return `${p.x} ${p.y}`;
-      })
-      .join(" L ");
-
-  return <Path d={pathData} />;
-}
 export default Drawing;

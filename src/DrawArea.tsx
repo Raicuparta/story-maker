@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 import Drawing from './Drawing';
 import { Wrapper } from './DrawArea.style';
@@ -10,13 +10,11 @@ const DrawArea: React.FC<{
   lines,
   onChange,
 }) => {
-  const drawingRef = useRef<HTMLDivElement>(null);
-
-  function handleMouseDown(point: Point) {
+  function handleInputDown(point: Point) {
     onChange(lines.concat([[point]]))
   }
 
-  function handleMouseMove(point: Point) {
+  function handleInputMove(point: Point) {
     onChange([
       ...lines.slice(0, lines.length - 1),
       lines[lines.length - 1].concat([point]),
@@ -26,9 +24,8 @@ const DrawArea: React.FC<{
   return (
     <Wrapper>
       <Drawing
-        drawingRef={drawingRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
+        onInputDown={handleInputDown}
+        onInputMove={handleInputMove}
         lines={lines}
       />
     </Wrapper>
