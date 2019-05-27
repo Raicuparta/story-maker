@@ -10,4 +10,5 @@ type LinePath = Line[]
 type Panel = {
   drawing: LinePath;
   text: string;
+  nextId?: number;
 }

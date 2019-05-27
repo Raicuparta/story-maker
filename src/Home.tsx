@@ -25,7 +25,11 @@ const Home: React.FC = () => {
   function handleSaveClick() {
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[selected] = { drawing, text };
+      newPanels[selected] = {
+        ...newPanels[selected],
+        drawing,
+        text,
+      };
       return newPanels;
     });
   }
@@ -49,13 +53,16 @@ const Home: React.FC = () => {
   }
 
   function handleNewClick() {
-    setPanels(prevPanels => [
-      ...prevPanels,
-      {
+    setPanels(prevPanels => {
+      const newPanels = prevPanels.slice(0);
+      newPanels[newPanels.length - 1].nextId = panels.length;
+      newPanels.push({
         drawing: [],
         text: '',
-      },
-    ]);
+      });
+
+      return newPanels;
+    });
   }
 
   useEffect(() => {

@@ -19,22 +19,36 @@ const FlowChart: React.FC<{
 }) => {
   const [hoverIndex, setHoverIndex] = useState<number>(-1);
 
+  const PanelNode: React.FC<{
+    panel: Panel,
+    index: number,
+  }> = ({ panel, index }) => (
+    <>
+      <Node
+        isSelected={selected === index}
+        onClick={() => onNodeClick(panel, index)}
+        onMouseEnter={() => setHoverIndex(index)}
+        onMouseLeave={() => setHoverIndex(-1)}
+      >
+        {hoverIndex === index && selected !== index && (
+          <PanelPreview panel={panel} />
+        )}
+      </Node>
+      {panel.nextId && (
+        <PanelNode
+          panel={panels[panel.nextId]}
+          index={panel.nextId}
+        />
+      )}
+    </>
+  );
+
   return (
     <Wrapper>
-      {panels.map((panel, index) => (
-        <React.Fragment key={index}>
-          <Node
-            isSelected={selected === index}
-            onClick={() => onNodeClick(panel, index)}
-            onMouseEnter={() => setHoverIndex(index)}
-            onMouseLeave={() => setHoverIndex(-1)}
-          >
-            {hoverIndex === index && selected !== index && (
-              <PanelPreview panel={panel} />
-            )}
-          </Node>
-        </React.Fragment>
-      ))}
+      <PanelNode
+        panel={panels[0]}
+        index={0}
+      />
     </Wrapper>
   )
 };
