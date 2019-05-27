@@ -11,6 +11,9 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  position: relative;
+  overflow: scroll;
+  margin-bottom: 20px;
 `
 
 export const Node = styled.div<{ isSelected: boolean }>`
