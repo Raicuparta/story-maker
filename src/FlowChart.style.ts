@@ -52,3 +52,15 @@ export const TextPreview = styled.div`
   padding: 5px;
   margin-top: -5px;
 `
+
+export const NodeRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+`
+
+export const NodeFork = styled.div`
+  display: flex;
+  flex: 1;
+`

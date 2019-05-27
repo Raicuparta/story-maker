@@ -52,10 +52,39 @@ const Home: React.FC = () => {
     setSelected(index);
   }
 
-  function handleNewClick() {
+  function handleNewPanelClick() {
+    if (panels[selected].nextId || panels[selected].choice) return;
+
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[newPanels.length - 1].nextId = panels.length;
+      newPanels[selected].nextId = panels.length;
+      newPanels.push({
+        drawing: [],
+        text: '',
+      });
+
+      return newPanels;
+    });
+  }
+
+  function handleNewChoiceClick() {
+    if (panels[selected].nextId || panels[selected].choice) return;
+
+    setPanels(prevPanels => {
+      const newPanels = prevPanels.slice(0);
+      newPanels[selected].nextId = panels.length;
+      newPanels.push({
+        drawing: [],
+        text: '',
+        choice: {
+          idA: newPanels.length + 1,
+          idB: newPanels.length + 2,
+        },
+      });
+      newPanels.push({
+        drawing: [],
+        text: '',
+      });
       newPanels.push({
         drawing: [],
         text: '',
@@ -100,8 +129,8 @@ const Home: React.FC = () => {
       </DrawColumn>
       <Column>
         <Row>
-          <Button>Delete Panel</Button>
-          <Button onClick={handleNewClick}>New Panel</Button>
+          <Button onClick={handleNewChoiceClick}>+ Choice</Button>
+          <Button onClick={handleNewPanelClick}>+ Panel</Button>
         </Row>
         <FlowChart
           panels={panels}

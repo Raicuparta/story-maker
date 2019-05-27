@@ -6,6 +6,8 @@ import {
   Node,
   TextPreview,
   Preview,
+  NodeRow,
+  NodeFork,
 } from './FlowChart.style';
 
 const FlowChart: React.FC<{
@@ -23,7 +25,7 @@ const FlowChart: React.FC<{
     panel: Panel,
     index: number,
   }> = ({ panel, index }) => (
-    <>
+    <NodeRow>
       <Node
         isSelected={selected === index}
         onClick={() => onNodeClick(panel, index)}
@@ -40,7 +42,19 @@ const FlowChart: React.FC<{
           index={panel.nextId}
         />
       )}
-    </>
+      {panel.choice && (
+        <NodeFork>
+          <PanelNode
+            panel={panels[panel.choice.idA]}
+            index={panel.choice.idA}
+          />
+          <PanelNode
+            panel={panels[panel.choice.idB]}
+            index={panel.choice.idB}
+          />
+        </NodeFork>
+      )}
+    </NodeRow>
   );
 
   return (
