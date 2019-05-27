@@ -41,7 +41,10 @@ const FlowChart: React.FC<{
         {panel.choices && (
           <NodeFork>
             {panel.choices.map(choice => (
-              <PanelNode id={choice.id} />
+              <PanelNode
+                key={choice.id}
+                id={choice.id}
+              />
             ))}
           </NodeFork>
         )}
