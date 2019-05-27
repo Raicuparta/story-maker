@@ -33,10 +33,9 @@ export const Node = styled.div<{ isSelected: boolean }>`
   `}
 `
 export const Preview = styled.div`
-  border-radius: 5px;
+  border-radius: 10px;
   border: 5px solid ${Colors.secondaryVariant};
   overflow: hidden;
-  width: fit-content;
   position: relative;
   right: 122px;
   bottom: 5px;
@@ -51,4 +50,5 @@ export const TextPreview = styled.div`
   white-space: nowrap;
   background: ${Colors.primaryVariant};
   padding: 5px;
+  margin-top: -5px;
 `
