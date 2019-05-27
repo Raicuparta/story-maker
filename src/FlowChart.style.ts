@@ -11,6 +11,9 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px;
+  position: relative;
+  overflow: scroll;
+  margin-bottom: 20px;
 `
 
 export const Node = styled.div<{ isSelected: boolean }>`
@@ -51,4 +54,16 @@ export const TextPreview = styled.div`
   background: ${Colors.primaryVariant};
   padding: 5px;
   margin-top: -5px;
+`
+
+export const NodeRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+`
+
+export const NodeFork = styled.div`
+  display: flex;
+  flex: 1;
 `

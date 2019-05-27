@@ -25,7 +25,11 @@ const Home: React.FC = () => {
   function handleSaveClick() {
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[selected] = { drawing, text };
+      newPanels[selected] = {
+        ...newPanels[selected],
+        drawing,
+        text,
+      };
       return newPanels;
     });
   }
@@ -34,11 +38,9 @@ const Home: React.FC = () => {
     setText(event.target.value);
   }
 
-  function handleAddChoiceClick() {
+  function handleLoadClick() {
     // TODO remove this
     // Loading from local storage to make development easier.
-    // Nothing to do with adding choices, just using the
-    // button for convenience.
     const savedPanels = localStorage.getItem('panels');
     if (!savedPanels) return;
     setPanels(JSON.parse(savedPanels));
@@ -48,14 +50,41 @@ const Home: React.FC = () => {
     setSelected(index);
   }
 
-  function handleNewClick() {
-    setPanels(prevPanels => [
-      ...prevPanels,
-      {
+  function handleNewPanelClick() {
+    if (panels[selected].nextId || panels[selected].choices) return;
+
+    setPanels(prevPanels => {
+      const newPanels = prevPanels.slice(0);
+      newPanels[selected].nextId = panels.length;
+      newPanels.push({
         drawing: [],
         text: '',
-      },
-    ]);
+      });
+
+      return newPanels;
+    });
+  }
+
+  function handleNewChoiceClick() {
+    if (panels[selected].nextId || panels[selected].choices) return;
+
+    setPanels(prevPanels => {
+      const newPanels = prevPanels.slice(0);
+      newPanels[selected].choices = [
+        {id: newPanels.length},
+        {id: newPanels.length + 1},
+      ];
+      newPanels.push({
+        drawing: [],
+        text: '',
+      });
+      newPanels.push({
+        drawing: [],
+        text: '',
+      });
+
+      return newPanels;
+    });
   }
 
   useEffect(() => {
@@ -84,17 +113,17 @@ const Home: React.FC = () => {
         <TextInput
           onChange={handleTextChange}
           value={text}
-          placeholder="Insert panel text here..."
+          placeholder="Insert panel text here"
         />
         <Row>
-          <Button onClick={handleAddChoiceClick}>Add Choice</Button>
+          <Button onClick={handleLoadClick}>[Load]</Button>
           <Button onClick={handleSaveClick}>Save Panel</Button>
         </Row>
       </DrawColumn>
       <Column>
         <Row>
-          <Button>Delete Panel</Button>
-          <Button onClick={handleNewClick}>New Panel</Button>
+          <Button onClick={handleNewChoiceClick}>+ Choice</Button>
+          <Button onClick={handleNewPanelClick}>+ Panel</Button>
         </Row>
         <FlowChart
           panels={panels}

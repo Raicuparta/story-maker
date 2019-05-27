@@ -17,8 +17,8 @@ export const TextInput = styled.textarea`
   all: unset;
   background: ${Colors.primaryVariant};
   padding: 10px;
-  border-radius: 0 0 10px 10px;
-  margin: 0 5px 5px 5px;
+  border-radius: 10px;
+  margin: 5px;
   height: 55px;
 
   ::placeholder {
