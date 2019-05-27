@@ -1,10 +1,7 @@
 import React from 'react';
 
 import Colors from './Colors';
-import {
-  SVG,
-  Path,
-} from './DrawingSVG.style';
+import { Path } from './DrawingSVG.style';
 
 const viewBoxSize = {
   width: 400,
@@ -17,7 +14,7 @@ const Drawing: React.FC<{
   lines,
 }) => {
   return (
-    <SVG
+    <svg
       viewBox={`0 0 ${viewBoxSize.width} ${viewBoxSize.height}`}
       preserveAspectRatio="xMidYMid meet"
     >
@@ -28,7 +25,7 @@ const Drawing: React.FC<{
           line={line}
         />
       ))}
-    </SVG>
+    </svg>
   );
 };
 
