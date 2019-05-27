@@ -53,7 +53,7 @@ const Home: React.FC = () => {
   }
 
   function handleNewPanelClick() {
-    if (panels[selected].nextId || panels[selected].choice) return;
+    if (panels[selected].nextId || panels[selected].choices) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
@@ -68,7 +68,7 @@ const Home: React.FC = () => {
   }
 
   function handleNewChoiceClick() {
-    if (panels[selected].nextId || panels[selected].choice) return;
+    if (panels[selected].nextId || panels[selected].choices) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
@@ -76,10 +76,10 @@ const Home: React.FC = () => {
       newPanels.push({
         drawing: [],
         text: '',
-        choice: {
-          idA: newPanels.length + 1,
-          idB: newPanels.length + 2,
-        },
+        choices: [
+          {id: newPanels.length + 1},
+          {id: newPanels.length + 2},
+        ],
       });
       newPanels.push({
         drawing: [],
@@ -117,6 +117,9 @@ const Home: React.FC = () => {
           lines={drawing}
           onChange={setDrawing}
         />
+        {panels[selected].choices && (
+          `please choose ${panels[selected].choices}`
+        )}
         <TextInput
           onChange={handleTextChange}
           value={text}

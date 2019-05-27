@@ -11,10 +11,9 @@ type Panel = {
   drawing: LinePath;
   text: string;
   nextId?: number;
-  choice?: Choice;
+  choices?: Choice[];
 }
 
 type Choice = {
-  idA: number;
-  idB: number;
+  id: number;
 }

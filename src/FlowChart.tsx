@@ -21,48 +21,37 @@ const FlowChart: React.FC<{
 }) => {
   const [hoverIndex, setHoverIndex] = useState<number>(-1);
 
-  const PanelNode: React.FC<{
-    panel: Panel,
-    index: number,
-  }> = ({ panel, index }) => (
-    <NodeRow>
-      <Node
-        isSelected={selected === index}
-        onClick={() => onNodeClick(panel, index)}
-        onMouseEnter={() => setHoverIndex(index)}
-        onMouseLeave={() => setHoverIndex(-1)}
-      >
-        {hoverIndex === index && selected !== index && (
-          <PanelPreview panel={panel} />
+  const PanelNode: React.FC<{id: number,}> = ({ id: index }) => {
+    const panel = panels[index];
+    return (
+      <NodeRow>
+        <Node
+          isSelected={selected === index}
+          onClick={() => onNodeClick(panel, index)}
+          onMouseEnter={() => setHoverIndex(index)}
+          onMouseLeave={() => setHoverIndex(-1)}
+        >
+          {hoverIndex === index && selected !== index && (
+            <PanelPreview panel={panel} />
+          )}
+        </Node>
+        {panel.nextId && (
+          <PanelNode id={panel.nextId} />
         )}
-      </Node>
-      {panel.nextId && (
-        <PanelNode
-          panel={panels[panel.nextId]}
-          index={panel.nextId}
-        />
-      )}
-      {panel.choice && (
-        <NodeFork>
-          <PanelNode
-            panel={panels[panel.choice.idA]}
-            index={panel.choice.idA}
-          />
-          <PanelNode
-            panel={panels[panel.choice.idB]}
-            index={panel.choice.idB}
-          />
-        </NodeFork>
-      )}
-    </NodeRow>
-  );
+        {panel.choices && (
+          <NodeFork>
+            {panel.choices.map(choice => (
+              <PanelNode id={choice.id} />
+            ))}
+          </NodeFork>
+        )}
+      </NodeRow>
+    )
+  };
 
   return (
     <Wrapper>
-      <PanelNode
-        panel={panels[0]}
-        index={0}
-      />
+      <PanelNode id={0} />
     </Wrapper>
   )
 };
