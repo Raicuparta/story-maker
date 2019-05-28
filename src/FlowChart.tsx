@@ -37,6 +37,8 @@ const FlowChart: React.FC<{
     const bounds = wrapperRef.current.getBoundingClientRect();
     const xBranchOffset = bounds.width / depth**2;
 
+    console.log('choices', panel);
+
     return (
       <NodeRow>
         <Node

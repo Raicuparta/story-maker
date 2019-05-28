@@ -38,10 +38,14 @@ const Home: React.FC = () => {
   function handlePublishClick() {
     database.ref('stories').push(
       {
-        panels: JSON.stringify(panels),
-        author: 'Ricky',
+        panels: panels.map(panel => ({
+          ...(panel.choices ? {choices: JSON.stringify(panel.choices)} : {}),
+          ...(panel.nextId ? {nextId: panel.nextId} : {}),
+          drawing: JSON.stringify(panel.drawing),
+          text: panel.text,
+        })),
       }
-    );
+    ).then(() => console.log('done publishing'));
   }
 
   function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -53,8 +57,26 @@ const Home: React.FC = () => {
       const val = snapshot.val();
       if (!val) return;
 
-      setPanels(JSON.parse(Object.values<{ panels: string }>(val)[0].panels));
+      const panels = Object.values<{ panels: {
+        drawing: string,
+        choices: string,
+        text: string,
+        nextId: number,
+      }[] }>(val)[0].panels;
+
+      setPanels(panels.map(panel => ({
+        drawing: JSON.parse(panel.drawing),
+        choices: panel.choices ? JSON.parse(panel.choices): undefined,
+        text: panel.text,
+        nextId: panel.nextId,
+      })));
     })
+  }
+
+  function handleLoadLocalStorageClick() {    
+    const savedPanels = localStorage.getItem('panels');
+    if (!savedPanels) return;
+    setPanels(JSON.parse(savedPanels));
   }
 
   function handleNodeClick(panel: Panel, index: number) {
@@ -127,7 +149,8 @@ const Home: React.FC = () => {
           placeholder="Insert panel text here"
         />
         <Row>
-          <Button onClick={handleLoadClick}>[Load]</Button>
+          <Button onClick={handleLoadClick}>[Load From Database]</Button>
+          <Button onClick={handleLoadLocalStorageClick}>[Load From Local Storage]</Button>
           <Button onClick={handleSaveClick}>Save Panel</Button>
           <Button onClick={handlePublishClick}>Publish</Button>
         </Row>
