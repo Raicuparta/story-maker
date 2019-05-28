@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   align-items: center;
   padding: 10px;
   position: relative;
-  overflow: scroll;
+  overflow: auto;
   margin-bottom: 20px;
 `
 
