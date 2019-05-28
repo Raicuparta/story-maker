@@ -52,7 +52,7 @@ const Drawing: React.FC<{
     return () => {
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  });
+  }, []);
 
   function relativePoint(event: React.MouseEvent | React.Touch) : Point {
     const {

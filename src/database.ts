@@ -11,8 +11,4 @@ firebase.initializeApp({
   appId: '1:105986550181:web:81ec40d053faad45'
 });
 
-// firebase.database().ref('stories/3xu8U3XpthkpiGHcACtJ').once('value').then(function(snapshot) {
-//   console.log(snapshot.val());
-// });
-
 export default firebase.database();
