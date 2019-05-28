@@ -9,3 +9,8 @@ export const Path = styled.path`
   stroke-linejoin: round;
   stroke-linecap: round;
 `
+
+export const SVG = styled.svg`
+  height: 100%;
+  width: 100%;
+`
