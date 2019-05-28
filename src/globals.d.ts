@@ -17,3 +17,11 @@ type Panel = {
 type Choice = {
   id: number;
 }
+
+
+type Bounds = {
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+}
