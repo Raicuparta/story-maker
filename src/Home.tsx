@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import database from './database';
 import {
   Row,
   Column,
@@ -34,16 +35,26 @@ const Home: React.FC = () => {
     });
   }
 
+  function handlePublishClick() {
+    database.ref('stories').push(
+      {
+        panels: JSON.stringify(panels),
+        author: 'Ricky',
+      }
+    );
+  }
+
   function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(event.target.value);
   }
 
-  function handleLoadClick() {
-    // TODO remove this
-    // Loading from local storage to make development easier.
-    const savedPanels = localStorage.getItem('panels');
-    if (!savedPanels) return;
-    setPanels(JSON.parse(savedPanels));
+  function handleLoadClick() {    
+    database.ref('stories').limitToLast(1).once('value').then(snapshot => {
+      const val = snapshot.val();
+      if (!val) return;
+
+      setPanels(JSON.parse(Object.values<{ panels: string }>(val)[0].panels));
+    })
   }
 
   function handleNodeClick(panel: Panel, index: number) {
@@ -118,6 +129,7 @@ const Home: React.FC = () => {
         <Row>
           <Button onClick={handleLoadClick}>[Load]</Button>
           <Button onClick={handleSaveClick}>Save Panel</Button>
+          <Button onClick={handlePublishClick}>Publish</Button>
         </Row>
       </DrawColumn>
       <Column>
