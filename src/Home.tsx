@@ -65,12 +65,6 @@ const Home: React.FC = () => {
     })
   }
 
-  function handleLoadLocalStorageClick() {    
-    const savedPanels = localStorage.getItem('panels');
-    if (!savedPanels) return;
-    setPanels(JSON.parse(savedPanels));
-  }
-
   function handleNodeClick(panel: Panel, index: number) {
     setSelected(index);
   }
@@ -127,13 +121,6 @@ const Home: React.FC = () => {
     setSelected(panels.length - 1);
   }, [panels.length]);
 
-  useEffect(() => {
-    // TODO remove this
-    // Saving to local storage to make development easier
-    if (panels.length <= 1) return;
-    localStorage.setItem('panels', JSON.stringify(panels));
-  }, [panels]);
-
   return (
     <Wrapper>
       <DrawColumn>
@@ -148,7 +135,6 @@ const Home: React.FC = () => {
         />
         <Row>
           <Button onClick={handleLoadClick}>[Load From Database]</Button>
-          <Button onClick={handleLoadLocalStorageClick}>[Load From Local Storage]</Button>
           <Button onClick={handlePublishClick}>Publish</Button>
         </Row>
       </DrawColumn>
