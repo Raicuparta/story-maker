@@ -15,25 +15,11 @@ import {
 } from './Home.style';
 
 const Home: React.FC = () => {
-  const [drawing, setDrawing] = useState<LinePath>([]);
-  const [text, setText] = useState<string>('');
   const [selected, setSelected] = useState<number>(0);
   const [panels, setPanels] = useState<Panel[]>([{
     drawing: [],
     text: '',
   }]);
-
-  function handleSaveClick() {
-    setPanels(prevPanels => {
-      const newPanels = prevPanels.slice(0);
-      newPanels[selected] = {
-        ...newPanels[selected],
-        drawing,
-        text,
-      };
-      return newPanels;
-    });
-  }
 
   function handlePublishClick() {
     database.ref('stories').push(
@@ -49,7 +35,13 @@ const Home: React.FC = () => {
   }
 
   function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    setText(event.target.value);
+    const newPanels = panels.slice(0);
+    newPanels[selected] = {
+      ...newPanels[selected],
+      text: event.target.value,
+    };
+
+    setPanels(newPanels);
   }
 
   function handleLoadClick() {    
@@ -120,14 +112,20 @@ const Home: React.FC = () => {
     });
   }
 
+  function handleDrawingChange(lines: LinePath) {
+    setPanels(prevPanels => {
+      const newPanels = prevPanels.slice(0);
+      newPanels[selected] = {
+        ...newPanels[selected],
+        drawing: lines,
+      };
+      return newPanels;
+    });
+  }
+
   useEffect(() => {
     setSelected(panels.length - 1);
   }, [panels.length]);
-
-  useEffect(() => {
-    setDrawing(panels[selected].drawing);
-    setText(panels[selected].text);
-  }, [panels, selected]);
 
   useEffect(() => {
     // TODO remove this
@@ -140,18 +138,17 @@ const Home: React.FC = () => {
     <Wrapper>
       <DrawColumn>
         <DrawArea
-          lines={drawing}
-          onChange={setDrawing}
+          lines={panels[selected].drawing}
+          onChange={handleDrawingChange}
         />
         <TextInput
           onChange={handleTextChange}
-          value={text}
+          value={panels[selected].text}
           placeholder="Insert panel text here"
         />
         <Row>
           <Button onClick={handleLoadClick}>[Load From Database]</Button>
           <Button onClick={handleLoadLocalStorageClick}>[Load From Local Storage]</Button>
-          <Button onClick={handleSaveClick}>Save Panel</Button>
           <Button onClick={handlePublishClick}>Publish</Button>
         </Row>
       </DrawColumn>
