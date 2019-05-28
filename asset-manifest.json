@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/story-maker/static/js/main.129c64ec.chunk.js",
-    "main.js.map": "/story-maker/static/js/main.129c64ec.chunk.js.map",
+    "main.js": "/story-maker/static/js/main.a45cb9cf.chunk.js",
+    "main.js.map": "/story-maker/static/js/main.a45cb9cf.chunk.js.map",
     "runtime~main.js": "/story-maker/static/js/runtime~main.06a4b95a.js",
     "runtime~main.js.map": "/story-maker/static/js/runtime~main.06a4b95a.js.map",
-    "static/js/2.c79776a3.chunk.js": "/story-maker/static/js/2.c79776a3.chunk.js",
-    "static/js/2.c79776a3.chunk.js.map": "/story-maker/static/js/2.c79776a3.chunk.js.map",
+    "static/js/2.a3b9eb18.chunk.js": "/story-maker/static/js/2.a3b9eb18.chunk.js",
+    "static/js/2.a3b9eb18.chunk.js.map": "/story-maker/static/js/2.a3b9eb18.chunk.js.map",
     "index.html": "/story-maker/index.html",
-    "precache-manifest.b13c5d290d142fc5c86c282ec494e196.js": "/story-maker/precache-manifest.b13c5d290d142fc5c86c282ec494e196.js",
+    "precache-manifest.48dfa5c973bfa8f07fa9d53dfcdf90cb.js": "/story-maker/precache-manifest.48dfa5c973bfa8f07fa9d53dfcdf90cb.js",
     "service-worker.js": "/story-maker/service-worker.js"
   }
 }
