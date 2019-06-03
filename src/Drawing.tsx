@@ -52,7 +52,7 @@ const Drawing: React.FC<{
     return () => {
       document.removeEventListener("mouseup", handleMouseUp);
     };
-  });
+  }, []);
 
   function relativePoint(event: React.MouseEvent | React.Touch) : Point {
     const {
@@ -74,7 +74,7 @@ const Drawing: React.FC<{
       y: 0,
     };
     
-    if (width > height) {
+    if (viewBoxRatio > boundsRatio) {
       offset.x += (width - (viewBoxSize.width * scale)) / 2;
     } else {
       offset.y += (height - (viewBoxSize.height * scale)) / 2;

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import DrawingSVG from './DrawingSVG';
 import {
@@ -20,7 +20,18 @@ const FlowChart: React.FC<{
   onNodeClick,
 }) => {
   const [hoverId, setHoverIndex] = useState<number>(-1);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [bounds, setBounds] = useState<Bounds>({
+    width: 0,
+    height: 0,
+    top: 0,
+    left: 0,
+  });
+
+  const wrapperRef = useCallback((node: HTMLDivElement) => {
+    if (node === null) return;
+    const { width, height, top, left } = node.getBoundingClientRect();
+    setBounds({ width, height, top, left });
+  }, []);
 
   const PanelNode: React.FC<{
     id: number,
@@ -33,18 +44,16 @@ const FlowChart: React.FC<{
   }) => {
     const panel = panels[id];
 
-    if (!wrapperRef.current) return null;
-    const bounds = wrapperRef.current.getBoundingClientRect();
     const xBranchOffset = bounds.width / depth**2;
 
     return (
       <NodeRow>
         <Node
-          style={wrapperRef.current ? {
+          style={({
             position: 'absolute',
             top: `${position.y}px`,
             left: `${bounds.width / 2 + position.x}px`,
-          } : undefined}
+          })}
           isSelected={selected === id}
           onClick={() => onNodeClick(panel, id)}
           onMouseEnter={() => setHoverIndex(id)}
