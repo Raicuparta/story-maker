@@ -11,6 +11,7 @@ import {
   Wrapper,
   TextInput,
   DrawColumn,
+  Thumbnail,
 } from './Home.style';
 import Canvas from './Canvas';
 
@@ -20,6 +21,12 @@ const Home: React.FC = () => {
     drawing: '',
     text: '',
   }]);
+
+  const currentPanel = panels[selected];
+  const prevPanel = currentPanel.prevId !== undefined && panels[currentPanel.prevId];
+  const nextPanels = currentPanel.nextId !== undefined ?
+    [panels[currentPanel.nextId]] :
+    currentPanel.choices && currentPanel.choices.map(choice => panels[choice.id]);
 
   function handlePublishClick() {
     database.ref('stories').push(
@@ -70,7 +77,7 @@ const Home: React.FC = () => {
   }
 
   function handleNewPanelClick() {
-    if (panels[selected].nextId || panels[selected].choices) return;
+    if (currentPanel.nextId || currentPanel.choices) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
@@ -78,6 +85,7 @@ const Home: React.FC = () => {
       newPanels.push({
         drawing: '',
         text: '',
+        prevId: selected,
       });
 
       return newPanels;
@@ -85,7 +93,7 @@ const Home: React.FC = () => {
   }
 
   function handleNewChoiceClick() {
-    if (panels[selected].nextId || panels[selected].choices) return;
+    if (currentPanel.nextId || currentPanel.choices) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
@@ -96,10 +104,12 @@ const Home: React.FC = () => {
       newPanels.push({
         drawing: '',
         text: '',
+        prevId: selected,
       });
       newPanels.push({
         drawing: '',
         text: '',
+        prevId: selected,
       });
 
       return newPanels;
@@ -126,11 +136,11 @@ const Home: React.FC = () => {
       <DrawColumn>
         <Canvas
           onChange={handleCanvasChange}
-          dataURL={panels[selected].drawing}
+          dataURL={currentPanel.drawing}
         />
         <TextInput
           onChange={handleTextChange}
-          value={panels[selected].text}
+          value={currentPanel.text}
           placeholder="Insert panel text here"
         />
         <Row>
@@ -142,6 +152,18 @@ const Home: React.FC = () => {
         <Row>
           <Button onClick={handleNewChoiceClick}>+ Choice</Button>
           <Button onClick={handleNewPanelClick}>+ Panel</Button>
+        </Row>
+        <Row>
+          <Column>
+            {prevPanel && (
+              <Thumbnail src={prevPanel.drawing} />
+            )}
+          </Column>
+          <Column>
+            {nextPanels && nextPanels.map(panel => (
+              <Thumbnail src={panel.drawing} />
+            ))}
+          </Column>
         </Row>
         <FlowChart
           panels={panels}

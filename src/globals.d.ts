@@ -11,6 +11,7 @@ type Panel = {
   drawing: string;
   text: string;
   nextId?: number;
+  prevId?: number;
   choices?: Choice[];
 }
 
