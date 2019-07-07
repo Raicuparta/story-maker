@@ -36,4 +36,10 @@ export const Thumbnail = styled.img`
   margin: 5px;
   border: 5px solid ${Colors.secondaryVariant};
   border-radius: 10px;
+  cursor: pointer;
+  
+    
+  :hover {
+    border-color: ${Colors.primaryVariant};
+  }
 `

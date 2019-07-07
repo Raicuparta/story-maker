@@ -8,6 +8,7 @@ type Panel = {
   text: string;
   nextIds: number[];
   prevId?: number;
+  id: number;
 }
 
 type Bounds = {
@@ -21,6 +22,8 @@ type SerializedPanel = {
   drawing: string;
   text: string;
   nextIds: string;
+  prevId?: number;
+  id: number;
 }
 
 type SerializedData = {

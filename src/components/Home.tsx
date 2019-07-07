@@ -14,6 +14,7 @@ import {
   Thumbnail,
 } from '../styles/Home.style';
 import Canvas from './Canvas';
+import { hot } from 'react-hot-loader/root';
 
 const Home: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
     drawing: '',
     text: '',
     nextIds: [],
+    id: 0,
   }]);
 
   const currentPanel = panels[selected];
@@ -28,15 +30,20 @@ const Home: React.FC = () => {
   const nextPanels = currentPanel.nextIds.map(id => panels[id]);
 
   function handlePublishClick() {
-    database.ref('stories').push(
-      {
-        panels: panels.map(panel => ({
-          nextIds: JSON.stringify(panel.nextIds),
-          drawing: panel.drawing,
-          text: panel.text,
-        })),
-      }
-    ).then(() => console.log('done publishing'));
+    const data: SerializedData = {
+      panels: panels.map(panel => ({
+        nextIds: JSON.stringify(panel.nextIds),
+        drawing: panel.drawing,
+        text: panel.text,
+        id: panel.id,
+        ...(panel.prevId !== undefined ? { prevId: panel.prevId } : {}),
+      })),
+    };
+
+    database
+      .ref('stories')
+      .push(data)
+      .then(() => console.log('done publishing'));
   }
 
   function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -60,6 +67,8 @@ const Home: React.FC = () => {
         drawing: panel.drawing,
         nextIds: JSON.parse(panel.nextIds),
         text: panel.text,
+        prevId: panel.prevId,
+        id: panel.id,
       })));
     })
   }
@@ -80,6 +89,7 @@ const Home: React.FC = () => {
           text: '',
           prevId,
           nextIds: [],
+          id: newPanels.length,
         });
       }
 
@@ -141,7 +151,7 @@ const Home: React.FC = () => {
           <Column>
             {nextPanels.map(panel => (
               <Thumbnail
-                key={panel.drawing}
+                key={panel.id}
                 src={panel.drawing}
               />
             ))}
@@ -157,4 +167,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home;
+export default hot(Home);
