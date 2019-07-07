@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 
-import DrawingSVG from './DrawingSVG';
 import {
   Wrapper,
   Node,
@@ -107,7 +106,6 @@ const PanelPreview: React.FC<{
   panel: Panel,
 }> = ({ panel }) => (
   <Preview>
-    {/* <DrawingSVG lines={panel.drawing}/> */}
     <TextPreview>{panel.text}</TextPreview>
   </Preview>
 );

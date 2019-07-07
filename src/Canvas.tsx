@@ -11,7 +11,7 @@ const viewBoxSize = {
 };
 
 const Canvas: React.FC<{
-  onChange: (dataURL: string) => void,
+  onChange?: (dataURL: string) => void,
   dataURL: string,
 }> = ({
   onChange,
@@ -107,7 +107,9 @@ const Canvas: React.FC<{
     setPrevPosition(undefined);
 
     if (canvas && context && isDrawing) {
-      onChange(canvas.toDataURL());
+      if (onChange) {
+        onChange(canvas.toDataURL());
+      }
       context.closePath();
     }
   }
