@@ -62,22 +62,12 @@ const FlowChart: React.FC<{
             <PanelPreview panel={panel} />
           )}
         </Node>
-        {panel.nextId && (
-          <PanelNode
-            id={panel.nextId}
-            position={{
-              x: position.x,
-              y: position.y + 40,
-            }}
-            depth={depth}
-          />
-        )}
-        {panel.choices && (
+        {panel.nextIds && (
           <NodeFork>
-            {panel.choices.map((choice, index) => (
+            {panel.nextIds.map((id, index) => (
               <PanelNode
-                key={choice.id}
-                id={choice.id}
+                key={id}
+                id={id}
                 position={{
                   x: position.x - xBranchOffset + (2 * xBranchOffset * index) ,
                   y: position.y + 40,

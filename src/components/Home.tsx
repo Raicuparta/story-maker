@@ -24,16 +24,13 @@ const Home: React.FC = () => {
 
   const currentPanel = panels[selected];
   const prevPanel = currentPanel.prevId !== undefined && panels[currentPanel.prevId];
-  const nextPanels = currentPanel.nextId !== undefined ?
-    [panels[currentPanel.nextId]] :
-    currentPanel.choices && currentPanel.choices.map(choice => panels[choice.id]);
+  const nextPanels = currentPanel.nextIds && currentPanel.nextIds.map(id => panels[id]);
 
   function handlePublishClick() {
     database.ref('stories').push(
       {
         panels: panels.map(panel => ({
-          ...(panel.choices ? {choices: JSON.stringify(panel.choices)} : {}),
-          ...(panel.nextId ? {nextId: panel.nextId} : {}),
+          ...(panel.nextIds ? {choices: JSON.stringify(panel.nextIds)} : {}),
           drawing: JSON.stringify(panel.drawing),
           text: panel.text,
         })),
@@ -77,11 +74,11 @@ const Home: React.FC = () => {
   }
 
   function handleNewPanelClick() {
-    if (currentPanel.nextId || currentPanel.choices) return;
+    if (currentPanel.nextIds) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[selected].nextId = panels.length;
+      newPanels[selected].nextIds = [panels.length];
       newPanels.push({
         drawing: '',
         text: '',
@@ -93,13 +90,13 @@ const Home: React.FC = () => {
   }
 
   function handleNewChoiceClick() {
-    if (currentPanel.nextId || currentPanel.choices) return;
+    if (currentPanel.nextIds) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[selected].choices = [
-        {id: newPanels.length},
-        {id: newPanels.length + 1},
+      newPanels[selected].nextIds = [
+        newPanels.length,
+        newPanels.length + 1,
       ];
       newPanels.push({
         drawing: '',

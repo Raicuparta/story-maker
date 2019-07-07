@@ -10,13 +10,8 @@ type LinePath = Line[]
 type Panel = {
   drawing: string;
   text: string;
-  nextId?: number;
+  nextIds?: number[];
   prevId?: number;
-  choices?: Choice[];
-}
-
-type Choice = {
-  id: number;
 }
 
 type Bounds = {
