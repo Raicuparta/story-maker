@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { hot } from 'react-hot-loader'
 
 import Colors from '../styles/colors';
 import {
@@ -135,4 +134,4 @@ const Canvas: React.FC<{
   );
 };
 
-export default hot(module)(Canvas);
+export default Canvas;
