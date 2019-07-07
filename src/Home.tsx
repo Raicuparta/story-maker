@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { hot } from 'react-hot-loader'
 
 import database from './database';
 import {
@@ -175,4 +176,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home;
+export default hot(module)(Home);

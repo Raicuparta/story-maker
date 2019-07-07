@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { hot } from 'react-hot-loader'
 
 import {
   Wrapper,
@@ -110,4 +111,4 @@ const PanelPreview: React.FC<{
   </Preview>
 );
 
-export default FlowChart;
+export default hot(module)(FlowChart);
