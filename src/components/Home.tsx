@@ -57,7 +57,7 @@ const Home: React.FC = () => {
       const panels = Object.values<SerializedData>(val)[0].panels;
 
       setPanels(panels.map(panel => ({
-        drawing: JSON.parse(panel.drawing),
+        drawing: panel.drawing,
         nextIds: JSON.parse(panel.nextIds),
         text: panel.text,
       })));
