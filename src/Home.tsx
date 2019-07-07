@@ -6,13 +6,13 @@ import {
   Column,
   Button,
 } from './UI';
-import DrawArea from './DrawArea';
 import FlowChart from './FlowChart';
 import {
   Wrapper,
   TextInput,
   DrawColumn,
 } from './Home.style';
+import Canvas from './Canvas';
 
 const Home: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -44,7 +44,7 @@ const Home: React.FC = () => {
     setPanels(newPanels);
   }
 
-  function handleLoadClick() {    
+  function handleLoadClick() {
     database.ref('stories').limitToLast(1).once('value').then(snapshot => {
       const val = snapshot.val();
       if (!val) return;
@@ -124,10 +124,11 @@ const Home: React.FC = () => {
   return (
     <Wrapper>
       <DrawColumn>
-        <DrawArea
+        {/* <DrawArea
           lines={panels[selected].drawing}
           onChange={handleDrawingChange}
-        />
+        /> */}
+        <Canvas />
         <TextInput
           onChange={handleTextChange}
           value={panels[selected].text}
