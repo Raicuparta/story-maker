@@ -3,10 +3,6 @@ type Point = {
   y: number;
 }
 
-type Line = Point[]
-
-type LinePath = Line[]
-
 type Panel = {
   drawing: string;
   text: string;
@@ -23,7 +19,6 @@ type Bounds = {
 
 type SerializedPanel = {
   drawing: string;
-  choices: string;
   text: string;
   nextIds: string;
 }
