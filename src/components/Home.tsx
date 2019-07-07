@@ -147,7 +147,10 @@ const Home: React.FC = () => {
           </Column>
           <Column>
             {nextPanels.map(panel => (
-              <Thumbnail src={panel.drawing} />
+              <Thumbnail
+                key={panel.drawing}
+                src={panel.drawing}
+              />
             ))}
           </Column>
         </Row>
