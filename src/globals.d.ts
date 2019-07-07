@@ -10,7 +10,7 @@ type LinePath = Line[]
 type Panel = {
   drawing: string;
   text: string;
-  nextIds?: number[];
+  nextIds: number[];
   prevId?: number;
 }
 
@@ -19,4 +19,15 @@ type Bounds = {
   height: number;
   top: number;
   left: number;
+}
+
+type SerializedPanel = {
+  drawing: string;
+  choices: string;
+  text: string;
+  nextIds: string;
+}
+
+type SerializedData = {
+  panels: SerializedPanel[];
 }

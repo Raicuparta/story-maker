@@ -20,18 +20,25 @@ const Home: React.FC = () => {
   const [panels, setPanels] = useState<Panel[]>([{
     drawing: '',
     text: '',
+    nextIds: [],
   }]);
 
   const currentPanel = panels[selected];
   const prevPanel = currentPanel.prevId !== undefined && panels[currentPanel.prevId];
-  const nextPanels = currentPanel.nextIds && currentPanel.nextIds.map(id => panels[id]);
+  const nextPanels = currentPanel.nextIds.map(id => panels[id]);
+  const newPanel = (prevId: number) => ({
+    drawing: '',
+    text: '',
+    prevId,
+    nextIds: [],
+  });
 
   function handlePublishClick() {
     database.ref('stories').push(
       {
         panels: panels.map(panel => ({
-          ...(panel.nextIds ? {choices: JSON.stringify(panel.nextIds)} : {}),
-          drawing: JSON.stringify(panel.drawing),
+          nextIds: JSON.stringify(panel.nextIds),
+          drawing: panel.drawing,
           text: panel.text,
         })),
       }
@@ -53,18 +60,12 @@ const Home: React.FC = () => {
       const val = snapshot.val();
       if (!val) return;
 
-      const panels = Object.values<{ panels: {
-        drawing: string,
-        choices: string,
-        text: string,
-        nextId: number,
-      }[] }>(val)[0].panels;
+      const panels = Object.values<SerializedData>(val)[0].panels;
 
       setPanels(panels.map(panel => ({
         drawing: JSON.parse(panel.drawing),
-        choices: panel.choices ? JSON.parse(panel.choices): undefined,
+        nextIds: JSON.parse(panel.nextIds),
         text: panel.text,
-        nextId: panel.nextId,
       })));
     })
   }
@@ -74,40 +75,28 @@ const Home: React.FC = () => {
   }
 
   function handleNewPanelClick() {
-    if (currentPanel.nextIds) return;
+    if (currentPanel.nextIds.length > 0) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[selected].nextIds = [panels.length];
-      newPanels.push({
-        drawing: '',
-        text: '',
-        prevId: selected,
-      });
+      newPanels[selected].nextIds.push(panels.length);
+      newPanels.push(newPanel(selected));
 
       return newPanels;
     });
   }
 
   function handleNewChoiceClick() {
-    if (currentPanel.nextIds) return;
+    if (currentPanel.nextIds.length > 0) return;
 
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[selected].nextIds = [
+      newPanels[selected].nextIds.concat([
         newPanels.length,
         newPanels.length + 1,
-      ];
-      newPanels.push({
-        drawing: '',
-        text: '',
-        prevId: selected,
-      });
-      newPanels.push({
-        drawing: '',
-        text: '',
-        prevId: selected,
-      });
+      ]);
+      newPanels.push(newPanel(selected));
+      newPanels.push(newPanel(selected));
 
       return newPanels;
     });
@@ -157,7 +146,7 @@ const Home: React.FC = () => {
             )}
           </Column>
           <Column>
-            {nextPanels && nextPanels.map(panel => (
+            {nextPanels.map(panel => (
               <Thumbnail src={panel.drawing} />
             ))}
           </Column>
