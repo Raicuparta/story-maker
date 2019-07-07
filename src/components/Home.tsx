@@ -26,12 +26,6 @@ const Home: React.FC = () => {
   const currentPanel = panels[selected];
   const prevPanel = currentPanel.prevId !== undefined && panels[currentPanel.prevId];
   const nextPanels = currentPanel.nextIds.map(id => panels[id]);
-  const newPanel = (prevId: number) => ({
-    drawing: '',
-    text: '',
-    prevId,
-    nextIds: [],
-  });
 
   function handlePublishClick() {
     database.ref('stories').push(
@@ -74,32 +68,31 @@ const Home: React.FC = () => {
     setSelected(index);
   }
 
-  function handleNewPanelClick() {
-    if (currentPanel.nextIds.length > 0) return;
-
+  function addPanels (prevId: number, count: number) {
+    if (currentPanel.nextIds.length > 0) return;  
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
-      newPanels[selected].nextIds.push(panels.length);
-      newPanels.push(newPanel(selected));
+
+      for (let i = 0; i < count; i++) {
+        newPanels[selected].nextIds.push(newPanels.length);
+        newPanels.push({
+          drawing: '',
+          text: '',
+          prevId,
+          nextIds: [],
+        });
+      }
 
       return newPanels;
-    });
+    })
+  };
+
+  function handleNewPanelClick() {
+    addPanels(selected, 1);
   }
 
   function handleNewChoiceClick() {
-    if (currentPanel.nextIds.length > 0) return;
-
-    setPanels(prevPanels => {
-      const newPanels = prevPanels.slice(0);
-      newPanels[selected].nextIds.concat([
-        newPanels.length,
-        newPanels.length + 1,
-      ]);
-      newPanels.push(newPanel(selected));
-      newPanels.push(newPanel(selected));
-
-      return newPanels;
-    });
+    addPanels(selected, 2);
   }
 
   function handleCanvasChange(dataURL: string) {
