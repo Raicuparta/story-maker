@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader'
 
-import Colors from './Colors';
+import Colors from '../styles/colors';
 import {
   Wrapper,
-} from './Canvas.style';
+} from '../styles/Canvas.style';
 
 const viewBoxSize = {
   width: 400,

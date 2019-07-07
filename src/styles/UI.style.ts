@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-import Colors from './Colors';
+import Colors from './colors';
 
 export const Button = styled.button`
   all: unset;

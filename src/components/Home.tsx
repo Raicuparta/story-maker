@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader'
 
-import database from './database';
+import database from '../database';
 import {
   Row,
   Column,
   Button,
-} from './UI';
+} from '../styles/UI.style';
 import FlowChart from './FlowChart';
 import {
   Wrapper,
   TextInput,
   DrawColumn,
   Thumbnail,
-} from './Home.style';
+} from '../styles/Home.style';
 import Canvas from './Canvas';
 
 const Home: React.FC = () => {

@@ -8,7 +8,7 @@ import {
   Preview,
   NodeRow,
   NodeFork,
-} from './FlowChart.style';
+} from '../styles/FlowChart.style';
 
 const FlowChart: React.FC<{
   panels: Panel[],

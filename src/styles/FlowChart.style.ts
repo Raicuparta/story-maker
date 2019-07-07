@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro';
 
-import Colors from './Colors';
+import Colors from './colors';
 
 export const Wrapper = styled.div`
   border: 3px solid ${Colors.secondaryVariant};
