@@ -25,6 +25,10 @@ const Home: React.FC = () => {
     id: 0,
   }]);
 
+  useEffect(() => {
+    setSelected(panels.length - 1);
+  }, [panels.length]);
+
   const currentPanel = panels[selected];
   const prevPanel = currentPanel.prevId !== undefined && panels[currentPanel.prevId];
   const nextPanels = currentPanel.nextIds.map(id => panels[id]);
@@ -116,9 +120,9 @@ const Home: React.FC = () => {
     });
   }
 
-  useEffect(() => {
-    setSelected(panels.length - 1);
-  }, [panels.length]);
+  function handleThumbnailClick(panel: Panel) {
+    setSelected(panel.id);
+  }
 
   return (
     <Wrapper>
@@ -145,7 +149,10 @@ const Home: React.FC = () => {
         <Row>
           <Column>
             {prevPanel && (
-              <Thumbnail src={prevPanel.drawing} />
+              <Thumbnail
+                src={prevPanel.drawing}
+                onClick={() => handleThumbnailClick(prevPanel)}
+              />
             )}
           </Column>
           <Column>
@@ -153,15 +160,11 @@ const Home: React.FC = () => {
               <Thumbnail
                 key={panel.id}
                 src={panel.drawing}
+                onClick={() => handleThumbnailClick(panel)}
               />
             ))}
           </Column>
         </Row>
-        <FlowChart
-          panels={panels}
-          onNodeClick={handleNodeClick}
-          selected={selected}
-        />
       </Column>
     </Wrapper>
   )
