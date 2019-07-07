@@ -107,7 +107,7 @@ const PanelPreview: React.FC<{
   panel: Panel,
 }> = ({ panel }) => (
   <Preview>
-    <DrawingSVG lines={panel.drawing}/>
+    {/* <DrawingSVG lines={panel.drawing}/> */}
     <TextPreview>{panel.text}</TextPreview>
   </Preview>
 );

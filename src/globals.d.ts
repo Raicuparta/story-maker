@@ -8,7 +8,7 @@ type Line = Point[]
 type LinePath = Line[]
 
 type Panel = {
-  drawing: LinePath;
+  drawing: string;
   text: string;
   nextId?: number;
   choices?: Choice[];
@@ -17,7 +17,6 @@ type Panel = {
 type Choice = {
   id: number;
 }
-
 
 type Bounds = {
   width: number;

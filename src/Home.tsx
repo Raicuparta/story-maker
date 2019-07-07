@@ -17,7 +17,7 @@ import Canvas from './Canvas';
 const Home: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
   const [panels, setPanels] = useState<Panel[]>([{
-    drawing: [],
+    drawing: '',
     text: '',
   }]);
 
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
       const newPanels = prevPanels.slice(0);
       newPanels[selected].nextId = panels.length;
       newPanels.push({
-        drawing: [],
+        drawing: '',
         text: '',
       });
 
@@ -94,11 +94,11 @@ const Home: React.FC = () => {
         {id: newPanels.length + 1},
       ];
       newPanels.push({
-        drawing: [],
+        drawing: '',
         text: '',
       });
       newPanels.push({
-        drawing: [],
+        drawing: '',
         text: '',
       });
 
@@ -106,12 +106,12 @@ const Home: React.FC = () => {
     });
   }
 
-  function handleDrawingChange(lines: LinePath) {
+  function handleCanvasChange(dataURL: string) {
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
       newPanels[selected] = {
         ...newPanels[selected],
-        drawing: lines,
+        drawing: dataURL,
       };
       return newPanels;
     });
@@ -124,11 +124,10 @@ const Home: React.FC = () => {
   return (
     <Wrapper>
       <DrawColumn>
-        {/* <DrawArea
-          lines={panels[selected].drawing}
-          onChange={handleDrawingChange}
-        /> */}
-        <Canvas />
+        <Canvas
+          onChange={handleCanvasChange}
+          dataURL={panels[selected].drawing}
+        />
         <TextInput
           onChange={handleTextChange}
           value={panels[selected].text}

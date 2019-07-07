@@ -11,9 +11,11 @@ const viewBoxSize = {
 };
 
 const Canvas: React.FC<{
-  points?: Point[],
+  onChange: (dataURL: string) => void,
+  dataURL: string,
 }> = ({
-  points,
+  onChange,
+  dataURL,
 }) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>();
   const [canvas, setCanvas] = useState<HTMLCanvasElement>();
@@ -21,11 +23,24 @@ const Canvas: React.FC<{
   const [prevPosition, setPrevPosition] = useState<Point>();
 
   useEffect(() => {
-    if (!context || !canvas) return;
+    function clearCanvas() {
+      if (!context || !canvas) return;
 
-    context.fillStyle = Colors.secondary;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-  }, [context, canvas]);
+      context.fillStyle = Colors.secondary;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    if (dataURL && context) {
+      const image = new Image();
+      image.onload = () => {
+        clearCanvas();
+        context.drawImage(image, 0, 0);
+      };
+      image.src = dataURL;
+    } else {
+      clearCanvas();
+    }
+  }, [context, canvas, dataURL]);
 
   function relativePoint(event: React.MouseEvent | React.Touch) : Point {
     const {
@@ -73,7 +88,7 @@ const Canvas: React.FC<{
 
     context.moveTo((prevPosition || position).x, (prevPosition || position).y);
     context.lineTo(position.x, position.y);
-    context.strokeStyle = "black";
+    context.strokeStyle = Colors.primaryVariant;
     context.lineWidth = 1;
     context.filter = 'url(#remove-alpha)';
     context.stroke();
@@ -82,29 +97,28 @@ const Canvas: React.FC<{
   }
   function handleMouseDown() {
     setIsDrawing(true);
+
+    if (context) {
+      context.beginPath();
+    }
   }
   function handleMouseUp() {
     setIsDrawing(false);
     setPrevPosition(undefined);
+
+    if (canvas && context && isDrawing) {
+      onChange(canvas.toDataURL());
+      context.closePath();
+    }
   }
   function handleMouseOut() {
-    setIsDrawing(false);
+    handleMouseUp();
   }
   function handleMouseEnter() {
 
   }
 
   return (
-    <>
-    <svg width="0" height="0">
-      <defs>
-        <filter id="remove-alpha" x="0" y="0" width="100%" height="100%">
-          <feComponentTransfer>
-            <feFuncA type="discrete" tableValues="0 1"></feFuncA>
-          </feComponentTransfer>
-          </filter>
-      </defs>
-    </svg>
     <Wrapper
       ref={setCanvasRef}
       onMouseMove={handleMouseMove}
@@ -115,7 +129,6 @@ const Canvas: React.FC<{
       width={viewBoxSize.width}
       height={viewBoxSize.height}
     />
-    </>
   );
 };
 
