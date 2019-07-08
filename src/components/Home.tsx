@@ -6,7 +6,6 @@ import {
   Column,
   Button,
 } from '../styles/UI.style';
-import FlowChart from './FlowChart';
 import {
   Wrapper,
   TextInput,
@@ -14,7 +13,6 @@ import {
   Thumbnail,
 } from '../styles/Home.style';
 import Canvas from './Canvas';
-import { hot } from 'react-hot-loader/root';
 
 const Home: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -75,10 +73,6 @@ const Home: React.FC = () => {
         id: panel.id,
       })));
     })
-  }
-
-  function handleNodeClick(panel: Panel, index: number) {
-    setSelected(index);
   }
 
   function addPanels (prevId: number, count: number) {
@@ -170,4 +164,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default hot(Home);
+export default Home;

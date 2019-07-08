@@ -8,3 +8,4 @@ The idea is to have a tool that lets you draw your own ugly-ass Choose Your Own 
 * Big daddy [TypeScript](https://github.com/Microsoft/TypeScript)
 * Some sexy [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 * Those beautiful [Styled Components](https://github.com/styled-components/styled-components)
+* The very handy [React Hot Loader](https://github.com/gaearon/react-hot-loader)
