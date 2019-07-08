@@ -75,7 +75,7 @@ const Canvas: React.FC<{
   }
 
   function setCanvasRef(instance: HTMLCanvasElement | null) {
-    if (!instance) return;
+    if (!instance || canvas || context) return;
 
     setCanvas(instance);
     setContext(instance.getContext('2d') || undefined);

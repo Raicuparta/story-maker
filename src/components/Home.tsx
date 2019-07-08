@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import database from '../database';
 import {
@@ -10,9 +10,9 @@ import {
   Wrapper,
   TextInput,
   DrawColumn,
-  Thumbnail,
 } from '../styles/Home.style';
 import Canvas from './Canvas';
+import Thumbnail from './Thumbnail';
 
 const Home: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -22,10 +22,6 @@ const Home: React.FC = () => {
     nextIds: [],
     id: 0,
   }]);
-
-  useEffect(() => {
-    setSelected(panels.length - 1);
-  }, [panels.length]);
 
   const currentPanel = panels[selected];
   const prevPanel = currentPanel.prevId !== undefined && panels[currentPanel.prevId];
@@ -75,33 +71,22 @@ const Home: React.FC = () => {
     })
   }
 
-  function addPanels (prevId: number, count: number) {
-    if (currentPanel.nextIds.length > 0) return;  
+  function handleNewPanelClick() {
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
 
-      for (let i = 0; i < count; i++) {
-        newPanels[selected].nextIds.push(newPanels.length);
-        newPanels.push({
-          drawing: '',
-          text: '',
-          prevId,
-          nextIds: [],
-          id: newPanels.length,
-        });
-      }
+      newPanels[selected].nextIds.push(newPanels.length);
+      newPanels.push({
+        drawing: '',
+        text: '',
+        prevId: selected,
+        nextIds: [],
+        id: newPanels.length,
+      });
 
       return newPanels;
     })
   };
-
-  function handleNewPanelClick() {
-    addPanels(selected, 1);
-  }
-
-  function handleNewChoiceClick() {
-    addPanels(selected, 2);
-  }
 
   function handleCanvasChange(dataURL: string) {
     setPanels(prevPanels => {
@@ -137,26 +122,29 @@ const Home: React.FC = () => {
       </DrawColumn>
       <Column>
         <Row>
-          <Button onClick={handleNewChoiceClick}>+ Choice</Button>
-          <Button onClick={handleNewPanelClick}>+ Panel</Button>
-        </Row>
-        <Row>
           <Column>
             {prevPanel && (
-              <Thumbnail
-                src={prevPanel.drawing}
-                onClick={() => handleThumbnailClick(prevPanel)}
-              />
+              <Button onClick={() => handleThumbnailClick(prevPanel)}>
+                Previous Panel
+                <Thumbnail src={prevPanel.drawing} />
+              </Button>
             )}
           </Column>
           <Column>
             {nextPanels.map(panel => (
-              <Thumbnail
+              <Button
                 key={panel.id}
-                src={panel.drawing}
                 onClick={() => handleThumbnailClick(panel)}
-              />
+              >
+                Next Panel
+                <Thumbnail src={panel.drawing} />
+              </Button>
             ))}
+            {nextPanels.length < 2 && (
+              <Button onClick={handleNewPanelClick}>
+                Add Panel
+              </Button>
+            )}
           </Column>
         </Row>
       </Column>
