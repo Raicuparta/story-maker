@@ -11,7 +11,7 @@ import {
   TextInput,
   DrawColumn,
 } from '../styles/Home.style';
-import Canvas from './Canvas';
+import Drawing from './Drawing';
 import Thumbnail from './Thumbnail';
 
 const Home: React.FC = () => {
@@ -106,7 +106,7 @@ const Home: React.FC = () => {
   return (
     <Wrapper>
       <DrawColumn>
-        <Canvas
+        <Drawing
           onChange={handleCanvasChange}
           dataURL={currentPanel.drawing}
         />

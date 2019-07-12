@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import Colors from '../styles/colors';
 import {
-  Wrapper,
-} from '../styles/Canvas.style';
+  Canvas,
+} from '../styles/Drawing.style';
 
 const viewBoxSize = {
   width: 400,
   height: 300,
 };
 
-const Canvas: React.FC<{
+const Drawing: React.FC<{
   onChange?: (dataURL: string) => void,
   dataURL: string,
 }> = ({
@@ -90,7 +90,6 @@ const Canvas: React.FC<{
     context.lineTo(position.x, position.y);
     context.strokeStyle = Colors.primaryVariant;
     context.lineWidth = 1;
-    context.filter = 'url(#remove-alpha)';
     context.stroke();
 
     setPrevPosition(position);
@@ -121,7 +120,7 @@ const Canvas: React.FC<{
   }
 
   return (
-    <Wrapper
+    <Canvas
       ref={setCanvasRef}
       onMouseMove={handleMouseMove}
       onMouseDown={handleMouseDown}
@@ -134,4 +133,4 @@ const Canvas: React.FC<{
   );
 };
 
-export default Canvas;
+export default Drawing;
