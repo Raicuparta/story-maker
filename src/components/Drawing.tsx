@@ -86,6 +86,15 @@ const Drawing: React.FC<{
 
     const position: Point = relativePoint(mouseEvent);
 
+    // OK hear me out.
+    // There's a bug in Chrome that makes canvas fail to update if the updated
+    // area is outside the canvas' original bounds, without taking into account
+    // the resizing / translation done by css property content-fit: contain.
+    // So I need to update this extra point in the origin, to make sure the
+    // canvas always refreshes as it should.
+    context.fillRect(0, 0, 1, 1);
+
+    context.beginPath();
     context.moveTo((prevPosition || position).x, (prevPosition || position).y);
     context.lineTo(position.x, position.y);
     context.strokeStyle = Colors.primaryVariant;
@@ -96,20 +105,13 @@ const Drawing: React.FC<{
   }
   function handleMouseDown() {
     setIsDrawing(true);
-
-    if (context) {
-      context.beginPath();
-    }
   }
   function handleMouseUp() {
     setIsDrawing(false);
     setPrevPosition(undefined);
 
-    if (canvas && context && isDrawing) {
-      if (onChange) {
-        onChange(canvas.toDataURL());
-      }
-      context.closePath();
+    if (canvas && isDrawing && onChange) {
+      onChange(canvas.toDataURL());
     }
   }
   function handleMouseOut() {
