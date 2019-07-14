@@ -9,8 +9,8 @@ import {
 } from '../styles/Drawing.style';
 
 const viewBoxSize = {
-  width: 100,
-  height: 75,
+  width: 80,
+  height: 60,
 };
 
 const Drawing: React.FC<{
@@ -89,13 +89,13 @@ const Drawing: React.FC<{
     }
 
     function draw(event: React.MouseEvent | React.Touch) {
-      if (!isDrawing || !context || !canvas) return;
+      if (!context || !canvas) return;
 
       const position: Point = relativePoint(event);
       const line = bresenham(prevPosition || position, position);
 
       for (let point of line) {
-        context.fillRect(point.x, point.y, 2, 2);
+        context.fillRect(point.x, point.y, 1, 1);
       }
 
       onChange(canvas.toDataURL());
@@ -104,10 +104,22 @@ const Drawing: React.FC<{
     }
 
     function handleMouseMove(mouseEvent: React.MouseEvent) {
-      draw(mouseEvent)
+      if (isDrawing) {
+        draw(mouseEvent);
+      }
     }
 
     function handleTouchMove(touchEvent: React.TouchEvent) {
+      draw(touchEvent.touches[0]);
+    }
+
+    function handleMouseDown(mouseEvent: React.MouseEvent) {
+      startDrawing();
+      draw(mouseEvent);
+    }
+
+    function handleTouchStart(touchEvent: React.TouchEvent) {
+      startDrawing();
       draw(touchEvent.touches[0]);
     }
 
@@ -129,8 +141,8 @@ const Drawing: React.FC<{
           ref={setCanvasRef}
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}
-          onTouchStart={startDrawing}
-          onMouseDown={startDrawing}
+          onTouchStart={handleTouchStart}
+          onMouseDown={handleMouseDown}
           onMouseUp={stopDrawing}
           onTouchEnd={stopDrawing}
           onMouseOut={stopDrawing}
