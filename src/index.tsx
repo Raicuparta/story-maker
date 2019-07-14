@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { hot } from 'react-hot-loader/root';
 
-import Home from './Home';
-import { GlobalStyle } from './index.style';
+import Home from './components/Home';
+import { GlobalStyle } from './styles/Global.style';
 
-ReactDOM.render(
+const App: React.FC = hot(() => (
   <>
     <GlobalStyle/>
     <Home />
   </>
-, document.getElementById('root'));
+));
+
+ReactDOM.render(<App />, document.getElementById('root'));

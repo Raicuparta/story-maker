@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-import Colors from './Colors';
+import Colors from './colors';
 
 export const Button = styled.button`
   all: unset;
@@ -14,11 +14,11 @@ export const Button = styled.button`
   border: solid 3px ${Colors.secondaryVariant};
   
   :hover {
-    background: ${Colors.primary};
+    border-color: ${Colors.primaryVariant};
   }
   
   :active {
-    border-color: ${Colors.primaryVariant};
+    background: ${Colors.primary};
   }
 `;
 

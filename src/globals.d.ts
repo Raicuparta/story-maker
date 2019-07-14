@@ -3,25 +3,34 @@ type Point = {
   y: number;
 }
 
-type Line = Point[]
-
-type LinePath = Line[]
-
 type Panel = {
-  drawing: LinePath;
+  dataURL: string;
   text: string;
-  nextId?: number;
-  choices?: Choice[];
-}
-
-type Choice = {
+  nextIds: number[];
+  prevId?: number;
   id: number;
 }
-
 
 type Bounds = {
   width: number;
   height: number;
   top: number;
   left: number;
+}
+
+type SerializedPanel = {
+  dataURL: string;
+  text: string;
+  nextIds: string;
+  prevId?: number;
+  id: number;
+}
+
+type SerializedData = {
+  panels: SerializedPanel[];
+}
+
+// Prevent auto import of console
+declare module 'console' {
+  export = typeof import("console");
 }
