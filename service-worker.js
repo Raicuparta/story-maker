@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/story-maker/precache-manifest.fe59b2d0ef912dcb2a4f7d169e86ec60.js"
+  "/story-maker/precache-manifest.81e3ad83be6ff50897be8c2d523ddec1.js"
 );
 
 self.addEventListener('message', (event) => {

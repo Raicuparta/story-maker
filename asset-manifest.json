@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/story-maker/static/js/main.34e30226.chunk.js",
-    "main.js.map": "/story-maker/static/js/main.34e30226.chunk.js.map",
+    "main.js": "/story-maker/static/js/main.8ec94b71.chunk.js",
+    "main.js.map": "/story-maker/static/js/main.8ec94b71.chunk.js.map",
     "runtime~main.js": "/story-maker/static/js/runtime~main.06a4b95a.js",
     "runtime~main.js.map": "/story-maker/static/js/runtime~main.06a4b95a.js.map",
     "static/js/2.e5326da6.chunk.js": "/story-maker/static/js/2.e5326da6.chunk.js",
     "static/js/2.e5326da6.chunk.js.map": "/story-maker/static/js/2.e5326da6.chunk.js.map",
     "index.html": "/story-maker/index.html",
-    "precache-manifest.fe59b2d0ef912dcb2a4f7d169e86ec60.js": "/story-maker/precache-manifest.fe59b2d0ef912dcb2a4f7d169e86ec60.js",
+    "precache-manifest.81e3ad83be6ff50897be8c2d523ddec1.js": "/story-maker/precache-manifest.81e3ad83be6ff50897be8c2d523ddec1.js",
     "service-worker.js": "/story-maker/service-worker.js"
   }
 }
