@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 
 import Colors from './colors';
 
@@ -7,16 +7,22 @@ const ButtonBase = styled.button`
   background: ${Colors.secondaryVariant};
   margin: 5px;
   text-align: center;
-  cursor: pointer;
-  border: solid 3px ${Colors.secondaryVariant};
-  
-  :hover {
+  border: solid 3px ${Colors.primary};
+
+  ${props => props.onClick && css`
+    cursor: pointer;
+
     border-color: ${Colors.primaryVariant};
-  }
   
-  :active {
-    background: ${Colors.primary};
-  }
+    :hover {
+      border-color: ${Colors.secondaryVariant};
+    }
+
+    :active {
+      background: ${Colors.primary};
+      border-color: ${Colors.primaryVariant};
+    }
+  `}
 `
 
 export const Button = styled(ButtonBase)`

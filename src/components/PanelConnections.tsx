@@ -8,6 +8,8 @@ import {
 import Thumbnail from './Thumbnail';
 import { RoundButton } from '../styles/UI.style';
 
+const MAX_NEXT_PANELS = 2;
+
 const PanelConnections: React.FC<{
   prevPanel?: Panel,
   currentPanel: Panel,
@@ -29,6 +31,11 @@ const PanelConnections: React.FC<{
         </RoundButton>
       </PanelsWrapper>
     )}
+    {!prevPanel && (
+      <PanelsWrapper>
+        <RoundButton />
+      </PanelsWrapper>
+    )}
     <PanelsWrapper>
       <RoundButton>
         <Thumbnail src={currentPanel.dataURL} />
@@ -43,11 +50,18 @@ const PanelConnections: React.FC<{
           <Thumbnail src={panel.dataURL} />
         </RoundButton>
       ))}
-      {nextPanels.length < 2 && (
-        <RoundButton onClick={onNewPanelClick}>
-          <NewPannelText>+</NewPannelText>
-        </RoundButton>
-      )}
+      {
+        // Generate an array of numbers from 0 to MAX_NEXT_PANELS
+        Object.keys([...Array(MAX_NEXT_PANELS - nextPanels.length)])
+          .map(panel => (
+            <RoundButton 
+              key={panel}
+              onClick={onNewPanelClick}
+            >
+              <NewPannelText>+</NewPannelText>
+            </RoundButton>
+          ))
+      }
     </PanelsWrapper>
   </Wrapper>
 );
