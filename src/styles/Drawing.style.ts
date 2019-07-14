@@ -5,8 +5,6 @@ import Colors from './colors';
 export const Wrapper = styled.div`
   flex: 1;
   background: ${Colors.secondaryVariant};
-  margin: 5px;
-  border-radius: 10px;
   position: relative;
   overflow: hidden;
 `
@@ -29,4 +27,5 @@ export const Canvas = styled.canvas`
   top: 0;
   left: 0;
   opacity: 0;
+  touch-action: none;
 `
