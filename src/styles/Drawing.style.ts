@@ -7,6 +7,9 @@ export const Wrapper = styled.div`
   background: ${Colors.secondaryVariant};
   position: relative;
   overflow: hidden;
+  margin: 5px;
+  border-radius: 10px;
+  overflow: hidden;
 `
 
 export const DrawingImage = styled.img`

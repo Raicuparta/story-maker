@@ -9,10 +9,9 @@ import {
 import {
   Wrapper,
   TextInput,
-  DrawColumn,
 } from '../styles/Home.style';
 import Drawing from './Drawing';
-import Thumbnail from './Thumbnail';
+import PanelConnections from './PanelConnections';
 
 const Home: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
@@ -24,7 +23,7 @@ const Home: React.FC = () => {
   }]);
 
   const currentPanel = panels[selected];
-  const prevPanel = currentPanel.prevId !== undefined && panels[currentPanel.prevId];
+  const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined;
   const nextPanels = currentPanel.nextIds.map(id => panels[id]);
 
   function handlePublishClick() {
@@ -99,13 +98,13 @@ const Home: React.FC = () => {
     });
   }
 
-  function handleThumbnailClick(panel: Panel) {
+  function handlePanelConnectionClick(panel: Panel) {
     setSelected(panel.id);
   }
 
   return (
     <Wrapper>
-      <DrawColumn>
+      <Column>
         <Drawing
           onChange={handleCanvasChange}
           dataURL={currentPanel.dataURL}
@@ -119,35 +118,14 @@ const Home: React.FC = () => {
           <Button onClick={handleLoadClick}>[Load From Database]</Button>
           <Button onClick={handlePublishClick}>Publish</Button>
         </Row>
-      </DrawColumn>
-      <Column>
-        <Row>
-          <Column>
-            {prevPanel && (
-              <Button onClick={() => handleThumbnailClick(prevPanel)}>
-                Previous Panel
-                <Thumbnail src={prevPanel.dataURL} />
-              </Button>
-            )}
-          </Column>
-          <Column>
-            {nextPanels.map(panel => (
-              <Button
-                key={panel.id}
-                onClick={() => handleThumbnailClick(panel)}
-              >
-                Next Panel Thumb
-                <Thumbnail src={panel.dataURL} />
-              </Button>
-            ))}
-            {nextPanels.length < 2 && (
-              <Button onClick={handleNewPanelClick}>
-                Add Panel
-              </Button>
-            )}
-          </Column>
-        </Row>
       </Column>
+      <PanelConnections
+        prevPanel={prevPanel}
+        currentPanel={currentPanel}
+        nextPanels={nextPanels}
+        onConnectionClick={handlePanelConnectionClick}
+        onNewPanelClick={handleNewPanelClick}
+      />
     </Wrapper>
   )
 }

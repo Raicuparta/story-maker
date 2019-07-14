@@ -4,14 +4,12 @@ import Colors from './colors';
 
 const common = css`
   width: 100%;
-  border-radius: 5px;
-  margin-top: 5px;
+  height: 100%;
 `
 
 export const ThumbnailImage = styled.img`
   ${common}
   flex: 1;
-  image-rendering: pixelated;
 `
 
 export const Placeholder = styled.div`

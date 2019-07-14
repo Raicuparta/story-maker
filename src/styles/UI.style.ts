@@ -2,12 +2,9 @@ import styled from 'styled-components/macro';
 
 import Colors from './colors';
 
-export const Button = styled.button`
+const ButtonBase = styled.button`
   all: unset;
-  flex: 1;
-  padding: 7px;
   background: ${Colors.secondaryVariant};
-  border-radius: 5px;
   margin: 5px;
   text-align: center;
   cursor: pointer;
@@ -20,14 +17,30 @@ export const Button = styled.button`
   :active {
     background: ${Colors.primary};
   }
-`;
+`
 
-export const Row = styled.div`
-  display: flex;
-`;
-
-export const Column = styled.div`
+export const Button = styled(ButtonBase)`
   flex: 1;
+  border-radius: 5px;
+  padding: 7px;
+`;
+
+export const RoundButton = styled(ButtonBase)`
+  border-radius: 100%;
+  flex: unset;
+  overflow: hidden;
+  height: 80px;
+  width: 80px;
+`
+
+const Base = styled.div`
   display: flex;
+  justify-content: center;
+`
+
+export const Row = styled(Base)``;
+
+export const Column = styled(Base)`
+  flex: 1;
   flex-direction: column;
 `;

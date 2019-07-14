@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
 import Colors from './colors';
-import { Row, Column } from './UI.style';
+import { Row } from './UI.style';
 
 export const Wrapper = styled(Row)`
   background: ${Colors.primary};
@@ -24,8 +24,4 @@ export const TextInput = styled.textarea`
   ::placeholder {
     color: ${Colors.secondaryVariant}
   }
-`;
-
-export const DrawColumn = styled(Column)`
-  flex: 2;
 `;
