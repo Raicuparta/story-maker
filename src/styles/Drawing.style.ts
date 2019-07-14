@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   margin: 5px;
   border-radius: 10px;
   position: relative;
+  overflow: hidden;
 `
 
 export const DrawingImage = styled.img`

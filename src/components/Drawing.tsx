@@ -38,12 +38,16 @@ const Drawing: React.FC<{
       }
       context.fillStyle = Colors.primary;
 
-      const image = new Image;
-      image.onload = function () {
-        context.drawImage(image, 0, 0);
+      // When dataURL is updated, we update the canvas with the new image.
+      // But only when a new full image is being loaded, not when we are drawing.
+      if (!isDrawing) {
+        const image = new Image();
+        image.onload = function () {
+          context.drawImage(image, 0, 0);
+        }
+        image.src = dataURL;
       }
-      image.src = dataURL;
-    }, [context, canvas, dataURL]);
+    }, [context, canvas, dataURL, isDrawing, onChange]);
 
     function relativePoint(event: React.MouseEvent | React.Touch): Point {
       const {
@@ -84,10 +88,10 @@ const Drawing: React.FC<{
       setContext(instance.getContext('2d') || undefined);
     }
 
-    function handleMouseMove(mouseEvent: React.MouseEvent) {
+    function draw(event: React.MouseEvent | React.Touch) {
       if (!isDrawing || !context || !canvas) return;
 
-      const position: Point = relativePoint(mouseEvent);
+      const position: Point = relativePoint(event);
       const line = bresenham(prevPosition || position, position);
 
       for (let point of line) {
@@ -98,15 +102,22 @@ const Drawing: React.FC<{
 
       setPrevPosition(position);
     }
-    function handleMouseDown() {
+
+    function handleMouseMove(mouseEvent: React.MouseEvent) {
+      draw(mouseEvent)
+    }
+
+    function handleTouchMove(touchEvent: React.TouchEvent) {
+      draw(touchEvent.touches[0]);
+    }
+
+    function startDrawing() {
       setIsDrawing(true);
     }
-    function handleMouseUp() {
+
+    function stopDrawing() {
       setIsDrawing(false);
       setPrevPosition(undefined);
-    }
-    function handleMouseOut() {
-      handleMouseUp();
     }
 
     return (
@@ -117,9 +128,12 @@ const Drawing: React.FC<{
         <Canvas
           ref={setCanvasRef}
           onMouseMove={handleMouseMove}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseOut={handleMouseOut}
+          onTouchMove={handleTouchMove}
+          onTouchStart={startDrawing}
+          onMouseDown={startDrawing}
+          onMouseUp={stopDrawing}
+          onTouchEnd={stopDrawing}
+          onMouseOut={stopDrawing}
           width={viewBoxSize.width}
           height={viewBoxSize.height}
         />
