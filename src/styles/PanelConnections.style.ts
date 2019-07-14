@@ -24,4 +24,8 @@ export const PanelsWrapper = styled(Row)`
 export const NewPannelText = styled.div`
   margin-top: -22px;
   font-size: 5em;
+
+  @media (orientation:portrait) {
+    font-size: 3.8em;
+  }
 `

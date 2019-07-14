@@ -37,6 +37,11 @@ export const RoundButton = styled(ButtonBase)`
   overflow: hidden;
   height: 80px;
   width: 80px;
+
+  @media (orientation:portrait) {
+    height: 50px;
+    width: 50px;
+  }
 `
 
 const Base = styled.div`
