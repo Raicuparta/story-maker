@@ -4,7 +4,7 @@ type Point = {
 }
 
 type Panel = {
-  drawing: string;
+  drawing: Bitmap;
   text: string;
   nextIds: number[];
   prevId?: number;
@@ -28,4 +28,11 @@ type SerializedPanel = {
 
 type SerializedData = {
   panels: SerializedPanel[];
+}
+
+type Bitmap = (0 | 1)[][];
+
+// Prevent auto import of console
+declare module 'console' {
+  export = typeof import("console");
 }

@@ -12,15 +12,14 @@ const viewBoxSize = {
 };
 
 const Drawing: React.FC<{
-  onChange?: (dataURL: string) => void,
-  dataURL: string,
+  onChange?: (bitmap: Bitmap) => void,
+  bitmap: Bitmap,
 }> = ({
   onChange,
-  dataURL,
+  bitmap,
 }) => {
     const [context, setContext] = useState<CanvasRenderingContext2D>();
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
-    const [points, setPoints] = useState<Point[]>([]);
     const [isDrawing, setIsDrawing] = useState(false);
     const [prevPosition, setPrevPosition] = useState<Point>();
 
@@ -34,15 +33,21 @@ const Drawing: React.FC<{
 
       clearCanvas();
 
-      if (points && context) {
+      if (bitmap && context) {
         context.fillStyle = Colors.primary;
-        for (let point of points) {
-          context.fillRect(point.x, point.y, 1, 1)
+        for (let x = 0; x < bitmap.length; x++) {
+          if (bitmap[x]) {
+            for (let y = 0; y < bitmap[x].length; y++) {
+              if (bitmap[x][y] === 1) {
+                context.fillRect(x, y, 1, 1);
+              }
+            }
+          }
         }
       } else {
         clearCanvas();
       }
-    }, [context, canvas, points]);
+    }, [context, canvas, bitmap]);
 
     function relativePoint(event: React.MouseEvent | React.Touch): Point {
       const {
@@ -84,14 +89,20 @@ const Drawing: React.FC<{
     }
 
     function handleMouseMove(mouseEvent: React.MouseEvent) {
-      if (!isDrawing || !canvas || !context) return;
+      if (!isDrawing || !canvas || !context || !onChange) return;
 
       const position: Point = relativePoint(mouseEvent);
 
-      setPoints(prevPoints => [
-        ...prevPoints,
-        ...bresenham(prevPosition || position, position),
-      ]);
+      const line = bresenham(prevPosition || position, position);
+
+      const newBitmap = bitmap.map(row => row.slice());
+      for (let point of line) {
+        if (!newBitmap[point.x]) {
+          newBitmap[point.x] = [];
+        }
+        newBitmap[point.x][point.y] = 1;
+      }
+      onChange(newBitmap);
 
       setPrevPosition(position);
     }
@@ -101,10 +112,6 @@ const Drawing: React.FC<{
     function handleMouseUp() {
       setIsDrawing(false);
       setPrevPosition(undefined);
-
-      if (canvas && isDrawing && onChange) {
-        onChange(canvas.toDataURL());
-      }
     }
     function handleMouseOut() {
       handleMouseUp();
