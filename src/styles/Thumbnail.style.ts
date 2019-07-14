@@ -11,6 +11,7 @@ const common = css`
 export const ThumbnailImage = styled.img`
   ${common}
   flex: 1;
+  image-rendering: pixelated;
 `
 
 export const Placeholder = styled.div`

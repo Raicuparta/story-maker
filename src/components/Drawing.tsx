@@ -4,6 +4,8 @@ import bresenham from '../bresenham';
 import Colors from '../styles/colors';
 import {
   Canvas,
+  Wrapper,
+  DrawingImage,
 } from '../styles/Drawing.style';
 
 const viewBoxSize = {
@@ -12,11 +14,11 @@ const viewBoxSize = {
 };
 
 const Drawing: React.FC<{
-  onChange?: (bitmap: Bitmap) => void,
-  bitmap: Bitmap,
+  onChange: (dataURL: string) => void,
+  dataURL: string,
 }> = ({
   onChange,
-  bitmap,
+  dataURL,
 }) => {
     const [context, setContext] = useState<CanvasRenderingContext2D>();
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
@@ -24,30 +26,24 @@ const Drawing: React.FC<{
     const [prevPosition, setPrevPosition] = useState<Point>();
 
     useEffect(() => {
-      function clearCanvas() {
-        if (!context || !canvas) return;
+      if (!context || !canvas) {
+        return;
+      }
 
+      if (!dataURL) {
         context.fillStyle = Colors.secondary;
         context.fillRect(0, 0, canvas.width, canvas.height);
-      }
 
-      clearCanvas();
-
-      if (bitmap && context) {
-        context.fillStyle = Colors.primary;
-        for (let x = 0; x < bitmap.length; x++) {
-          if (bitmap[x]) {
-            for (let y = 0; y < bitmap[x].length; y++) {
-              if (bitmap[x][y] === 1) {
-                context.fillRect(x, y, 1, 1);
-              }
-            }
-          }
-        }
-      } else {
-        clearCanvas();
+        onChange(canvas.toDataURL());
       }
-    }, [context, canvas, bitmap]);
+      context.fillStyle = Colors.primary;
+
+      const image = new Image;
+      image.onload = function () {
+        context.drawImage(image, 0, 0);
+      }
+      image.src = dataURL;
+    }, [context, canvas, dataURL]);
 
     function relativePoint(event: React.MouseEvent | React.Touch): Point {
       const {
@@ -89,20 +85,16 @@ const Drawing: React.FC<{
     }
 
     function handleMouseMove(mouseEvent: React.MouseEvent) {
-      if (!isDrawing || !canvas || !context || !onChange) return;
+      if (!isDrawing || !context || !canvas) return;
 
       const position: Point = relativePoint(mouseEvent);
-
       const line = bresenham(prevPosition || position, position);
 
-      const newBitmap = bitmap.map(row => row.slice());
       for (let point of line) {
-        if (!newBitmap[point.x]) {
-          newBitmap[point.x] = [];
-        }
-        newBitmap[point.x][point.y] = 1;
+        context.fillRect(point.x, point.y, 2, 2);
       }
-      onChange(newBitmap);
+
+      onChange(canvas.toDataURL());
 
       setPrevPosition(position);
     }
@@ -116,21 +108,22 @@ const Drawing: React.FC<{
     function handleMouseOut() {
       handleMouseUp();
     }
-    function handleMouseEnter() {
-
-    }
 
     return (
-      <Canvas
-        ref={setCanvasRef}
-        onMouseMove={handleMouseMove}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onMouseOut={handleMouseOut}
-        onMouseEnter={handleMouseEnter}
-        width={viewBoxSize.width}
-        height={viewBoxSize.height}
-      />
+      <Wrapper>
+        {dataURL && (
+          <DrawingImage src={dataURL} />
+        )}
+        <Canvas
+          ref={setCanvasRef}
+          onMouseMove={handleMouseMove}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseOut={handleMouseOut}
+          width={viewBoxSize.width}
+          height={viewBoxSize.height}
+        />
+      </Wrapper>
     );
   };
 

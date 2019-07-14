@@ -17,7 +17,7 @@ import Thumbnail from './Thumbnail';
 const Home: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
   const [panels, setPanels] = useState<Panel[]>([{
-    drawing: [],
+    dataURL: '',
     text: '',
     nextIds: [],
     id: 0,
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
     const data: SerializedData = {
       panels: panels.map(panel => ({
         nextIds: JSON.stringify(panel.nextIds),
-        drawing: JSON.stringify(panel.drawing),
+        dataURL: panel.dataURL,
         text: panel.text,
         id: panel.id,
         ...(panel.prevId !== undefined ? { prevId: panel.prevId } : {}),
@@ -62,8 +62,8 @@ const Home: React.FC = () => {
       const panels = Object.values<SerializedData>(val)[0].panels;
 
       setPanels(panels.map(panel => ({
-        drawing: JSON.parse(panel.drawing),
         nextIds: JSON.parse(panel.nextIds),
+        dataURL: panel.dataURL,
         text: panel.text,
         prevId: panel.prevId,
         id: panel.id,
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
 
       newPanels[selected].nextIds.push(newPanels.length);
       newPanels.push({
-        drawing: [],
+        dataURL: '',
         text: '',
         prevId: selected,
         nextIds: [],
@@ -88,12 +88,12 @@ const Home: React.FC = () => {
     })
   };
 
-  function handleCanvasChange(bitmap: Bitmap) {
+  function handleCanvasChange(dataURL: string) {
     setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0);
       newPanels[selected] = {
         ...newPanels[selected],
-        drawing: bitmap,
+        dataURL,
       };
       return newPanels;
     });
@@ -108,7 +108,7 @@ const Home: React.FC = () => {
       <DrawColumn>
         <Drawing
           onChange={handleCanvasChange}
-          bitmap={currentPanel.drawing}
+          dataURL={currentPanel.dataURL}
         />
         <TextInput
           onChange={handleTextChange}
@@ -126,7 +126,7 @@ const Home: React.FC = () => {
             {prevPanel && (
               <Button onClick={() => handleThumbnailClick(prevPanel)}>
                 Previous Panel
-                {/* <Thumbnail src={prevPanel.drawing} /> */}
+                <Thumbnail src={prevPanel.dataURL} />
               </Button>
             )}
           </Column>
@@ -137,7 +137,7 @@ const Home: React.FC = () => {
                 onClick={() => handleThumbnailClick(panel)}
               >
                 Next Panel Thumb
-                {/* <Thumbnail src={panel.drawing} /> */}
+                <Thumbnail src={panel.dataURL} />
               </Button>
             ))}
             {nextPanels.length < 2 && (
