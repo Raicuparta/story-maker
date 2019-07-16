@@ -1,6 +1,6 @@
-import styled from 'styled-components/macro';
+import styled from "styled-components/macro";
 
-import { Row, Column } from './UI.style';
+import { Column, Row } from "./UI.style";
 
 export const Wrapper = styled(Column)`
   flex-direction: column;
@@ -11,7 +11,7 @@ export const Wrapper = styled(Column)`
   @media (orientation:portrait) {
     flex-direction: row;
   }
-`
+`;
 
 export const PanelsWrapper = styled(Row)`
   @media (orientation:portrait) {
@@ -19,7 +19,7 @@ export const PanelsWrapper = styled(Row)`
   }
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const NewPannelText = styled.div`
   margin-top: -22px;
@@ -28,4 +28,4 @@ export const NewPannelText = styled.div`
   @media (orientation:portrait) {
     font-size: 3.8em;
   }
-`
+`;

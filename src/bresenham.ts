@@ -13,6 +13,7 @@ function bresenham(pointA: Point, pointB: Point): Point[] {
     for (let x = pointA.x, y = pointA.y; signX < 0 ? x >= pointB.x : x <= pointB.x; x += signX) {
       points.push({ x, y });
       eps += absDeltaX;
+      // tslint:disable-next-line: no-bitwise
       if ((eps << 1) >= absDeltaY) {
         y += signY;
         eps -= absDeltaY;
@@ -22,6 +23,7 @@ function bresenham(pointA: Point, pointB: Point): Point[] {
     for (let x = pointA.x, y = pointA.y; signY < 0 ? y >= pointB.y : y <= pointB.y; y += signY) {
       points.push({ x, y });
       eps += absDeltaY;
+      // tslint:disable-next-line: no-bitwise
       if ((eps << 1) >= absDeltaX) {
         x += signX;
         eps -= absDeltaX;
@@ -29,6 +31,6 @@ function bresenham(pointA: Point, pointB: Point): Point[] {
     }
   }
   return points;
-};
+}
 
 export default bresenham;

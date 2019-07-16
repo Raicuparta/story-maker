@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import bresenham from '../bresenham';
+import React, { useEffect, useState } from "react";
+import bresenham from "../bresenham";
 
-import Colors from '../styles/colors';
+import Colors from "../styles/colors";
 import {
   Canvas,
-  Wrapper,
   DrawingImage,
-} from '../styles/Drawing.style';
+  Wrapper,
+} from "../styles/Drawing.style";
 
 const viewBoxSize = {
-  width: 80,
   height: 60,
+  width: 80,
 };
 
 const Drawing: React.FC<{
@@ -42,9 +42,7 @@ const Drawing: React.FC<{
       // But only when a new full image is being loaded, not when we are drawing.
       if (!isDrawing) {
         const image = new Image();
-        image.onload = function () {
-          context.drawImage(image, 0, 0);
-        }
+        image.onload = () => context.drawImage(image, 0, 0);
         image.src = dataURL;
       }
     }, [context, canvas, dataURL, isDrawing, onChange]);
@@ -62,7 +60,7 @@ const Drawing: React.FC<{
 
       const scale = viewBoxRatio < boundsRatio
         ? width / viewBoxSize.width
-        : height / viewBoxSize.height
+        : height / viewBoxSize.height;
 
       const offset: Point = {
         x: left,
@@ -82,19 +80,19 @@ const Drawing: React.FC<{
     }
 
     function setCanvasRef(instance: HTMLCanvasElement | null) {
-      if (!instance || canvas || context) return;
+      if (!instance || canvas || context) { return; }
 
       setCanvas(instance);
-      setContext(instance.getContext('2d') || undefined);
+      setContext(instance.getContext("2d") || undefined);
     }
 
     function draw(event: React.MouseEvent | React.Touch) {
-      if (!context || !canvas) return;
+      if (!context || !canvas) { return; }
 
       const position: Point = relativePoint(event);
       const line = bresenham(prevPosition || position, position);
 
-      for (let point of line) {
+      for (const point of line) {
         context.fillRect(point.x, point.y, 1, 1);
       }
 

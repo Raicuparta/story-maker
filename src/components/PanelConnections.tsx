@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
 import {
   NewPannelText,
-  Wrapper,
   PanelsWrapper,
-} from '../styles/PanelConnections.style'
-import Thumbnail from './Thumbnail';
-import { RoundButton } from '../styles/UI.style';
+  Wrapper,
+} from "../styles/PanelConnections.style";
+import { RoundButton } from "../styles/UI.style";
+import Thumbnail from "./Thumbnail";
 
 const MAX_NEXT_PANELS = 2;
 
@@ -42,7 +42,7 @@ const PanelConnections: React.FC<{
       </RoundButton>
     </PanelsWrapper>
     <PanelsWrapper>
-      {nextPanels.map(panel => (
+      {nextPanels.map((panel) => (
         <RoundButton
           key={panel.id}
           onClick={() => onConnectionClick(panel)}
@@ -53,8 +53,8 @@ const PanelConnections: React.FC<{
       {
         // Generate an array of numbers from 0 to MAX_NEXT_PANELS
         Object.keys([...Array(MAX_NEXT_PANELS - nextPanels.length)])
-          .map(panel => (
-            <RoundButton 
+          .map((panel) => (
+            <RoundButton
               key={panel}
               onClick={onNewPanelClick}
             >
@@ -66,4 +66,4 @@ const PanelConnections: React.FC<{
   </Wrapper>
 );
 
-export default PanelConnections
+export default PanelConnections;

@@ -1,14 +1,14 @@
-import React from 'react';
-import { Route } from 'wouter';
-import { hot } from 'react-hot-loader/root';
+import React from "react";
+import { hot } from "react-hot-loader/root";
+import { Route } from "wouter";
 
-import StoryCreator from './StoryCreator';
-import { GlobalStyle } from '../styles/Global.style';
+import { GlobalStyle } from "../styles/Global.style";
+import StoryCreator from "./StoryCreator";
 
 const App: React.FC = hot(() => (
   <>
     <GlobalStyle/>
-    <Route path='/' component={StoryCreator} />
+    <Route path="/" component={StoryCreator} />
   </>
 ));
 

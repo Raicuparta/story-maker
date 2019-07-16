@@ -1,9 +1,9 @@
-type Point = {
+interface Point {
   x: number;
   y: number;
 }
 
-type Panel = {
+interface Panel {
   dataURL: string;
   text: string;
   nextIds: number[];
@@ -11,14 +11,14 @@ type Panel = {
   id: number;
 }
 
-type Bounds = {
+interface Bounds {
   width: number;
   height: number;
   top: number;
   left: number;
 }
 
-type SerializedPanel = {
+interface SerializedPanel {
   dataURL: string;
   text: string;
   nextIds: string;
@@ -26,11 +26,11 @@ type SerializedPanel = {
   id: number;
 }
 
-type SerializedData = {
+interface SerializedData {
   panels: SerializedPanel[];
 }
 
 // Prevent auto import of console
-declare module 'console' {
+declare module "console" {
   export = typeof import("console");
 }

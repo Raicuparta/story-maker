@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 import {
-  ThumbnailImage,
   Placeholder,
-} from '../styles/Thumbnail.style'
+  ThumbnailImage,
+} from "../styles/Thumbnail.style";
 
 const Thumbnail: React.FC<{ src: string }> = ({ src }) => (
   src ? (
@@ -13,4 +13,4 @@ const Thumbnail: React.FC<{ src: string }> = ({ src }) => (
   )
 );
 
-export default Thumbnail
+export default Thumbnail;

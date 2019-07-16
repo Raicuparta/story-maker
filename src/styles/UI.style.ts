@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from "styled-components/macro";
 
-import Colors from './colors';
+import Colors from "./colors";
 
 const ButtonBase = styled.button`
   all: unset;
@@ -9,11 +9,11 @@ const ButtonBase = styled.button`
   text-align: center;
   border: solid 3px ${Colors.primary};
 
-  ${props => props.onClick && css`
+  ${(props) => props.onClick && css`
     cursor: pointer;
 
     border-color: ${Colors.primaryVariant};
-  
+
     :hover {
       border-color: ${Colors.secondaryVariant};
     }
@@ -23,7 +23,7 @@ const ButtonBase = styled.button`
       border-color: ${Colors.primaryVariant};
     }
   `}
-`
+`;
 
 export const Button = styled(ButtonBase)`
   flex: 1;
@@ -42,12 +42,12 @@ export const RoundButton = styled(ButtonBase)`
     height: 50px;
     width: 50px;
   }
-`
+`;
 
 const Base = styled.div`
   display: flex;
   justify-content: center;
-`
+`;
 
 export const Row = styled(Base)``;
 
