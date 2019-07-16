@@ -5,7 +5,7 @@ import { Route } from "wouter";
 import { GlobalStyle } from "../styles/Global.style";
 import StoryCreator from "./StoryCreator";
 
-const App: React.FC = hot(() => (
+const App: React.FC = hot((): React.ReactElement => (
   <>
     <GlobalStyle/>
     <Route path="/" component={StoryCreator} />

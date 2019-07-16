@@ -27,10 +27,18 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "lint": "eslint --ext js,ts,tsx src"
+    "lint": "eslint --fix --ext js,ts,tsx src"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/indent": ["error", 2],
+      "semi": ["error"]
+    }
   },
   "browserslist": {
     "production": [

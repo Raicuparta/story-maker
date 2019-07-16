@@ -11,22 +11,22 @@ import Thumbnail from "./Thumbnail";
 const MAX_NEXT_PANELS = 2;
 
 const PanelConnections: React.FC<{
-  prevPanel?: Panel,
-  currentPanel: Panel,
-  nextPanels: Panel[],
-  onConnectionClick: (panel: Panel) => void,
-  onNewPanelClick: () => void,
+  prevPanel?: Panel;
+  currentPanel: Panel;
+  nextPanels: Panel[];
+  onConnectionClick: (panel: Panel) => void;
+  onNewPanelClick: () => void;
 }> = ({
   currentPanel,
   prevPanel,
   nextPanels,
   onConnectionClick,
   onNewPanelClick,
-}) => (
+}): React.ReactElement => (
   <Wrapper>
     {prevPanel && (
       <PanelsWrapper>
-        <RoundButton onClick={() => onConnectionClick(prevPanel)}>
+        <RoundButton onClick={(): void => onConnectionClick(prevPanel)}>
           <Thumbnail src={prevPanel.dataURL} />
         </RoundButton>
       </PanelsWrapper>
@@ -42,10 +42,10 @@ const PanelConnections: React.FC<{
       </RoundButton>
     </PanelsWrapper>
     <PanelsWrapper>
-      {nextPanels.map((panel) => (
+      {nextPanels.map((panel): React.ReactElement => (
         <RoundButton
           key={panel.id}
-          onClick={() => onConnectionClick(panel)}
+          onClick={(): void => onConnectionClick(panel)}
         >
           <Thumbnail src={panel.dataURL} />
         </RoundButton>
@@ -53,7 +53,7 @@ const PanelConnections: React.FC<{
       {
         // Generate an array of numbers from 0 to MAX_NEXT_PANELS
         Object.keys([...Array(MAX_NEXT_PANELS - nextPanels.length)])
-          .map((panel) => (
+          .map((panel): React.ReactElement => (
             <RoundButton
               key={panel}
               onClick={onNewPanelClick}

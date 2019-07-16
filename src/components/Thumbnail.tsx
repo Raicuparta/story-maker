@@ -5,7 +5,7 @@ import {
   ThumbnailImage,
 } from "../styles/Thumbnail.style";
 
-const Thumbnail: React.FC<{ src: string }> = ({ src }) => (
+const Thumbnail: React.FC<{ src: string }> = ({ src }): React.ReactElement => (
   src ? (
     <ThumbnailImage src={src} />
   ) : (

@@ -13,7 +13,7 @@ import {
 import Drawing from "./Drawing";
 import PanelConnections from "./PanelConnections";
 
-const StoryCreator: React.FC = () => {
+const StoryCreator: React.FC = (): React.ReactElement => {
   const [selected, setSelected] = useState<number>(0);
   const [panels, setPanels] = useState<Panel[]>([{
     dataURL: "",
@@ -24,11 +24,11 @@ const StoryCreator: React.FC = () => {
 
   const currentPanel = panels[selected];
   const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined;
-  const nextPanels = currentPanel.nextIds.map((id) => panels[id]);
+  const nextPanels = currentPanel.nextIds.map((id): Panel => panels[id]);
 
-  function handlePublishClick() {
+  function handlePublishClick(): void {
     const data: SerializedData = {
-      panels: panels.map((panel) => ({
+      panels: panels.map((panel): SerializedPanel => ({
         dataURL: panel.dataURL,
         id: panel.id,
         nextIds: JSON.stringify(panel.nextIds),
@@ -40,7 +40,7 @@ const StoryCreator: React.FC = () => {
     database.ref("stories").push(data);
   }
 
-  function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const newPanels = panels.slice(0);
     newPanels[selected] = {
       ...newPanels[selected],
@@ -50,14 +50,14 @@ const StoryCreator: React.FC = () => {
     setPanels(newPanels);
   }
 
-  function handleLoadClick() {
-    database.ref("stories").limitToLast(1).once("value").then((snapshot) => {
+  function handleLoadClick(): void {
+    database.ref("stories").limitToLast(1).once("value").then((snapshot): void => {
       const val = snapshot.val();
       if (!val) { return; }
 
       const serializedPanels = Object.values<SerializedData>(val)[0].panels;
 
-      setPanels(serializedPanels.map((panel) => ({
+      setPanels(serializedPanels.map((panel): Panel => ({
         dataURL: panel.dataURL,
         id: panel.id,
         nextIds: JSON.parse(panel.nextIds),
@@ -67,8 +67,8 @@ const StoryCreator: React.FC = () => {
     });
   }
 
-  function handleNewPanelClick() {
-    setPanels((prevPanels) => {
+  function handleNewPanelClick(): void {
+    setPanels((prevPanels): Panel[] => {
       const newPanels = prevPanels.slice(0);
 
       newPanels[selected].nextIds.push(newPanels.length);
@@ -84,8 +84,8 @@ const StoryCreator: React.FC = () => {
     });
   }
 
-  function handleCanvasChange(dataURL: string) {
-    setPanels((prevPanels) => {
+  function handleCanvasChange(dataURL: string): void {
+    setPanels((prevPanels): Panel[] => {
       const newPanels = prevPanels.slice(0);
       newPanels[selected] = {
         ...newPanels[selected],
@@ -95,7 +95,7 @@ const StoryCreator: React.FC = () => {
     });
   }
 
-  function handlePanelConnectionClick(panel: Panel) {
+  function handlePanelConnectionClick(panel: Panel): void {
     setSelected(panel.id);
   }
 

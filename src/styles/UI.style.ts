@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components/macro";
+import styled, { css, FlattenSimpleInterpolation } from "styled-components/macro";
 
 import Colors from "./colors";
 
@@ -9,7 +9,7 @@ const ButtonBase = styled.button`
   text-align: center;
   border: solid 3px ${Colors.primary};
 
-  ${(props) => props.onClick && css`
+  ${(props): FlattenSimpleInterpolation | undefined => props.onClick && css`
     cursor: pointer;
 
     border-color: ${Colors.primaryVariant};
