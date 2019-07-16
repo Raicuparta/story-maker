@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8caa650830cb4b79a4f695f16ca9e2c1",
+    "revision": "55d5af9ea47d113352dfb7f8b7c2e9a9",
     "url": "/story-maker/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/story-maker/static/js/2.704aee2b.chunk.js"
   },
   {
-    "revision": "3be3449e7af11545da07",
-    "url": "/story-maker/static/js/main.3cb780c8.chunk.js"
+    "revision": "069c11fab364bc0190e8",
+    "url": "/story-maker/static/js/main.8edf333b.chunk.js"
   },
   {
     "revision": "9cfa3ed599aa1b1a6c63",
