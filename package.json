@@ -10,13 +10,15 @@
     "@types/react": "16.8.18",
     "@types/react-dom": "16.8.4",
     "@types/styled-components": "^4.1.15",
+    "@types/wouter": "^2.0.1",
     "firebase": "^6.0.4",
     "polished": "^3.4.0",
     "react": "^16.8.6",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-scripts": "3.0.1",
     "styled-components": "^4.2.0",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.1",
+    "wouter": "^2.1.1"
   },
   "scripts": {
     "start": "react-app-rewired start",

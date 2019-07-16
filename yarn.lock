@@ -1646,6 +1646,14 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
+"@types/wouter@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/wouter/-/wouter-2.0.1.tgz#4f485b127c8945e4cd31526d4948078a575dbc45"
+  integrity sha512-0RLTG0Fb2pvX5+RwYVTTzRg+DzH3UpJZAV/S+rdMeNwB83QWm5n70Rlq0ksxvT9sihPXxRVmcH3ITTfVv4IFZA==
+  dependencies:
+    "@types/react" "*"
+    preact "10.0.0-beta.3"
+
 "@types/yargs@^12.0.2", "@types/yargs@^12.0.9":
   version "12.0.12"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.12.tgz#45dd1d0638e8c8f153e87d296907659296873916"
@@ -8277,6 +8285,11 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.17, postcss@^7.0.2
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+preact@10.0.0-beta.3:
+  version "10.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.0.0-beta.3.tgz#dabd0628d941f9e7908f68bb008e012ddff1b28f"
+  integrity sha512-JDeA+CVFBlv+r+v/tScG8hzOcOedXfBLUA5IhStqpfc7rPGY3T85pdlu4aGo2tV0AoZzQfO4LTnKkQEnKJ3UxQ==
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -10769,6 +10782,11 @@ worker-rpc@^0.1.0:
   integrity sha512-P1WjMrUB3qgJNI9jfmpZ/htmBEjFh//6l/5y8SD9hg1Ef5zTTVVoRjTrTEzPrNBQvmhMxkoTsjOXN10GWU7aCg==
   dependencies:
     microevent.ts "~0.1.1"
+
+wouter@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/wouter/-/wouter-2.1.1.tgz#fb9a741d74ca9b06f494417c588920cc0214c8b3"
+  integrity sha512-62D88zoaLguNno674ENTAYbSiDzFihCN6d3JfHPYq6sNLT9JgdNvmCsn87KywLfGbOqehkJ0j/ajG1RlS/GxbQ==
 
 wrap-ansi@^2.0.0:
   version "2.1.0"

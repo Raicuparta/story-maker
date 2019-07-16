@@ -9,11 +9,11 @@ import {
 import {
   Wrapper,
   TextInput,
-} from '../styles/Home.style';
+} from '../styles/StoryCreator.style';
 import Drawing from './Drawing';
 import PanelConnections from './PanelConnections';
 
-const Home: React.FC = () => {
+const StoryCreator: React.FC = () => {
   const [selected, setSelected] = useState<number>(0);
   const [panels, setPanels] = useState<Panel[]>([{
     dataURL: '',
@@ -130,4 +130,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home;
+export default StoryCreator;
