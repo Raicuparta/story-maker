@@ -115,8 +115,8 @@ const Home: React.FC = () => {
           placeholder="Insert panel text here"
         />
         <Row>
-          <Button onClick={handleLoadClick}>[Load From Database]</Button>
-          <Button onClick={handlePublishClick}>Publish</Button>
+          <Button onClick={handleLoadClick}>Load</Button>
+          <Button onClick={handlePublishClick}>Save</Button>
         </Row>
       </Column>
       <PanelConnections
