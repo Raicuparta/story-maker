@@ -11,11 +11,8 @@ interface Panel {
   id: number;
 }
 
-interface Bounds {
-  width: number;
-  height: number;
-  top: number;
-  left: number;
+interface Story {
+  panels: Panel[];
 }
 
 interface SerializedPanel {
@@ -28,6 +25,13 @@ interface SerializedPanel {
 
 interface SerializedData {
   panels: SerializedPanel[];
+}
+
+interface Bounds {
+  width: number;
+  height: number;
+  top: number;
+  left: number;
 }
 
 // Prevent auto import of console
