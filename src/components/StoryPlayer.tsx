@@ -3,6 +3,14 @@ import React, {
   useEffect,
 } from "react";
 
+import {
+  PanelImage,
+  Wrapper,
+  PanelWrapper,
+  CurrentPanelColumn,
+  PanelText,
+} from "../styles/StoryPlayer.style";
+import { Column } from "../styles/UI.style";
 import database from "../database";
 
 interface Props {
@@ -10,7 +18,9 @@ interface Props {
 }
 
 const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
-  const [story, setStory] = useState<Story>({ panels: [] });
+  const [story, setStory] = useState<Story>();
+  const [current, setCurrent] = useState<number>(0);
+  const currentPanel = story ? story.panels[current] : undefined;
 
   useEffect((): void => {
     database.ref(`stories/${id}`).once("value").then((snapshot): void => {
@@ -30,9 +40,34 @@ const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
   }, [id]);
 
   return (
-    <div>
-      {story.panels.map((panel): string => panel.text)}
-    </div>
+    <Wrapper>
+      {currentPanel && (
+        <CurrentPanelColumn>
+          <PanelWrapper>
+            <PanelImage
+              src={currentPanel.dataURL}
+              alt={currentPanel.text}
+            />
+            <PanelText>
+              {currentPanel.text}
+            </PanelText>
+          </PanelWrapper>
+        </CurrentPanelColumn>
+      )}
+      <Column>
+        {story && currentPanel && currentPanel.nextIds.map((id): React.ReactElement => (
+          <PanelWrapper>
+            <PanelImage
+              src={story.panels[id].dataURL}
+              alt={story.panels[id].text}
+            />
+            <PanelText>
+              {story.panels[id].text}
+            </PanelText>
+          </PanelWrapper>
+        ))}
+      </Column>
+    </Wrapper>
   );
 };
 
