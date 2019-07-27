@@ -56,10 +56,11 @@ const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
       )}
       <Column>
         {story && currentPanel && currentPanel.nextIds.map((id): React.ReactElement => (
-          <PanelWrapper>
+          <PanelWrapper key={id}>
             <PanelImage
               src={story.panels[id].dataURL}
               alt={story.panels[id].text}
+              onClick={(): void => setCurrent(id)}
             />
             <PanelText>
               {story.panels[id].text}
