@@ -9,9 +9,9 @@ import {
   PanelWrapper,
   CurrentPanelColumn,
   PanelText,
-} from '../styles/StoryPlayer.style'
-import { Column } from '../styles/UI.style'
-import database from '../database'
+} from './StoryPlayer.style'
+import { Column } from '../UI'
+import database from '../../database'
 
 interface Props {
   id?: string;

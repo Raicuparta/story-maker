@@ -1,6 +1,6 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro'
 
-import Colors from './colors'
+import Colors from '../../colors'
 
 const ButtonBase = styled.button`
   all: unset;

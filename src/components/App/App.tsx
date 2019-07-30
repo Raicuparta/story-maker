@@ -2,9 +2,9 @@ import React from 'react'
 import { hot } from 'react-hot-loader/root'
 import { Route } from 'wouter'
 
-import { GlobalStyle } from '../styles/Global.style'
-import StoryCreator from './StoryCreator'
-import StoryPlayer from './StoryPlayer'
+import { GlobalStyle } from './Global.style'
+import StoryCreator from '../StoryCreator/StoryCreator'
+import StoryPlayer from '../StoryPlayer'
 
 const App: React.FC = hot((): React.ReactElement => (
   <>

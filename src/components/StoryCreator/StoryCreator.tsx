@@ -2,18 +2,18 @@ import React, {
   useState,
 } from 'react'
 
-import database from '../database'
+import database from '../../database'
 import {
   TextInput,
   Wrapper,
-} from '../styles/StoryCreator.style'
+} from './StoryCreator.style'
 import {
   Button,
   Column,
   Row,
-} from '../styles/UI.style'
-import Drawing from './Drawing'
-import PanelConnections from './PanelConnections'
+} from '../UI'
+import Drawing from '../Drawing'
+import PanelConnections from '../PanelConnections'
 
 const StoryCreator: React.FC = (): React.ReactElement => {
   const [selected, setSelected] = useState<number>(0)

@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import Colors from './colors'
+import Colors from '../../colors'
 
 export const Wrapper = styled.div`
   flex: 1;

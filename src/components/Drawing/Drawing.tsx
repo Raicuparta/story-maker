@@ -2,14 +2,14 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-import bresenham from '../bresenham'
+import bresenham from '../../bresenham'
 
-import Colors from '../styles/colors'
+import Colors from '../../colors'
 import {
   Canvas,
   DrawingImage,
   Wrapper,
-} from '../styles/Drawing.style'
+} from './Drawing.style'
 
 const viewBoxSize = {
   height: 60,
