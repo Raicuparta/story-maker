@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 import {
   NewPannelText,
   PanelsWrapper,
   Wrapper,
-} from '../styles/PanelConnections.style';
-import { RoundButton } from '../styles/UI.style';
-import Thumbnail from './Thumbnail';
+} from '../styles/PanelConnections.style'
+import { RoundButton } from '../styles/UI.style'
+import Thumbnail from './Thumbnail'
 
-const MAX_NEXT_PANELS = 2;
+const MAX_NEXT_PANELS = 2
 
 const PanelConnections: React.FC<{
   prevPanel?: Panel;
@@ -64,6 +64,6 @@ const PanelConnections: React.FC<{
       }
     </PanelsWrapper>
   </Wrapper>
-);
+)
 
-export default PanelConnections;
+export default PanelConnections

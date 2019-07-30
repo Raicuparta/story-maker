@@ -1,5 +1,5 @@
-import firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from 'firebase/app'
+import 'firebase/database'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyC5mVxaorL_LmNWasC5LNmAC3cmlQ-5vFM',
@@ -9,6 +9,6 @@ firebase.initializeApp({
   messagingSenderId: '105986550181',
   projectId: 'story-maker-85706',
   storageBucket: 'story-maker-85706.appspot.com',
-});
+})
 
-export default firebase.database();
+export default firebase.database()

@@ -1,34 +1,34 @@
 import React, {
   useState,
-} from 'react';
+} from 'react'
 
-import database from '../database';
+import database from '../database'
 import {
   TextInput,
   Wrapper,
-} from '../styles/StoryCreator.style';
+} from '../styles/StoryCreator.style'
 import {
   Button,
   Column,
   Row,
-} from '../styles/UI.style';
-import Drawing from './Drawing';
-import PanelConnections from './PanelConnections';
+} from '../styles/UI.style'
+import Drawing from './Drawing'
+import PanelConnections from './PanelConnections'
 
 const StoryCreator: React.FC = (): React.ReactElement => {
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number>(0)
   const [panels, setPanels] = useState<Panel[]>([{
     dataURL: '',
     id: 0,
     nextIds: [],
     text: '',
-  }]);
+  }])
 
-  const currentPanel = panels[selected];
-  const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined;
-  const nextPanels = currentPanel.nextIds.map((id): Panel => panels[id]);
+  const currentPanel = panels[selected]
+  const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined
+  const nextPanels = currentPanel.nextIds.map((id): Panel => panels[id])
 
-  function handlePublishClick(): void {
+  function handlePublishClick (): void {
     const data: SerializedData = {
       panels: panels.map((panel): SerializedPanel => ({
         dataURL: panel.dataURL,
@@ -37,27 +37,27 @@ const StoryCreator: React.FC = (): React.ReactElement => {
         text: panel.text,
         ...(panel.prevId !== undefined ? { prevId: panel.prevId } : {}),
       })),
-    };
+    }
 
-    database.ref('stories').push(data);
+    database.ref('stories').push(data)
   }
 
-  function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
-    const newPanels = panels.slice(0);
+  function handleTextChange (event: React.ChangeEvent<HTMLTextAreaElement>): void {
+    const newPanels = panels.slice(0)
     newPanels[selected] = {
       ...newPanels[selected],
       text: event.target.value,
-    };
+    }
 
-    setPanels(newPanels);
+    setPanels(newPanels)
   }
 
-  function handleLoadClick(): void {
+  function handleLoadClick (): void {
     database.ref('stories').limitToLast(1).once('value').then((snapshot): void => {
-      const val = snapshot.val();
-      if (!val) { return; }
+      const val = snapshot.val()
+      if (!val) { return }
 
-      const serializedPanels = Object.values<SerializedData>(val)[0].panels;
+      const serializedPanels = Object.values<SerializedData>(val)[0].panels
 
       setPanels(serializedPanels.map((panel): Panel => ({
         dataURL: panel.dataURL,
@@ -65,40 +65,40 @@ const StoryCreator: React.FC = (): React.ReactElement => {
         nextIds: JSON.parse(panel.nextIds),
         prevId: panel.prevId,
         text: panel.text,
-      })));
-    });
+      })))
+    })
   }
 
-  function handleNewPanelClick(): void {
+  function handleNewPanelClick (): void {
     setPanels((prevPanels): Panel[] => {
-      const newPanels = prevPanels.slice(0);
+      const newPanels = prevPanels.slice(0)
 
-      newPanels[selected].nextIds.push(newPanels.length);
+      newPanels[selected].nextIds.push(newPanels.length)
       newPanels.push({
         dataURL: '',
         id: newPanels.length,
         nextIds: [],
         prevId: selected,
         text: '',
-      });
+      })
 
-      return newPanels;
-    });
+      return newPanels
+    })
   }
 
-  function handleCanvasChange(dataURL: string): void {
+  function handleCanvasChange (dataURL: string): void {
     setPanels((prevPanels): Panel[] => {
-      const newPanels = prevPanels.slice(0);
+      const newPanels = prevPanels.slice(0)
       newPanels[selected] = {
         ...newPanels[selected],
         dataURL,
-      };
-      return newPanels;
-    });
+      }
+      return newPanels
+    })
   }
 
-  function handlePanelConnectionClick(panel: Panel): void {
-    setSelected(panel.id);
+  function handlePanelConnectionClick (panel: Panel): void {
+    setSelected(panel.id)
   }
 
   return (
@@ -126,7 +126,7 @@ const StoryCreator: React.FC = (): React.ReactElement => {
         onNewPanelClick={handleNewPanelClick}
       />
     </Wrapper>
-  );
-};
+  )
+}
 
-export default StoryCreator;
+export default StoryCreator

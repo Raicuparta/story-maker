@@ -11,6 +11,7 @@
     "@types/react-dom": "16.8.4",
     "@types/styled-components": "^4.1.15",
     "@types/wouter": "^2.0.1",
+    "eslint-config-standard": "^13.0.1",
     "firebase": "^6.0.4",
     "polished": "^3.4.0",
     "react": "^16.8.6",
@@ -35,18 +36,18 @@
     "extends": [
       "react-app",
       "eslint:recommended",
-      "plugin:@typescript-eslint/recommended"
+      "plugin:@typescript-eslint/recommended",
+      "standard"
     ],
     "rules": {
       "@typescript-eslint/indent": [
         "error",
         2
       ],
-      "semi": [
-        "error"
-      ],
-      "comma-dangle": ["error", "always-multiline"],
-      "quotes": ["error", "single"]
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ]
     }
   },
   "browserslist": {
@@ -62,6 +63,12 @@
     ]
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint-config-react-app": "^4.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
     "gh-pages": "^2.0.1",
     "pre-commit": "^1.2.2",
     "react-app-rewire-hot-loader": "^2.0.1",

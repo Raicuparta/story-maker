@@ -1,6 +1,6 @@
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro'
 
-import Colors from './colors';
+import Colors from './colors'
 
 const ButtonBase = styled.button`
   all: unset;
@@ -23,13 +23,13 @@ const ButtonBase = styled.button`
       border-color: ${Colors.primaryVariant};
     }
   `}
-`;
+`
 
 export const Button = styled(ButtonBase)`
   flex: 1;
   border-radius: 5px;
   padding: 7px;
-`;
+`
 
 export const RoundButton = styled(ButtonBase)`
   border-radius: 100%;
@@ -42,16 +42,16 @@ export const RoundButton = styled(ButtonBase)`
     height: 50px;
     width: 50px;
   }
-`;
+`
 
 const Base = styled.div`
   display: flex;
   justify-content: center;
-`;
+`
 
-export const Row = styled(Base)``;
+export const Row = styled(Base)``
 
 export const Column = styled(Base)`
   flex: 1;
   flex-direction: column;
-`;
+`

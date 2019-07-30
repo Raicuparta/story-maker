@@ -1,6 +1,6 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
-import Colors from './colors';
+import Colors from './colors'
 
 export const Wrapper = styled.div`
   flex: 1;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   margin: 5px;
   border-radius: 10px;
   overflow: hidden;
-`;
+`
 
 export const DrawingImage = styled.img`
   width: 100%;
@@ -20,7 +20,7 @@ export const DrawingImage = styled.img`
   top: 0;
   left: 0;
   image-rendering: pixelated;
-`;
+`
 
 export const Canvas = styled.canvas`
   cursor: crosshair;
@@ -31,4 +31,4 @@ export const Canvas = styled.canvas`
   left: 0;
   opacity: 0;
   touch-action: none;
-`;
+`
