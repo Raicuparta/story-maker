@@ -3,7 +3,7 @@ import React from 'react'
 import {
   Placeholder,
   ThumbnailImage,
-} from '../styles/Thumbnail.style'
+} from './Thumbnail.style'
 
 const Thumbnail: React.FC<{ src: string }> = ({ src }): React.ReactElement => (
   src ? (

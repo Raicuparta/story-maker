@@ -1,10 +1,10 @@
 import styled from 'styled-components/macro'
 
-import Colors from './colors'
+import Colors from '../../colors'
 import {
   Row,
   Column,
-} from './UI.style'
+} from '../UI'
 
 export const Wrapper = styled(Row)`
   width: 100%;

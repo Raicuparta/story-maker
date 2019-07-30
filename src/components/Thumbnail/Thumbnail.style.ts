@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro'
 
-import Colors from './colors'
+import Colors from '../../colors'
 
 const common = css`
   width: 100%;
