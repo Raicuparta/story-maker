@@ -1,7 +1,7 @@
 import React, {
   useState,
   useEffect,
-} from "react";
+} from 'react';
 
 import {
   PanelImage,
@@ -9,9 +9,9 @@ import {
   PanelWrapper,
   CurrentPanelColumn,
   PanelText,
-} from "../styles/StoryPlayer.style";
-import { Column } from "../styles/UI.style";
-import database from "../database";
+} from '../styles/StoryPlayer.style';
+import { Column } from '../styles/UI.style';
+import database from '../database';
 
 interface Props {
   id?: string;
@@ -23,7 +23,7 @@ const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
   const currentPanel = story ? story.panels[current] : undefined;
 
   useEffect((): void => {
-    database.ref(`stories/${id}`).once("value").then((snapshot): void => {
+    database.ref(`stories/${id}`).once('value').then((snapshot): void => {
       const val: SerializedData = snapshot.val();
       if (!val) { return; }
 

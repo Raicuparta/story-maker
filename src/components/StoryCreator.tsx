@@ -1,27 +1,27 @@
 import React, {
   useState,
-} from "react";
+} from 'react';
 
-import database from "../database";
+import database from '../database';
 import {
   TextInput,
   Wrapper,
-} from "../styles/StoryCreator.style";
+} from '../styles/StoryCreator.style';
 import {
   Button,
   Column,
   Row,
-} from "../styles/UI.style";
-import Drawing from "./Drawing";
-import PanelConnections from "./PanelConnections";
+} from '../styles/UI.style';
+import Drawing from './Drawing';
+import PanelConnections from './PanelConnections';
 
 const StoryCreator: React.FC = (): React.ReactElement => {
   const [selected, setSelected] = useState<number>(0);
   const [panels, setPanels] = useState<Panel[]>([{
-    dataURL: "",
+    dataURL: '',
     id: 0,
     nextIds: [],
-    text: "",
+    text: '',
   }]);
 
   const currentPanel = panels[selected];
@@ -39,7 +39,7 @@ const StoryCreator: React.FC = (): React.ReactElement => {
       })),
     };
 
-    database.ref("stories").push(data);
+    database.ref('stories').push(data);
   }
 
   function handleTextChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
@@ -53,7 +53,7 @@ const StoryCreator: React.FC = (): React.ReactElement => {
   }
 
   function handleLoadClick(): void {
-    database.ref("stories").limitToLast(1).once("value").then((snapshot): void => {
+    database.ref('stories').limitToLast(1).once('value').then((snapshot): void => {
       const val = snapshot.val();
       if (!val) { return; }
 
@@ -75,11 +75,11 @@ const StoryCreator: React.FC = (): React.ReactElement => {
 
       newPanels[selected].nextIds.push(newPanels.length);
       newPanels.push({
-        dataURL: "",
+        dataURL: '',
         id: newPanels.length,
         nextIds: [],
         prevId: selected,
-        text: "",
+        text: '',
       });
 
       return newPanels;

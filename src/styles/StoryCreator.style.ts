@@ -1,7 +1,7 @@
-import styled from "styled-components/macro";
+import styled from 'styled-components/macro';
 
-import Colors from "./colors";
-import { Row } from "./UI.style";
+import Colors from './colors';
+import { Row } from './UI.style';
 
 export const Wrapper = styled(Row)`
   background: ${Colors.primary};

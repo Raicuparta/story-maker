@@ -45,7 +45,8 @@
       "semi": [
         "error"
       ],
-      "comma-dangle": ["error", "always-multiline"]
+      "comma-dangle": ["error", "always-multiline"],
+      "quotes": ["error", "single"]
     }
   },
   "browserslist": {

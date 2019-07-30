@@ -1,15 +1,15 @@
 import React, {
   useEffect,
   useState,
-} from "react";
-import bresenham from "../bresenham";
+} from 'react';
+import bresenham from '../bresenham';
 
-import Colors from "../styles/colors";
+import Colors from '../styles/colors';
 import {
   Canvas,
   DrawingImage,
   Wrapper,
-} from "../styles/Drawing.style";
+} from '../styles/Drawing.style';
 
 const viewBoxSize = {
   height: 60,
@@ -92,7 +92,7 @@ const Drawing: React.FC<Props> = ({
     if (!instance || canvas || context) { return; }
 
     setCanvas(instance);
-    setContext(instance.getContext("2d") || undefined);
+    setContext(instance.getContext('2d') || undefined);
   }
 
   function draw(event: React.MouseEvent | React.Touch): void {

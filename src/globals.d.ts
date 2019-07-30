@@ -35,6 +35,6 @@ interface Bounds {
 }
 
 // Prevent auto import of console
-declare module "console" {
-  export = typeof import("console");
+declare module 'console' {
+  export = typeof import('console');
 }
