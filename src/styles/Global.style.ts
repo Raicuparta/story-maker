@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
   }
 
-  *{
+  * {
     user-select: none;
   }
 `;
