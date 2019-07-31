@@ -6,6 +6,7 @@ import {
   SuspenseWithPerf,
 } from 'reactfire'
 import 'firebase/performance'
+import 'firebase/firestore'
 
 import { GlobalStyle } from './Global.style'
 import StoryCreator from '../StoryCreator/StoryCreator'

@@ -1,6 +1,10 @@
 import React, {
   useState,
 } from 'react'
+import {
+  useFirestoreDoc,
+  useFirebaseApp,
+} from 'reactfire'
 
 import database from '../../database'
 import {
@@ -24,12 +28,17 @@ const StoryCreator: React.FC = () => {
     text: '',
   }])
 
+  const firebaseApp = useFirebaseApp()
+  const storiesRef = firebaseApp
+    .firestore()
+    .collection('stories')
+
   const currentPanel = panels[selected]
   const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined
   const nextPanels = currentPanel.nextIds.map(id => panels[id])
 
   function handlePublishClick () {
-    const data: SerializedStory = {
+    const serializedStory: SerializedStory = {
       panels: panels.map(panel => ({
         dataURL: panel.dataURL,
         id: panel.id,
@@ -39,7 +48,9 @@ const StoryCreator: React.FC = () => {
       })),
     }
 
-    database.ref('stories').push(data)
+    // database.ref('stories').push(data)
+
+    storiesRef.add(serializedStory)
   }
 
   function handleTextChange (event: React.ChangeEvent<HTMLTextAreaElement>) {

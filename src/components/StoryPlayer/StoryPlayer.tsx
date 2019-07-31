@@ -1,11 +1,9 @@
 import React, {
   useState,
 } from 'react'
-import 'firebase/firestore'
 import {
   useFirestoreDoc,
   useFirebaseApp,
-  SuspenseWithPerf,
 } from 'reactfire'
 
 import {
