@@ -23,7 +23,7 @@ interface SerializedPanel {
   id: number;
 }
 
-interface SerializedData {
+interface SerializedStory {
   panels: SerializedPanel[];
 }
 

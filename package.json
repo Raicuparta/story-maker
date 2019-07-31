@@ -17,6 +17,7 @@
     "react": "^16.8.6",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-scripts": "3.0.1",
+    "reactfire": "^2.0.0-canary.fc2be5b",
     "styled-components": "^4.2.0",
     "typescript": "^3.5.1",
     "wouter": "^2.1.1"

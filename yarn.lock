@@ -10712,6 +10712,14 @@ react@^16.8.3, react@^16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
+reactfire@^2.0.0-canary.fc2be5b:
+  version "2.0.0-canary.fc2be5b"
+  resolved "https://registry.yarnpkg.com/reactfire/-/reactfire-2.0.0-canary.fc2be5b.tgz#ded161a495b362e1bd83e3230269a72040aa6430"
+  integrity sha512-wkVGnbjLe7gxPsDBY8B91zP9xo1+fUTi6l4d5J4H8MHyZ7whEEVZJmw1sXufbY3GDx5wi85ekKFFVwDGOmAgpQ==
+  dependencies:
+    rxfire "^3.6.3"
+    rxjs "^6.4.0"
+
 read-pkg-up@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-2.0.0.tgz#6b72a8048984e0c41e79510fd5e9fa99b3b549be"
@@ -11129,6 +11137,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   integrity sha1-6Eg5bwV9Ij8kOGkkYY4laUFh7Ec=
   dependencies:
     aproba "^1.1.1"
+
+rxfire@^3.6.3:
+  version "3.6.8"
+  resolved "https://registry.yarnpkg.com/rxfire/-/rxfire-3.6.8.tgz#0705aff94fe67717900f7c8345c3cf3690e87b67"
+  integrity sha512-EfETEfAhy0ylY79yZLY/cu9rTQlZ1M6m4wJGyHhYSIIggJ8y/ynn+jDnl74rQsDwmcG7tL3F51g7e6mobPDZNA==
 
 rxjs@^6.4.0:
   version "6.5.2"

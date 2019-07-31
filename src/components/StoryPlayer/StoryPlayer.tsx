@@ -1,7 +1,12 @@
 import React, {
   useState,
-  useEffect,
 } from 'react'
+import 'firebase/firestore'
+import {
+  useFirestoreDoc,
+  useFirebaseApp,
+  SuspenseWithPerf,
+} from 'reactfire'
 
 import {
   PanelImage,
@@ -11,33 +16,33 @@ import {
   PanelText,
 } from './StoryPlayer.style'
 import { Column } from '../UI'
-import database from '../../database'
 
 interface Props {
   id?: string;
 }
 
 const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
-  const [story, setStory] = useState<Story>()
   const [current, setCurrent] = useState<number>(0)
-  const currentPanel = story ? story.panels[current] : undefined
 
-  useEffect((): void => {
-    database.ref(`stories/${id}`).once('value').then((snapshot): void => {
-      const val: SerializedData = snapshot.val()
-      if (!val) { return }
+  const firebaseApp = useFirebaseApp()
+  const storyRef = firebaseApp
+    .firestore()
+    .collection('stories')
+    .doc(id)
 
-      setStory({
-        panels: val.panels.map((panel): Panel => ({
-          dataURL: panel.dataURL,
-          id: panel.id,
-          nextIds: JSON.parse(panel.nextIds),
-          prevId: panel.prevId,
-          text: panel.text,
-        })),
-      })
-    })
-  }, [id])
+  const serializedStory: SerializedStory = (useFirestoreDoc(storyRef) as any).data()
+
+  const story: Story = {
+    panels: serializedStory.panels.map((panel): Panel => ({
+      dataURL: panel.dataURL,
+      id: panel.id,
+      nextIds: panel.nextIds ? JSON.parse(panel.nextIds) : undefined,
+      prevId: panel.prevId,
+      text: panel.text,
+    })),
+  }
+
+  const currentPanel = story.panels[current]
 
   return (
     <Wrapper>
@@ -55,7 +60,7 @@ const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
         </CurrentPanelColumn>
       )}
       <Column>
-        {story && currentPanel && currentPanel.nextIds.map((id): React.ReactElement => (
+        {currentPanel.nextIds && currentPanel.nextIds.map((id): React.ReactElement => (
           <PanelWrapper key={id}>
             <PanelImage
               src={story.panels[id].dataURL}

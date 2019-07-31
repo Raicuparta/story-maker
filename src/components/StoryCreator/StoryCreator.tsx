@@ -29,7 +29,7 @@ const StoryCreator: React.FC = (): React.ReactElement => {
   const nextPanels = currentPanel.nextIds.map((id): Panel => panels[id])
 
   function handlePublishClick (): void {
-    const data: SerializedData = {
+    const data: SerializedStory = {
       panels: panels.map((panel): SerializedPanel => ({
         dataURL: panel.dataURL,
         id: panel.id,
@@ -57,7 +57,7 @@ const StoryCreator: React.FC = (): React.ReactElement => {
       const val = snapshot.val()
       if (!val) { return }
 
-      const serializedPanels = Object.values<SerializedData>(val)[0].panels
+      const serializedPanels = Object.values<SerializedStory>(val)[0].panels
 
       setPanels(serializedPanels.map((panel): Panel => ({
         dataURL: panel.dataURL,
