@@ -15,7 +15,7 @@ import {
 import Drawing from '../Drawing'
 import PanelConnections from '../PanelConnections'
 
-const StoryCreator: React.FC = (): React.ReactElement => {
+const StoryCreator: React.FC = () => {
   const [selected, setSelected] = useState<number>(0)
   const [panels, setPanels] = useState<Panel[]>([{
     dataURL: '',
@@ -26,11 +26,11 @@ const StoryCreator: React.FC = (): React.ReactElement => {
 
   const currentPanel = panels[selected]
   const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined
-  const nextPanels = currentPanel.nextIds.map((id): Panel => panels[id])
+  const nextPanels = currentPanel.nextIds.map(id => panels[id])
 
-  function handlePublishClick (): void {
+  function handlePublishClick () {
     const data: SerializedStory = {
-      panels: panels.map((panel): SerializedPanel => ({
+      panels: panels.map(panel => ({
         dataURL: panel.dataURL,
         id: panel.id,
         nextIds: JSON.stringify(panel.nextIds),
@@ -42,7 +42,7 @@ const StoryCreator: React.FC = (): React.ReactElement => {
     database.ref('stories').push(data)
   }
 
-  function handleTextChange (event: React.ChangeEvent<HTMLTextAreaElement>): void {
+  function handleTextChange (event: React.ChangeEvent<HTMLTextAreaElement>) {
     const newPanels = panels.slice(0)
     newPanels[selected] = {
       ...newPanels[selected],
@@ -52,14 +52,14 @@ const StoryCreator: React.FC = (): React.ReactElement => {
     setPanels(newPanels)
   }
 
-  function handleLoadClick (): void {
-    database.ref('stories').limitToLast(1).once('value').then((snapshot): void => {
+  function handleLoadClick () {
+    database.ref('stories').limitToLast(1).once('value').then((snapshot) => {
       const val = snapshot.val()
       if (!val) { return }
 
       const serializedPanels = Object.values<SerializedStory>(val)[0].panels
 
-      setPanels(serializedPanels.map((panel): Panel => ({
+      setPanels(serializedPanels.map(panel => ({
         dataURL: panel.dataURL,
         id: panel.id,
         nextIds: JSON.parse(panel.nextIds),
@@ -69,8 +69,8 @@ const StoryCreator: React.FC = (): React.ReactElement => {
     })
   }
 
-  function handleNewPanelClick (): void {
-    setPanels((prevPanels): Panel[] => {
+  function handleNewPanelClick () {
+    setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0)
 
       newPanels[selected].nextIds.push(newPanels.length)
@@ -86,8 +86,8 @@ const StoryCreator: React.FC = (): React.ReactElement => {
     })
   }
 
-  function handleCanvasChange (dataURL: string): void {
-    setPanels((prevPanels): Panel[] => {
+  function handleCanvasChange (dataURL: string) {
+    setPanels(prevPanels => {
       const newPanels = prevPanels.slice(0)
       newPanels[selected] = {
         ...newPanels[selected],
@@ -97,7 +97,7 @@ const StoryCreator: React.FC = (): React.ReactElement => {
     })
   }
 
-  function handlePanelConnectionClick (panel: Panel): void {
+  function handlePanelConnectionClick (panel: Panel) {
     setSelected(panel.id)
   }
 

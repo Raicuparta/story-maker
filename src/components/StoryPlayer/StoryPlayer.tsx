@@ -21,7 +21,7 @@ interface Props {
   id?: string;
 }
 
-const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
+const StoryPlayer: React.FC<Props> = ({ id }) => {
   const [current, setCurrent] = useState<number>(0)
 
   const firebaseApp = useFirebaseApp()
@@ -30,10 +30,18 @@ const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
     .collection('stories')
     .doc(id)
 
-  const serializedStory: SerializedStory = (useFirestoreDoc(storyRef) as any).data()
+  // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
+  const serializedStory = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
+    .data() as SerializedStory | undefined
+
+  if (!serializedStory) {
+    return (
+      <>Story not found</>
+    )
+  }
 
   const story: Story = {
-    panels: serializedStory.panels.map((panel): Panel => ({
+    panels: serializedStory.panels.map(panel => ({
       dataURL: panel.dataURL,
       id: panel.id,
       nextIds: panel.nextIds ? JSON.parse(panel.nextIds) : undefined,
@@ -60,12 +68,12 @@ const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
         </CurrentPanelColumn>
       )}
       <Column>
-        {currentPanel.nextIds && currentPanel.nextIds.map((id): React.ReactElement => (
+        {currentPanel.nextIds && currentPanel.nextIds.map(id => (
           <PanelWrapper key={id}>
             <PanelImage
               src={story.panels[id].dataURL}
               alt={story.panels[id].text}
-              onClick={(): void => setCurrent(id)}
+              onClick={() => setCurrent(id)}
             />
             <PanelText>
               {story.panels[id].text}

@@ -24,13 +24,13 @@ interface Props {
 const Drawing: React.FC<Props> = ({
   onChange,
   dataURL,
-}): React.ReactElement<Props> => {
+}) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>()
   const [canvas, setCanvas] = useState<HTMLCanvasElement>()
   const [isDrawing, setIsDrawing] = useState(false)
   const [prevPosition, setPrevPosition] = useState<Point>()
 
-  useEffect((): void => {
+  useEffect(() => {
     if (!context || !canvas) {
       return
     }
@@ -47,7 +47,7 @@ const Drawing: React.FC<Props> = ({
     // But only when a new full image is being loaded, not when we are drawing.
     if (!isDrawing) {
       const image = new Image()
-      image.onload = (): void => context.drawImage(image, 0, 0)
+      image.onload = () => context.drawImage(image, 0, 0)
       image.src = dataURL
     }
   }, [context, canvas, dataURL, isDrawing, onChange])
@@ -88,14 +88,14 @@ const Drawing: React.FC<Props> = ({
     }
   }
 
-  function setCanvasRef (instance: HTMLCanvasElement | null): void {
+  function setCanvasRef (instance: HTMLCanvasElement | null) {
     if (!instance || canvas || context) { return }
 
     setCanvas(instance)
     setContext(instance.getContext('2d') || undefined)
   }
 
-  function draw (event: React.MouseEvent | React.Touch): void {
+  function draw (event: React.MouseEvent | React.Touch) {
     if (!context || !canvas) { return }
 
     const position: Point = relativePoint(event)
@@ -110,31 +110,31 @@ const Drawing: React.FC<Props> = ({
     setPrevPosition(position)
   }
 
-  function handleMouseMove (mouseEvent: React.MouseEvent): void {
+  function handleMouseMove (mouseEvent: React.MouseEvent) {
     if (isDrawing) {
       draw(mouseEvent)
     }
   }
 
-  function handleTouchMove (touchEvent: React.TouchEvent): void {
+  function handleTouchMove (touchEvent: React.TouchEvent) {
     draw(touchEvent.touches[0])
   }
 
-  function startDrawing (): void {
+  function startDrawing () {
     setIsDrawing(true)
   }
 
-  function stopDrawing (): void {
+  function stopDrawing () {
     setIsDrawing(false)
     setPrevPosition(undefined)
   }
 
-  function handleMouseDown (mouseEvent: React.MouseEvent): void {
+  function handleMouseDown (mouseEvent: React.MouseEvent) {
     startDrawing()
     draw(mouseEvent)
   }
 
-  function handleTouchStart (touchEvent: React.TouchEvent): void {
+  function handleTouchStart (touchEvent: React.TouchEvent) {
     startDrawing()
     draw(touchEvent.touches[0])
   }

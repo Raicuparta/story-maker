@@ -22,11 +22,11 @@ const PanelConnections: React.FC<{
   nextPanels,
   onConnectionClick,
   onNewPanelClick,
-}): React.ReactElement => (
+}) => (
   <Wrapper>
     {prevPanel && (
       <PanelsWrapper>
-        <RoundButton onClick={(): void => onConnectionClick(prevPanel)}>
+        <RoundButton onClick={() => onConnectionClick(prevPanel)}>
           <Thumbnail src={prevPanel.dataURL} />
         </RoundButton>
       </PanelsWrapper>
@@ -42,10 +42,10 @@ const PanelConnections: React.FC<{
       </RoundButton>
     </PanelsWrapper>
     <PanelsWrapper>
-      {nextPanels.map((panel): React.ReactElement => (
+      {nextPanels.map(panel => (
         <RoundButton
           key={panel.id}
-          onClick={(): void => onConnectionClick(panel)}
+          onClick={() => onConnectionClick(panel)}
         >
           <Thumbnail src={panel.dataURL} />
         </RoundButton>
@@ -53,7 +53,7 @@ const PanelConnections: React.FC<{
       {
         // Generate an array of numbers from 0 to MAX_NEXT_PANELS
         Object.keys([...Array(MAX_NEXT_PANELS - nextPanels.length)])
-          .map((panel): React.ReactElement => (
+          .map(panel => (
             <RoundButton
               key={panel}
               onClick={onNewPanelClick}

@@ -21,16 +21,16 @@ const firebaseConfig = {
   appId: '1:105986550181:web:81ec40d053faad45',
 }
 
-const path = (relativePath = ''): string => `${process.env.PUBLIC_URL}/${relativePath}`
+const path = (relativePath = '') => `${process.env.PUBLIC_URL}/${relativePath}`
 
-const App: React.FC = hot((): React.ReactElement => (
+const App: React.FC = hot(() => (
   <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
     <GlobalStyle/>
     <Route path={path()}>
       <StoryCreator />
     </Route>
     <Route path={path('story/:id')}>
-      {(params): React.ReactElement => (
+      {params => (
         <SuspenseWithPerf
           fallback={'loading...'}
           traceId={'load-story-status'}

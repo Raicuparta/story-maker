@@ -1,4 +1,4 @@
-function bresenham (pointA: Point, pointB: Point): Point[] {
+function bresenham (pointA: Point, pointB: Point) {
   const points: Point[] = []
   const deltaX = pointB.x - pointA.x
   const deltaY = pointB.y - pointA.y
