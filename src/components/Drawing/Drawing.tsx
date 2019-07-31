@@ -19,11 +19,13 @@ const viewBoxSize = {
 interface Props {
   onChange: (dataURL: string) => void;
   dataURL: string;
+  onPressEnd: () => void;
 }
 
 const Drawing: React.FC<Props> = ({
   onChange,
   dataURL,
+  onPressEnd,
 }) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>()
   const [canvas, setCanvas] = useState<HTMLCanvasElement>()
@@ -127,6 +129,7 @@ const Drawing: React.FC<Props> = ({
   function stopDrawing () {
     setIsDrawing(false)
     setPrevPosition(undefined)
+    onPressEnd()
   }
 
   function handleMouseDown (mouseEvent: React.MouseEvent) {

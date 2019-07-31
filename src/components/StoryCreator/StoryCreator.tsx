@@ -18,15 +18,18 @@ import {
 import Drawing from '../Drawing'
 import PanelConnections from '../PanelConnections'
 
-const StoryCreator: React.FC = () => {
-  const [selected, setSelected] = useState<number>(0)
-  const [panels, setPanels] = useState<Panel[]>([{
-    id: 0,
-    nextIds: [],
-    text: '',
-    dataURL: '',
-  }])
+const defaultPanel: Panel = {
+  id: 0,
+  nextIds: [],
+  text: '',
+  dataURL: '',
+}
 
+const detaultStory: Story = {
+  panels: [defaultPanel],
+}
+
+const StoryCreator: React.FC = () => {
   const firebaseApp = useFirebaseApp()
 
   // TODO not like this... NOT LIKE THIS!!
@@ -35,17 +38,27 @@ const StoryCreator: React.FC = () => {
     .collection('stories')
     .doc('bVCqYmh0KUlhTBd8GHE8')
 
+  // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
+  const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
+    .data() as Story || detaultStory
+
+  const [selected, setSelected] = useState<number>(0)
+  const [panels, setPanels] = useState<Panel[]>(story.panels)
+  const [shouldUpload, setShouldUpload] = useState(false)
+
   useEffect(() => {
+    if (!shouldUpload) {
+      return
+    }
+
+    setShouldUpload(false)
+
     async function updateStory () {
-      storyRef.update({ panels })
+      storyRef.update('panels', panels)
     }
 
     updateStory()
-  }, [panels, storyRef])
-
-  // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
-  const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
-    .data() as Story | undefined
+  }, [panels, storyRef, shouldUpload])
 
   if (!story) {
     return <>Story not found</>
@@ -96,11 +109,16 @@ const StoryCreator: React.FC = () => {
     setSelected(panel.id)
   }
 
+  function handlePressEnd () {
+    setShouldUpload(true)
+  }
+
   return (
     <Wrapper>
       <Column>
         <Drawing
           onChange={handleCanvasChange}
+          onPressEnd={handlePressEnd}
           dataURL={currentPanel.dataURL}
         />
         <TextInput
@@ -109,7 +127,7 @@ const StoryCreator: React.FC = () => {
           placeholder="Insert panel text here"
         />
         <Row>
-          {/* <Button onClick={handlePublishClick}>Save</Button> */}
+          {/* <Button onClick={handleLoadClick}>Load</Button> */}
         </Row>
       </Column>
       <PanelConnections

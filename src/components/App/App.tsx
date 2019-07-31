@@ -1,5 +1,4 @@
 import React from 'react'
-import { hot } from 'react-hot-loader/root'
 import { Route } from 'wouter'
 import {
   FirebaseAppProvider,
@@ -24,7 +23,7 @@ const firebaseConfig = {
 
 const path = (relativePath = '') => `${process.env.PUBLIC_URL}/${relativePath}`
 
-const App: React.FC = hot(() => (
+const App: React.FC = () => (
   <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
     <GlobalStyle/>
     <Route path={path()}>
@@ -46,6 +45,6 @@ const App: React.FC = hot(() => (
       )}
     </Route>
   </FirebaseAppProvider>
-))
+)
 
 export default App
