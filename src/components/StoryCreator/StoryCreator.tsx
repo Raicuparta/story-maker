@@ -12,7 +12,6 @@ import {
   Wrapper,
 } from './StoryCreator.style'
 import {
-  Button,
   Column,
   Row,
 } from '../UI'
@@ -21,17 +20,28 @@ import PanelConnections from '../PanelConnections'
 
 const StoryCreator: React.FC = () => {
   const [selected, setSelected] = useState<number>(0)
+  const [panels, setPanels] = useState<Panel[]>([{
+    id: 0,
+    nextIds: [],
+    text: '',
+    dataURL: '',
+  }])
 
   const firebaseApp = useFirebaseApp()
-  const storiesRef = firebaseApp
-    .firestore()
-    .collection('stories')
 
   // TODO not like this... NOT LIKE THIS!!
   const storyRef = firebaseApp
     .firestore()
     .collection('stories')
     .doc('bVCqYmh0KUlhTBd8GHE8')
+
+  useEffect(() => {
+    async function updateStory () {
+      storyRef.update({ panels })
+    }
+
+    updateStory()
+  }, [panels, storyRef])
 
   // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
   const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
@@ -41,7 +51,6 @@ const StoryCreator: React.FC = () => {
     return <>Story not found</>
   }
 
-  const panels = story.panels
   const currentPanel = panels[selected]
   const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined
   const nextPanels = currentPanel.nextIds.map(id => panels[id])
@@ -80,9 +89,7 @@ const StoryCreator: React.FC = () => {
       dataURL: dataURL || '',
     }
 
-    storyRef.update({
-      panels: newPanels,
-    })
+    setPanels(newPanels)
   }
 
   function handlePanelConnectionClick (panel: Panel) {
