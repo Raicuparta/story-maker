@@ -1,12 +1,12 @@
 import React, {
   useState,
+  useEffect,
 } from 'react'
 import {
   useFirestoreDoc,
   useFirebaseApp,
 } from 'reactfire'
 
-import database from '../../database'
 import {
   TextInput,
   Wrapper,
@@ -21,37 +21,30 @@ import PanelConnections from '../PanelConnections'
 
 const StoryCreator: React.FC = () => {
   const [selected, setSelected] = useState<number>(0)
-  const [panels, setPanels] = useState<Panel[]>([{
-    dataURL: '',
-    id: 0,
-    nextIds: [],
-    text: '',
-  }])
 
   const firebaseApp = useFirebaseApp()
   const storiesRef = firebaseApp
     .firestore()
     .collection('stories')
 
+  // TODO not like this... NOT LIKE THIS!!
+  const storyRef = firebaseApp
+    .firestore()
+    .collection('stories')
+    .doc('bVCqYmh0KUlhTBd8GHE8')
+
+  // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
+  const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
+    .data() as Story | undefined
+
+  if (!story) {
+    return <>Story not found</>
+  }
+
+  const panels = story.panels
   const currentPanel = panels[selected]
   const prevPanel = (currentPanel.prevId !== undefined) ? panels[currentPanel.prevId] : undefined
   const nextPanels = currentPanel.nextIds.map(id => panels[id])
-
-  function handlePublishClick () {
-    const serializedStory: SerializedStory = {
-      panels: panels.map(panel => ({
-        dataURL: panel.dataURL,
-        id: panel.id,
-        nextIds: JSON.stringify(panel.nextIds),
-        text: panel.text,
-        ...(panel.prevId !== undefined ? { prevId: panel.prevId } : {}),
-      })),
-    }
-
-    // database.ref('stories').push(data)
-
-    storiesRef.add(serializedStory)
-  }
 
   function handleTextChange (event: React.ChangeEvent<HTMLTextAreaElement>) {
     const newPanels = panels.slice(0)
@@ -60,51 +53,35 @@ const StoryCreator: React.FC = () => {
       text: event.target.value,
     }
 
-    setPanels(newPanels)
-  }
-
-  function handleLoadClick () {
-    database.ref('stories').limitToLast(1).once('value').then((snapshot) => {
-      const val = snapshot.val()
-      if (!val) { return }
-
-      const serializedPanels = Object.values<SerializedStory>(val)[0].panels
-
-      setPanels(serializedPanels.map(panel => ({
-        dataURL: panel.dataURL,
-        id: panel.id,
-        nextIds: JSON.parse(panel.nextIds),
-        prevId: panel.prevId,
-        text: panel.text,
-      })))
-    })
+    // setPanels(newPanels)
   }
 
   function handleNewPanelClick () {
-    setPanels(prevPanels => {
-      const newPanels = prevPanels.slice(0)
+    // setPanels(prevPanels => {
+    //   const newPanels = prevPanels.slice(0)
 
-      newPanels[selected].nextIds.push(newPanels.length)
-      newPanels.push({
-        dataURL: '',
-        id: newPanels.length,
-        nextIds: [],
-        prevId: selected,
-        text: '',
-      })
+    //   newPanels[selected].nextIds.push(newPanels.length)
+    //   newPanels.push({
+    //     dataURL: '',
+    //     id: newPanels.length,
+    //     nextIds: [],
+    //     prevId: selected,
+    //     text: '',
+    //   })
 
-      return newPanels
-    })
+    //   return newPanels
+    // })
   }
 
   function handleCanvasChange (dataURL: string) {
-    setPanels(prevPanels => {
-      const newPanels = prevPanels.slice(0)
-      newPanels[selected] = {
-        ...newPanels[selected],
-        dataURL,
-      }
-      return newPanels
+    const newPanels = panels.slice(0)
+    newPanels[selected] = {
+      ...newPanels[selected],
+      dataURL: dataURL || '',
+    }
+
+    storyRef.update({
+      panels: newPanels,
     })
   }
 
@@ -125,8 +102,7 @@ const StoryCreator: React.FC = () => {
           placeholder="Insert panel text here"
         />
         <Row>
-          <Button onClick={handleLoadClick}>Load</Button>
-          <Button onClick={handlePublishClick}>Save</Button>
+          {/* <Button onClick={handlePublishClick}>Save</Button> */}
         </Row>
       </Column>
       <PanelConnections

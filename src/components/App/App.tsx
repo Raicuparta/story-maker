@@ -28,7 +28,12 @@ const App: React.FC = hot(() => (
   <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
     <GlobalStyle/>
     <Route path={path()}>
-      <StoryCreator />
+      <SuspenseWithPerf
+        fallback={'loading...'}
+        traceId={'load-story-status'}
+      >
+        <StoryCreator />
+      </SuspenseWithPerf>
     </Route>
     <Route path={path('story/:id')}>
       {params => (

@@ -29,23 +29,13 @@ const StoryPlayer: React.FC<Props> = ({ id }) => {
     .doc(id)
 
   // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
-  const serializedStory = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
-    .data() as SerializedStory | undefined
+  const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
+    .data() as Story | undefined
 
-  if (!serializedStory) {
+  if (!story) {
     return (
       <>Story not found</>
     )
-  }
-
-  const story: Story = {
-    panels: serializedStory.panels.map(panel => ({
-      dataURL: panel.dataURL,
-      id: panel.id,
-      nextIds: panel.nextIds ? JSON.parse(panel.nextIds) : undefined,
-      prevId: panel.prevId,
-      text: panel.text,
-    })),
   }
 
   const currentPanel = story.panels[current]
