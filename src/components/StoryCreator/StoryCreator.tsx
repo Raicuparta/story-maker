@@ -13,7 +13,6 @@ import {
 } from './StoryCreator.style'
 import {
   Column,
-  Row,
 } from '../UI'
 import Drawing from '../Drawing'
 import PanelConnections from '../PanelConnections'
@@ -29,14 +28,17 @@ const detaultStory: Story = {
   panels: [defaultPanel],
 }
 
-const StoryCreator: React.FC = () => {
+interface Props {
+  id?: string;
+}
+
+const StoryCreator: React.FC<Props> = ({ id }) => {
   const firebaseApp = useFirebaseApp()
 
-  // TODO not like this... NOT LIKE THIS!!
   const storyRef = firebaseApp
     .firestore()
     .collection('stories')
-    .doc('bVCqYmh0KUlhTBd8GHE8')
+    .doc(id)
 
   // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
   const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
@@ -75,24 +77,24 @@ const StoryCreator: React.FC = () => {
       text: event.target.value,
     }
 
-    // setPanels(newPanels)
+    setPanels(newPanels)
   }
 
   function handleNewPanelClick () {
-    // setPanels(prevPanels => {
-    //   const newPanels = prevPanels.slice(0)
+    setPanels(prevPanels => {
+      const newPanels = prevPanels.slice(0)
 
-    //   newPanels[selected].nextIds.push(newPanels.length)
-    //   newPanels.push({
-    //     dataURL: '',
-    //     id: newPanels.length,
-    //     nextIds: [],
-    //     prevId: selected,
-    //     text: '',
-    //   })
+      newPanels[selected].nextIds.push(newPanels.length)
+      newPanels.push({
+        dataURL: '',
+        id: newPanels.length,
+        nextIds: [],
+        prevId: selected,
+        text: '',
+      })
 
-    //   return newPanels
-    // })
+      return newPanels
+    })
   }
 
   function handleCanvasChange (dataURL: string) {
@@ -126,9 +128,6 @@ const StoryCreator: React.FC = () => {
           value={currentPanel.text}
           placeholder="Insert panel text here"
         />
-        <Row>
-          {/* <Button onClick={handleLoadClick}>Load</Button> */}
-        </Row>
       </Column>
       <PanelConnections
         prevPanel={prevPanel}

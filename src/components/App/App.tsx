@@ -26,19 +26,21 @@ const path = (relativePath = '') => `${process.env.PUBLIC_URL}/${relativePath}`
 const App: React.FC = () => (
   <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
     <GlobalStyle/>
-    <Route path={path()}>
-      <SuspenseWithPerf
-        fallback={'loading...'}
-        traceId={'load-story-status'}
-      >
-        <StoryCreator />
-      </SuspenseWithPerf>
+    <Route path={path('story/:id/edit')}>
+      {params => (
+        <SuspenseWithPerf
+          fallback={'loading...'}
+          traceId={'load-story-player'}
+        >
+          <StoryCreator id={params ? params.id : undefined} />
+        </SuspenseWithPerf>
+      )}
     </Route>
     <Route path={path('story/:id')}>
       {params => (
         <SuspenseWithPerf
           fallback={'loading...'}
-          traceId={'load-story-status'}
+          traceId={'load-story-creaor'}
         >
           <StoryPlayer id={params ? params.id : undefined} />
         </SuspenseWithPerf>
