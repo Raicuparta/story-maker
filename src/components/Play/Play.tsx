@@ -12,7 +12,7 @@ import {
   PanelWrapper,
   CurrentPanelColumn,
   PanelText,
-} from './StoryPlayer.style'
+} from './Play.style'
 import { Column } from '../UI'
 
 interface Props {

@@ -8,8 +8,8 @@ import 'firebase/performance'
 import 'firebase/firestore'
 
 import { GlobalStyle } from './Global.style'
-import StoryCreator from '../StoryCreator/StoryCreator'
-import StoryPlayer from '../StoryPlayer'
+import StoryCreator from '../Edit/Edit'
+import Play from '../Play'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC5mVxaorL_LmNWasC5LNmAC3cmlQ-5vFM',
@@ -42,7 +42,7 @@ const App: React.FC = () => (
           fallback={'loading...'}
           traceId={'load-story-creaor'}
         >
-          <StoryPlayer id={params ? params.id : undefined} />
+          <Play id={params ? params.id : undefined} />
         </SuspenseWithPerf>
       )}
     </Route>

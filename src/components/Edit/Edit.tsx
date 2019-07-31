@@ -10,7 +10,7 @@ import {
 import {
   TextInput,
   Wrapper,
-} from './StoryCreator.style'
+} from './Edit.style'
 import {
   Column,
 } from '../UI'
