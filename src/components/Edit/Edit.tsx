@@ -11,11 +11,12 @@ import {
   TextInput,
   Wrapper,
 } from './Edit.style'
+import Drawing from './Drawing'
+import PanelConnections from './PanelConnections'
+
 import {
   Column,
 } from '../UI'
-import Drawing from '../Drawing'
-import PanelConnections from '../PanelConnections'
 
 const defaultPanel: Panel = {
   id: 0,

@@ -5,8 +5,9 @@ import {
   PanelsWrapper,
   Wrapper,
 } from './PanelConnections.style'
-import { RoundButton } from '../UI'
-import Thumbnail from '../Thumbnail'
+
+import { RoundButton } from '../../UI'
+import Thumbnail from '../../Thumbnail'
 
 const MAX_NEXT_PANELS = 2
 

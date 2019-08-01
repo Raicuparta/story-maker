@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-import { Column, Row } from '../UI'
+import { Column, Row } from '../../UI'
 
 export const Wrapper = styled(Column)`
   flex-direction: column;

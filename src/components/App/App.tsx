@@ -12,6 +12,7 @@ import {
   GlobalStyle,
   theme,
 } from './App.style'
+
 import StoryCreator from '../Edit/Edit'
 import Play from '../Play'
 

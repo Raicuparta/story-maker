@@ -3,7 +3,7 @@ import React, {
   useState,
   useContext,
 } from 'react'
-import { ThemeContext } from 'styled-components'
+import { ThemeContext } from 'styled-components/macro'
 
 import bresenham from './bresenham'
 import {
