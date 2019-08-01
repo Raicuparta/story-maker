@@ -18,13 +18,6 @@ import {
   Column,
 } from '../UI'
 
-const defaultPanel: Panel = {
-  id: 0,
-  nextIds: [],
-  text: '',
-  dataURL: '',
-}
-
 interface Props {
   id?: string
 }
@@ -41,7 +34,12 @@ const Edit: React.FC<Props> = ({ id }) => {
   const storyDoc = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
   const story = storyDoc.data() as Story || {
     title: '',
-    panels: [defaultPanel],
+    panels: [{
+      id: 0,
+      nextIds: [],
+      text: '',
+      dataURL: '',
+    }],
     id,
   }
 

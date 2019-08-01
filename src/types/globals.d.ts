@@ -14,7 +14,7 @@ interface Panel {
 interface Story {
   title: string
   panels: Panel[]
-  id: string
+  id?: string
 }
 
 interface Bounds {

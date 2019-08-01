@@ -26,13 +26,31 @@ const List: React.FC = () => {
     )
   }
 
+  async function handleNewStoryClick () {
+    const story: Story = {
+      panels: [{
+        id: 0,
+        nextIds: [],
+        text: '',
+        dataURL: '',
+      }],
+      title: '',
+    }
+    const storyRef = await storiesRef.add(story)
+    setLocation(`story/${storyRef.id}/edit`)
+  }
+
   return (
     <div>
       {stories.map(story => (
-        <div onClick={() => setLocation(`story/${story.id}`)}>
-          {story.panels && story.panels[0] && story.panels[0].text}
+        <div
+          key={story.id}
+          onClick={() => setLocation(`story/${story.id}`)}
+        >
+          {story.title || 'Untitled'}
         </div>
       ))}
+      <button onClick={handleNewStoryClick}>New Story</button>
     </div>
   )
 }
