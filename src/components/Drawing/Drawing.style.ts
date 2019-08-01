@@ -1,16 +1,16 @@
-import styled from 'styled-components/macro'
+import styled, {
+  css,
+} from 'styled-components/macro'
 
-import Colors from '../../colors'
-
-export const Wrapper = styled.div`
+export const Wrapper = styled.div(({ theme }) => css`
   flex: 1;
-  background: ${Colors.secondaryVariant};
+  background: ${theme.secondaryVariant};
   position: relative;
   overflow: hidden;
   margin: 5px;
   border-radius: 10px;
   overflow: hidden;
-`
+`)
 
 export const DrawingImage = styled.img`
   width: 100%;

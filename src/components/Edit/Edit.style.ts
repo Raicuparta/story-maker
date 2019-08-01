@@ -1,27 +1,28 @@
-import styled from 'styled-components/macro'
+import styled, {
+  css,
+} from 'styled-components/macro'
 
-import Colors from '../../colors'
 import { Row } from '../UI'
 
-export const Wrapper = styled(Row)`
-  background: ${Colors.primary};
-  color: ${Colors.secondary};
+export const Wrapper = styled(Row)(({ theme }) => css`
+  background: ${theme.primary};
+  color: ${theme.secondary};
   flex: 1;
 
   @media (orientation:portrait) {
     flex-direction: column;
   }
-`
+`)
 
-export const TextInput = styled.textarea`
+export const TextInput = styled.textarea(({ theme }) => css`
   all: unset;
-  background: ${Colors.primaryVariant};
+  background: ${theme.primaryVariant};
   padding: 10px;
   border-radius: 10px;
   margin: 5px;
   height: 55px;
 
   ::placeholder {
-    color: ${Colors.secondaryVariant}
+    color: ${theme.secondaryVariant}
   }
-`
+`)

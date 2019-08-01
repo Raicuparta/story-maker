@@ -1,6 +1,7 @@
-import styled from 'styled-components/macro'
+import styled, {
+  css,
+} from 'styled-components/macro'
 
-import Colors from '../../colors'
 import {
   Row,
   Column,
@@ -15,12 +16,12 @@ export const CurrentPanelColumn = styled(Column)`
   flex: 2;
 `
 
-export const PanelWrapper = styled.div`
+export const PanelWrapper = styled.div(({ theme }) => css`
   margin: 10px;
-  border: solid 5px ${Colors.primaryVariant};
+  border: solid 5px ${theme.primaryVariant};
   border-radius: 10px;
   overflow: hidden;
-`
+`)
 
 export const PanelImage = styled.img`
   width: 100%;
@@ -28,8 +29,8 @@ export const PanelImage = styled.img`
   display: block;
 `
 
-export const PanelText = styled.div`
-  background: ${Colors.primaryVariant};
+export const PanelText = styled.div(({ theme }) => css`
+  background: ${theme.primaryVariant};
   padding: 10px;
-  color: ${Colors.secondary};
-`
+  color: ${theme.secondary};
+`)

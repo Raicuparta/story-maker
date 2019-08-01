@@ -1,10 +1,11 @@
 import React, {
   useEffect,
   useState,
+  useContext,
 } from 'react'
-import bresenham from '../../bresenham'
+import { ThemeContext } from 'styled-components'
 
-import Colors from '../../colors'
+import bresenham from './bresenham'
 import {
   Canvas,
   DrawingImage,
@@ -31,6 +32,7 @@ const Drawing: React.FC<Props> = ({
   const [canvas, setCanvas] = useState<HTMLCanvasElement>()
   const [isDrawing, setIsDrawing] = useState(false)
   const [prevPosition, setPrevPosition] = useState<Point>()
+  const theme = useContext(ThemeContext)
 
   useEffect(() => {
     if (!context || !canvas) {
@@ -38,12 +40,12 @@ const Drawing: React.FC<Props> = ({
     }
 
     if (!dataURL) {
-      context.fillStyle = Colors.secondary
+      context.fillStyle = theme.secondary
       context.fillRect(0, 0, canvas.width, canvas.height)
 
       onChange(canvas.toDataURL())
     }
-    context.fillStyle = Colors.primary
+    context.fillStyle = theme.primary
 
     // When dataURL is updated, we update the canvas with the new image.
     // But only when a new full image is being loaded, not when we are drawing.
@@ -52,7 +54,7 @@ const Drawing: React.FC<Props> = ({
       image.onload = () => context.drawImage(image, 0, 0)
       image.src = dataURL
     }
-  }, [context, canvas, dataURL, isDrawing, onChange])
+  }, [context, canvas, dataURL, isDrawing, onChange, theme])
 
   function relativePoint (event: React.MouseEvent | React.Touch): Point {
     if (!canvas) {

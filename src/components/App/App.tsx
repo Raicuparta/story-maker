@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route } from 'wouter'
+import { ThemeProvider } from 'styled-components/macro'
 import {
   FirebaseAppProvider,
   SuspenseWithPerf,
@@ -7,7 +8,10 @@ import {
 import 'firebase/performance'
 import 'firebase/firestore'
 
-import { GlobalStyle } from './Global.style'
+import {
+  GlobalStyle,
+  theme,
+} from './App.style'
 import StoryCreator from '../Edit/Edit'
 import Play from '../Play'
 
@@ -24,29 +28,34 @@ const firebaseConfig = {
 const path = (relativePath = '') => `${process.env.PUBLIC_URL}/${relativePath}`
 
 const App: React.FC = () => (
-  <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
-    <GlobalStyle/>
-    <Route path={path('story/:id/edit')}>
-      {params => (
-        <SuspenseWithPerf
-          fallback={'loading...'}
-          traceId={'load-story-player'}
-        >
-          <StoryCreator id={params ? params.id : undefined} />
-        </SuspenseWithPerf>
-      )}
-    </Route>
-    <Route path={path('story/:id')}>
-      {params => (
-        <SuspenseWithPerf
-          fallback={'loading...'}
-          traceId={'load-story-creaor'}
-        >
-          <Play id={params ? params.id : undefined} />
-        </SuspenseWithPerf>
-      )}
-    </Route>
-  </FirebaseAppProvider>
+  <ThemeProvider theme={theme}>
+    <FirebaseAppProvider
+      firebaseConfig={firebaseConfig}
+      initPerformance
+    >
+      <GlobalStyle/>
+      <Route path={path('story/:id/edit')}>
+        {params => (
+          <SuspenseWithPerf
+            fallback={'loading...'}
+            traceId={'load-story-player'}
+          >
+            <StoryCreator id={params ? params.id : undefined} />
+          </SuspenseWithPerf>
+        )}
+      </Route>
+      <Route path={path('story/:id')}>
+        {params => (
+          <SuspenseWithPerf
+            fallback={'loading...'}
+            traceId={'load-story-creaor'}
+          >
+            <Play id={params ? params.id : undefined} />
+          </SuspenseWithPerf>
+        )}
+      </Route>
+    </FirebaseAppProvider>
+  </ThemeProvider>
 )
 
 export default App
