@@ -6,18 +6,17 @@
   "dependencies": {
     "@types/jest": "24.0.13",
     "@types/node": "12.0.2",
-    "@types/react": "16.8.18",
+    "@types/react": "^16.8.6",
     "@types/react-dom": "16.8.4",
     "@types/styled-components": "^4.1.15",
     "@types/wouter": "^2.0.1",
-    "eslint-config-standard": "^13.0.1",
     "firebase": "^6.0.4",
     "polished": "^3.4.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "reactfire": "^2.0.0-canary.fc2be5b",
-    "styled-components": "^4.2.0",
+    "styled-components": "^5.0.0-beta.8",
     "typescript": "^3.5.1",
     "wouter": "^2.1.1"
   },
@@ -76,6 +75,7 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
+    "eslint-config-standard": "^13.0.1",
     "gh-pages": "^2.0.1",
     "pre-commit": "^1.2.2"
   }

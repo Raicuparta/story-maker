@@ -11,4 +11,4 @@ The idea is to have a tool that lets you draw your own ugly-ass Choose Your Own 
 * [Styled Components](https://github.com/styled-components/styled-components) - CSS in JS.
 * [React Hooks](https://reactjs.org/docs/hooks-intro.html) - Dan Abramov spoke to me in a dream and when I woke up I understood hooks.
 * [Firebase](https://firebase.google.com/) - where I store the story database.
-* [Reactfire](https://github.com/FirebaseExtended/reactfire/) hooks for interacting with Firebase
+* [Reactfire](https://github.com/FirebaseExtended/reactfire/) hooks for interacting with Firebase.
