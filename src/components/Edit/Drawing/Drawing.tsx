@@ -18,9 +18,9 @@ const viewBoxSize = {
 }
 
 interface Props {
-  onChange: (dataURL: string) => void;
-  dataURL: string;
-  onPressEnd: () => void;
+  onChange: (dataURL: string) => void
+  dataURL: string
+  onPressEnd: () => void
 }
 
 const Drawing: React.FC<Props> = ({

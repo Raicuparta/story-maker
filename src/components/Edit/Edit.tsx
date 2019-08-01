@@ -25,15 +25,11 @@ const defaultPanel: Panel = {
   dataURL: '',
 }
 
-const detaultStory: Story = {
-  panels: [defaultPanel],
-}
-
 interface Props {
-  id?: string;
+  id?: string
 }
 
-const StoryCreator: React.FC<Props> = ({ id }) => {
+const Edit: React.FC<Props> = ({ id }) => {
   const firebaseApp = useFirebaseApp()
 
   const storyRef = firebaseApp
@@ -42,8 +38,12 @@ const StoryCreator: React.FC<Props> = ({ id }) => {
     .doc(id)
 
   // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
-  const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
-    .data() as Story || detaultStory
+  const storyDoc = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
+  const story = storyDoc.data() as Story || {
+    title: '',
+    panels: [defaultPanel],
+    id,
+  }
 
   const [selected, setSelected] = useState<number>(0)
   const [panels, setPanels] = useState<Panel[]>(story.panels)
@@ -141,4 +141,4 @@ const StoryCreator: React.FC<Props> = ({ id }) => {
   )
 }
 
-export default StoryCreator
+export default Edit

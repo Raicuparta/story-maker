@@ -16,10 +16,10 @@ import {
 import { Column } from '../UI'
 
 interface Props {
-  id?: string;
+  id?: string
 }
 
-const StoryPlayer: React.FC<Props> = ({ id }) => {
+const Play: React.FC<Props> = ({ id }) => {
   const [current, setCurrent] = useState<number>(0)
 
   const firebaseApp = useFirebaseApp()
@@ -73,4 +73,4 @@ const StoryPlayer: React.FC<Props> = ({ id }) => {
   )
 }
 
-export default StoryPlayer
+export default Play

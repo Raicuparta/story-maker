@@ -13,8 +13,9 @@ import {
   theme,
 } from './App.style'
 
-import StoryCreator from '../Edit/Edit'
+import Edit from '../Edit/Edit'
 import Play from '../Play'
+import List from '../List'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyC5mVxaorL_LmNWasC5LNmAC3cmlQ-5vFM',
@@ -35,15 +36,13 @@ const App: React.FC = () => (
       initPerformance
     >
       <GlobalStyle/>
-      <Route path={path('story/:id/edit')}>
-        {params => (
-          <SuspenseWithPerf
-            fallback={'loading...'}
-            traceId={'load-story-player'}
-          >
-            <StoryCreator id={params ? params.id : undefined} />
-          </SuspenseWithPerf>
-        )}
+      <Route path={path('stories')}>
+        <SuspenseWithPerf
+          fallback={'loading...'}
+          traceId={'load-story-creaor'}
+        >
+          <List />
+        </SuspenseWithPerf>
       </Route>
       <Route path={path('story/:id')}>
         {params => (
@@ -52,6 +51,16 @@ const App: React.FC = () => (
             traceId={'load-story-creaor'}
           >
             <Play id={params ? params.id : undefined} />
+          </SuspenseWithPerf>
+        )}
+      </Route>
+      <Route path={path('story/:id/edit')}>
+        {params => (
+          <SuspenseWithPerf
+            fallback={'loading...'}
+            traceId={'load-story-player'}
+          >
+            <Edit id={params ? params.id : undefined} />
           </SuspenseWithPerf>
         )}
       </Route>

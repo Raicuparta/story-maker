@@ -12,11 +12,11 @@ import Thumbnail from '../../Thumbnail'
 const MAX_NEXT_PANELS = 2
 
 const PanelConnections: React.FC<{
-  prevPanel?: Panel;
-  currentPanel: Panel;
-  nextPanels: Panel[];
-  onConnectionClick: (panel: Panel) => void;
-  onNewPanelClick: () => void;
+  prevPanel?: Panel
+  currentPanel: Panel
+  nextPanels: Panel[]
+  onConnectionClick: (panel: Panel) => void
+  onNewPanelClick: () => void
 }> = ({
   currentPanel,
   prevPanel,
