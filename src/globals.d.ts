@@ -15,18 +15,6 @@ interface Story {
   panels: Panel[];
 }
 
-interface SerializedPanel {
-  dataURL: string;
-  text: string;
-  nextIds: string;
-  prevId?: number;
-  id: number;
-}
-
-interface SerializedData {
-  panels: SerializedPanel[];
-}
-
 interface Bounds {
   width: number;
   height: number;

@@ -1,7 +1,10 @@
 import React, {
   useState,
-  useEffect,
 } from 'react'
+import {
+  useFirestoreDoc,
+  useFirebaseApp,
+} from 'reactfire'
 
 import {
   PanelImage,
@@ -9,35 +12,33 @@ import {
   PanelWrapper,
   CurrentPanelColumn,
   PanelText,
-} from './StoryPlayer.style'
+} from './Play.style'
 import { Column } from '../UI'
-import database from '../../database'
 
 interface Props {
   id?: string;
 }
 
-const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
-  const [story, setStory] = useState<Story>()
+const StoryPlayer: React.FC<Props> = ({ id }) => {
   const [current, setCurrent] = useState<number>(0)
-  const currentPanel = story ? story.panels[current] : undefined
 
-  useEffect((): void => {
-    database.ref(`stories/${id}`).once('value').then((snapshot): void => {
-      const val: SerializedData = snapshot.val()
-      if (!val) { return }
+  const firebaseApp = useFirebaseApp()
+  const storyRef = firebaseApp
+    .firestore()
+    .collection('stories')
+    .doc(id)
 
-      setStory({
-        panels: val.panels.map((panel): Panel => ({
-          dataURL: panel.dataURL,
-          id: panel.id,
-          nextIds: JSON.parse(panel.nextIds),
-          prevId: panel.prevId,
-          text: panel.text,
-        })),
-      })
-    })
-  }, [id])
+  // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
+  const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
+    .data() as Story | undefined
+
+  if (!story) {
+    return (
+      <>Story not found</>
+    )
+  }
+
+  const currentPanel = story.panels[current]
 
   return (
     <Wrapper>
@@ -55,12 +56,12 @@ const StoryPlayer: React.FC<Props> = ({ id }): React.ReactElement => {
         </CurrentPanelColumn>
       )}
       <Column>
-        {story && currentPanel && currentPanel.nextIds.map((id): React.ReactElement => (
+        {currentPanel.nextIds && currentPanel.nextIds.map(id => (
           <PanelWrapper key={id}>
             <PanelImage
               src={story.panels[id].dataURL}
               alt={story.panels[id].text}
-              onClick={(): void => setCurrent(id)}
+              onClick={() => setCurrent(id)}
             />
             <PanelText>
               {story.panels[id].text}

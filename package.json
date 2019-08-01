@@ -4,26 +4,25 @@
   "homepage": "https://raicuparta.github.io/story-maker",
   "private": true,
   "dependencies": {
-    "@hot-loader/react-dom": "npm:@hot-loader/react-dom",
     "@types/jest": "24.0.13",
     "@types/node": "12.0.2",
-    "@types/react": "16.8.18",
+    "@types/react": "^16.8.6",
     "@types/react-dom": "16.8.4",
     "@types/styled-components": "^4.1.15",
     "@types/wouter": "^2.0.1",
-    "eslint-config-standard": "^13.0.1",
     "firebase": "^6.0.4",
     "polished": "^3.4.0",
     "react": "^16.8.6",
-    "react-dom": "npm:@hot-loader/react-dom",
+    "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "styled-components": "^4.2.0",
+    "reactfire": "^2.0.0-canary.fc2be5b",
+    "styled-components": "^5.0.0-beta.8",
     "typescript": "^3.5.1",
     "wouter": "^2.1.1"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "yarn lint",
     "react-test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -46,6 +45,7 @@
         "error",
         2
       ],
+      "@typescript-eslint/explicit-function-return-type": "off",
       "comma-dangle": [
         "error",
         "always-multiline"
@@ -75,10 +75,8 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
+    "eslint-config-standard": "^13.0.1",
     "gh-pages": "^2.0.1",
-    "pre-commit": "^1.2.2",
-    "react-app-rewire-hot-loader": "^2.0.1",
-    "react-app-rewired": "^2.1.3",
-    "react-hot-loader": "^4.12.5"
+    "pre-commit": "^1.2.2"
   }
 }

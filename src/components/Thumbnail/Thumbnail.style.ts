@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components/macro'
-
-import Colors from '../../colors'
+import styled, {
+  css,
+} from 'styled-components/macro'
 
 const common = css`
   width: 100%;
@@ -12,8 +12,8 @@ export const ThumbnailImage = styled.img`
   flex: 1;
 `
 
-export const Placeholder = styled.div`
+export const Placeholder = styled.div(({ theme }) => css`
   ${common}
   padding-bottom: 75%;
-  background-color: ${Colors.secondary};
-`
+  background-color: ${theme.secondary};
+`)
