@@ -1,6 +1,7 @@
 import {
   createGlobalStyle,
   css,
+  DefaultTheme,
 } from 'styled-components/macro'
 import {
   darken,
@@ -12,11 +13,19 @@ const primaryVariant = darken(0.15, primary)
 const secondary = lighten(0.5, primary)
 const secondaryVariant = lighten(0.15, primary)
 
-export const theme = {
+export const theme: DefaultTheme = {
   primary,
   primaryVariant,
   secondary,
   secondaryVariant,
+  borderRadius: {
+    normal: '0.6rem',
+    small: '0.3rem',
+  },
+  spacing: {
+    normal: '0.6rem',
+    small: '0.3rem',
+  },
 }
 
 export const GlobalStyle = createGlobalStyle(({ theme }) => css`
@@ -27,7 +36,9 @@ export const GlobalStyle = createGlobalStyle(({ theme }) => css`
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
     background: ${theme.primary};
+    color: ${theme.secondary};
   }
 
   #root {

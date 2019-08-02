@@ -5,7 +5,7 @@ import styled, {
 const ButtonBase = styled.button(({ theme, onClick }) => css`
   all: unset;
   background: ${theme.secondaryVariant};
-  margin: 5px;
+  margin: ${theme.spacing.small};
   text-align: center;
   border: solid 3px ${theme.primary};
 
@@ -27,7 +27,7 @@ const ButtonBase = styled.button(({ theme, onClick }) => css`
 
 export const Button = styled(ButtonBase)`
   flex: 1;
-  border-radius: 5px;
+  border-radius: #{theme.borderRadius.small}
   padding: 7px;
 `
 

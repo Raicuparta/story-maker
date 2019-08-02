@@ -5,6 +5,14 @@ import {
 } from 'reactfire'
 import { useLocation } from 'wouter'
 
+import {
+  StoryList,
+  Story,
+  ThumbnailWrapper,
+} from './List.style'
+
+import Thumbnail from '../Thumbnail'
+
 const List: React.FC = () => {
   const firebaseApp = useFirebaseApp()
   const [, setLocation] = useLocation()
@@ -34,7 +42,6 @@ const List: React.FC = () => {
         text: '',
         dataURL: '',
       }],
-      title: '',
     }
     const storyRef = await storiesRef.add(story)
     setLocation(`story/${storyRef.id}/edit`)
@@ -42,14 +49,19 @@ const List: React.FC = () => {
 
   return (
     <div>
-      {stories.map(story => (
-        <div
-          key={story.id}
-          onClick={() => setLocation(`story/${story.id}`)}
-        >
-          {story.title || 'Untitled'}
-        </div>
-      ))}
+      <StoryList>
+        {stories.map(story => (
+          <Story
+            key={story.id}
+            onClick={() => setLocation(`story/${story.id}`)}
+          >
+            {story.panels[0].text || 'Untitled'}
+            <ThumbnailWrapper>
+              <Thumbnail src={story.panels[0].dataURL} />
+            </ThumbnailWrapper>
+          </Story>
+        ))}
+      </StoryList>
       <button onClick={handleNewStoryClick}>New Story</button>
     </div>
   )

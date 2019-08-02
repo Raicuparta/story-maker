@@ -6,5 +6,13 @@ declare module 'styled-components' {
     primaryVariant: string
     secondary: string
     secondaryVariant: string
+    borderRadius: {
+      normal: string
+      small: string
+    }
+    spacing: {
+      normal: string
+      small: string
+    }
   }
 }

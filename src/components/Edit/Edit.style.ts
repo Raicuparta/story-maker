@@ -6,7 +6,6 @@ import { Row } from '../UI'
 
 export const Wrapper = styled(Row)(({ theme }) => css`
   background: ${theme.primary};
-  color: ${theme.secondary};
   flex: 1;
 
   @media (orientation:portrait) {
@@ -17,9 +16,9 @@ export const Wrapper = styled(Row)(({ theme }) => css`
 export const TextInput = styled.textarea(({ theme }) => css`
   all: unset;
   background: ${theme.primaryVariant};
-  padding: 10px;
-  border-radius: 10px;
-  margin: 5px;
+  padding: ${theme.spacing.normal};
+  border-radius: #{theme.borderRadius.normal}
+  margin: ${theme.spacing.small};
   height: 55px;
 
   ::placeholder {

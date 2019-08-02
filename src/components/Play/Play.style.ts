@@ -7,19 +7,19 @@ import {
   Column,
 } from '../UI'
 
-export const Wrapper = styled(Row)`
+export const Wrapper = styled(Row)(({ theme }) => css`
   width: 100%;
-  padding: 10px;
-`
+  padding: ${theme.spacing.normal};
+`)
 
 export const CurrentPanelColumn = styled(Column)`
   flex: 2;
 `
 
 export const PanelWrapper = styled.div(({ theme }) => css`
-  margin: 10px;
+  margin: ${theme.spacing.normal};
   border: solid 5px ${theme.primaryVariant};
-  border-radius: 10px;
+  border-radius: #{theme.borderRadius.normal}
   overflow: hidden;
 `)
 
@@ -31,6 +31,5 @@ export const PanelImage = styled.img`
 
 export const PanelText = styled.div(({ theme }) => css`
   background: ${theme.primaryVariant};
-  padding: 10px;
-  color: ${theme.secondary};
+  padding: ${theme.spacing.normal};
 `)

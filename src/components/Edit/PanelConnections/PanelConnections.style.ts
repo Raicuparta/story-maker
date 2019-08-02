@@ -1,17 +1,19 @@
-import styled from 'styled-components/macro'
+import styled, {
+  css,
+} from 'styled-components/macro'
 
 import { Column, Row } from '../../UI'
 
-export const Wrapper = styled(Column)`
+export const Wrapper = styled(Column)(({ theme }) => css`
   flex-direction: column;
-  margin: 10px;
+  margin: ${theme.spacing.normal};
   display: flex;
   flex: unset;
 
   @media (orientation:portrait) {
     flex-direction: row;
   }
-`
+`)
 
 export const PanelsWrapper = styled(Row)`
   @media (orientation:portrait) {

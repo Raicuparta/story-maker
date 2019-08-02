@@ -36,7 +36,7 @@ const App: React.FC = () => (
       initPerformance
     >
       <GlobalStyle/>
-      <Route path={path('stories')}>
+      <Route path={path()}>
         <SuspenseWithPerf
           fallback={'loading...'}
           traceId={'load-story-creaor'}

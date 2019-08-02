@@ -12,7 +12,6 @@ interface Panel {
 }
 
 interface Story {
-  title: string
   panels: Panel[]
   id?: string
 }

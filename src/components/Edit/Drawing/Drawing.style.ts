@@ -7,8 +7,8 @@ export const Wrapper = styled.div(({ theme }) => css`
   background: ${theme.secondaryVariant};
   position: relative;
   overflow: hidden;
-  margin: 5px;
-  border-radius: 10px;
+  margin: ${theme.spacing.small};
+  border-radius: #{theme.borderRadius.normal}
   overflow: hidden;
 `)
 
