@@ -14,6 +14,7 @@ const secondary = lighten(0.5, primary)
 const secondaryVariant = lighten(0.15, primary)
 
 export const theme: DefaultTheme = {
+  name: 'Default',
   primary,
   primaryVariant,
   secondary,

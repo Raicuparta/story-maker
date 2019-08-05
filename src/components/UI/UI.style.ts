@@ -25,11 +25,11 @@ const ButtonBase = styled.button(({ theme, onClick }) => css`
   `}
 `)
 
-export const Button = styled(ButtonBase)`
+export const Button = styled(ButtonBase)(({ theme }) => css`
   flex: 1;
-  border-radius: #{theme.borderRadius.small}
+  border-radius: ${theme.borderRadius.small};
   padding: 7px;
-`
+`)
 
 export const RoundButton = styled(ButtonBase)`
   border-radius: 100%;
