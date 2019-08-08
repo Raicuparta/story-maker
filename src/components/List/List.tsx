@@ -8,10 +8,14 @@ import { useLocation } from 'wouter'
 import {
   StoryList,
   Story,
-  ThumbnailWrapper,
 } from './List.style'
 
-import Thumbnail from '../Thumbnail'
+import Panel from '../Play/Panel'
+
+interface SerializedStory {
+  id: string
+  firstPanel: firebase.firestore.DocumentReference
+}
 
 const List: React.FC = () => {
   const firebaseApp = useFirebaseApp()
@@ -23,10 +27,16 @@ const List: React.FC = () => {
 
   // Had to specify the QuerySnapshot type error to an error in reactfire's typings
   const storiesCollection = useFirestoreCollection(storiesRef) as firebase.firestore.QuerySnapshot
-  const stories = storiesCollection.docs.map(doc => ({
-    ...doc.data(),
-    id: doc.id,
-  })) as Story[]
+
+  // TODO set some type like SerializedStory[]
+  const stories: SerializedStory[] = storiesCollection.docs.map(story => {
+    const data = story.data() as SerializedStory
+
+    return {
+      ...data,
+      id: story.id,
+    }
+  })
 
   if (!stories) {
     return (
@@ -50,15 +60,12 @@ const List: React.FC = () => {
   return (
     <div>
       <StoryList>
-        {stories.map(story => (
+        {stories.filter(story => story.firstPanel).map(story => (
           <Story
             key={story.id}
             onClick={() => setLocation(`story/${story.id}`)}
           >
-            {story.panels[0].text || 'Untitled'}
-            <ThumbnailWrapper>
-              <Thumbnail src={story.panels[0].dataUrl} />
-            </ThumbnailWrapper>
+            <Panel reference={story.firstPanel} />
           </Story>
         ))}
       </StoryList>

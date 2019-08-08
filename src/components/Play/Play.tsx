@@ -4,6 +4,7 @@ import React, {
 import {
   useFirebaseApp,
   useFirestoreDoc,
+  SuspenseWithPerf,
 } from 'reactfire'
 
 import Panel from './Panel'
@@ -17,24 +18,38 @@ interface Props {
 }
 
 const Play: React.FC<Props> = ({ id }) => {
-  const firebaseApp = useFirebaseApp()
-  const storyRef = firebaseApp
+  const [panelReference, setPanelReference] = useState<firebase.firestore.DocumentReference>()
+
+  const storyRef = useFirebaseApp()
     .firestore()
     .collection('stories')
     .doc(id)
 
   const story = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef).data()
 
+  if (!panelReference && story) {
+    setPanelReference(story.firstPanel)
+  }
+
   if (!story) {
     return <p> Story Not Found </p>
   }
 
+  if (!panelReference) {
+    return <p> Panel Not Found </p>
+  }
+
   return (
     <Wrapper>
-      <Panel
-        reference={story.firstPanel}
-        showNext
-      />
+      <SuspenseWithPerf
+        fallback={'loading...'}
+        traceId={`load-panel-${panelReference.id}`}
+      >
+        <Panel
+          reference={panelReference}
+          onNextClick={setPanelReference}
+        />
+      </SuspenseWithPerf>
     </Wrapper>
   )
 }

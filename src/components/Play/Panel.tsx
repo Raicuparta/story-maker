@@ -1,7 +1,7 @@
-import React from 'react'
-import {
-  useFirestoreDoc,
-} from 'reactfire'
+import React, {
+  Suspense,
+} from 'react'
+import { useFirestoreDoc } from 'reactfire'
 
 import {
   PanelImage,
@@ -10,14 +10,17 @@ import {
   PanelText,
 } from './Play.style'
 
-import { Column } from '../UI'
+import { Column, Button } from '../UI'
 
 interface Props {
   reference: firebase.firestore.DocumentReference
-  showNext?: boolean
+  onNextClick?: (panelReference: firebase.firestore.DocumentReference) => void
 }
 
-const Panel: React.FC<Props> = ({ reference, showNext = false }) => {
+const Panel: React.FC<Props> = React.memo(({
+  reference,
+  onNextClick,
+}) => {
   const panel = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(reference).data()
 
   if (!panel) {
@@ -41,18 +44,23 @@ const Panel: React.FC<Props> = ({ reference, showNext = false }) => {
           </PanelWrapper>
         </CurrentPanelColumn>
       )}
-      {showNext && (
+      {onNextClick && (
         <Column>
           {panel.next && panel.next.map((reference: firebase.firestore.DocumentReference) => (
-            <Panel
+            <Button
               key={reference.id}
-              reference={reference}
-            />
+              onClick={() => onNextClick(reference)}
+            >
+              {/* Should be SuspenseWithPerf but I couldn't get it to work properly. */}
+              <Suspense fallback={'loading...'}>
+                <Panel reference={reference} />
+              </Suspense>
+            </Button>
           ))}
         </Column>
       )}
     </>
   )
-}
+})
 
 export default Panel
