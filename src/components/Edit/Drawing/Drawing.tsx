@@ -18,14 +18,14 @@ const viewBoxSize = {
 }
 
 interface Props {
-  onChange: (dataURL: string) => void
-  dataURL: string
+  onChange: (dataUrl: string) => void
+  dataUrl: string
   onPressEnd: () => void
 }
 
 const Drawing: React.FC<Props> = ({
   onChange,
-  dataURL,
+  dataUrl,
   onPressEnd,
 }) => {
   const [context, setContext] = useState<CanvasRenderingContext2D>()
@@ -39,7 +39,7 @@ const Drawing: React.FC<Props> = ({
       return
     }
 
-    if (!dataURL) {
+    if (!dataUrl) {
       context.fillStyle = theme.secondary
       context.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -47,14 +47,14 @@ const Drawing: React.FC<Props> = ({
     }
     context.fillStyle = theme.primary
 
-    // When dataURL is updated, we update the canvas with the new image.
+    // When dataUrl is updated, we update the canvas with the new image.
     // But only when a new full image is being loaded, not when we are drawing.
     if (!isDrawing) {
       const image = new Image()
       image.onload = () => context.drawImage(image, 0, 0)
-      image.src = dataURL
+      image.src = dataUrl
     }
-  }, [context, canvas, dataURL, isDrawing, onChange, theme])
+  }, [context, canvas, dataUrl, isDrawing, onChange, theme])
 
   function relativePoint (event: React.MouseEvent | React.Touch): Point {
     if (!canvas) {
@@ -146,8 +146,8 @@ const Drawing: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      {dataURL && (
-        <DrawingImage src={dataURL} />
+      {dataUrl && (
+        <DrawingImage src={dataUrl} />
       )}
       <Canvas
         ref={setCanvasRef}

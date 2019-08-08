@@ -39,7 +39,7 @@ const App: React.FC = () => (
       <Route path={path()}>
         <SuspenseWithPerf
           fallback={'loading...'}
-          traceId={'load-story-creaor'}
+          traceId={'load-list'}
         >
           <List />
         </SuspenseWithPerf>
@@ -48,7 +48,7 @@ const App: React.FC = () => (
         {params => (
           <SuspenseWithPerf
             fallback={'loading...'}
-            traceId={'load-story-creaor'}
+            traceId={'load-play'}
           >
             <Play id={params ? params.id : undefined} />
           </SuspenseWithPerf>
@@ -58,7 +58,7 @@ const App: React.FC = () => (
         {params => (
           <SuspenseWithPerf
             fallback={'loading...'}
-            traceId={'load-story-player'}
+            traceId={'load-edit'}
           >
             <Edit id={params ? params.id : undefined} />
           </SuspenseWithPerf>

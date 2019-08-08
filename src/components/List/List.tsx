@@ -40,7 +40,7 @@ const List: React.FC = () => {
         id: 0,
         nextIds: [],
         text: '',
-        dataURL: '',
+        dataUrl: '',
       }],
     }
     const storyRef = await storiesRef.add(story)
@@ -57,7 +57,7 @@ const List: React.FC = () => {
           >
             {story.panels[0].text || 'Untitled'}
             <ThumbnailWrapper>
-              <Thumbnail src={story.panels[0].dataURL} />
+              <Thumbnail src={story.panels[0].dataUrl} />
             </ThumbnailWrapper>
           </Story>
         ))}

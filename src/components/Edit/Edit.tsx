@@ -38,7 +38,7 @@ const Edit: React.FC<Props> = ({ id }) => {
       id: 0,
       nextIds: [],
       text: '',
-      dataURL: '',
+      dataUrl: '',
     }],
     id,
   }
@@ -85,7 +85,7 @@ const Edit: React.FC<Props> = ({ id }) => {
 
       newPanels[selected].nextIds.push(newPanels.length)
       newPanels.push({
-        dataURL: '',
+        dataUrl: '',
         id: newPanels.length,
         nextIds: [],
         prevId: selected,
@@ -96,11 +96,11 @@ const Edit: React.FC<Props> = ({ id }) => {
     })
   }
 
-  function handleCanvasChange (dataURL: string) {
+  function handleCanvasChange (dataUrl: string) {
     const newPanels = panels.slice(0)
     newPanels[selected] = {
       ...newPanels[selected],
-      dataURL: dataURL || '',
+      dataUrl: dataUrl || '',
     }
 
     setPanels(newPanels)
@@ -120,7 +120,7 @@ const Edit: React.FC<Props> = ({ id }) => {
         <Drawing
           onChange={handleCanvasChange}
           onPressEnd={handlePressEnd}
-          dataURL={currentPanel.dataURL}
+          dataUrl={currentPanel.dataUrl}
         />
         <TextInput
           onChange={handleTextChange}

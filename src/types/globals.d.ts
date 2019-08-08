@@ -4,7 +4,7 @@ interface Point {
 }
 
 interface Panel {
-  dataURL: string
+  dataUrl: string
   text: string
   nextIds: number[]
   prevId?: number

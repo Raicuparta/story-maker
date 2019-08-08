@@ -28,7 +28,7 @@ const PanelConnections: React.FC<{
     {prevPanel && (
       <PanelsWrapper>
         <RoundButton onClick={() => onConnectionClick(prevPanel)}>
-          <Thumbnail src={prevPanel.dataURL} />
+          <Thumbnail src={prevPanel.dataUrl} />
         </RoundButton>
       </PanelsWrapper>
     )}
@@ -39,7 +39,7 @@ const PanelConnections: React.FC<{
     )}
     <PanelsWrapper>
       <RoundButton>
-        <Thumbnail src={currentPanel.dataURL} />
+        <Thumbnail src={currentPanel.dataUrl} />
       </RoundButton>
     </PanelsWrapper>
     <PanelsWrapper>
@@ -48,7 +48,7 @@ const PanelConnections: React.FC<{
           key={panel.id}
           onClick={() => onConnectionClick(panel)}
         >
-          <Thumbnail src={panel.dataURL} />
+          <Thumbnail src={panel.dataUrl} />
         </RoundButton>
       ))}
       {
