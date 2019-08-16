@@ -30,7 +30,7 @@ const Edit: React.FC<Props> = ({ id }) => {
     .collection('stories')
     .doc(id)
 
-  // Had to specify the DocumentSnapshot type error to a bug in reactfire's typings
+  // Had to specify the DocumentSnapshot type due to a bug in reactfire's typings
   const storyDoc = useFirestoreDoc<firebase.firestore.DocumentSnapshot>(storyRef)
   const story = storyDoc.data() as Story || {
     title: '',
